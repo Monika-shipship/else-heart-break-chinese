@@ -170,6 +170,69 @@ def main():
         "Ja det blir riktigt bra det här": "I think this'll be great 我觉得这会很棒",
     }
     total += replace_pairs(EN_DIR / 'Pixie_HackerTrial1.eng.mtf', pht1_map)
+    # Pixie_HackerTrial1 (follow-up requests for modifier)
+    pht1_map_2 = {
+        "Ska du gå och hämta den och komma tillbaka här sen?": "Will you go get it and come back 要去拿一下再回来吗？",
+        "Mm, låter som en bra idé": "Yeah, sounds like a plan 嗯，听起来不错",
+        "Jag väntar här så länge": "I'll wait here 我先在这等着",
+        "Har du den nu?": "Do you have it now 现在拿到了吗？",
+        "Ni har ingen jag kan få låna?": "Do you have one I can borrow 有能借我用一下的吗？",
+        "Ska kolla...": "Lemme check 我看看",
+        "Här!": "Here! 给",
+        "Jag tror inte det tyvärr": "Don't think so, sorry 恐怕没有，抱歉",
+        "Du får gå och leta rätt på den": "You'll have to go find it 你得自己去找找",
+        "Bra": "Good 好",
+        "OK, så såhär ligger det till": "OK, so this is how it works 好，事情是这样的",
+    }
+    total += replace_pairs(EN_DIR / 'Pixie_HackerTrial1.eng.mtf', pht1_map_2)
+
+    # Hank_FirstLecture (intro/common lines)
+    hfl_map = {
+        "Kom över hit är du snäll": "Would you please come over here 请到这边来一下",
+        "Ok, ska vi börja då?": "OK, shall we start 好的，我们开始吧",
+        "Ok, visst": "OK, sure 好的，当然",
+        "Jag väntar här så länge då": "I'll wait here then 我先在这等着",
+        "Hallå där, då kör vi": "Hey, let's do this 开始吧",
+        "Har testat din modifierare någonting förut?": "Have you tried your modifier yet 你之前用过修改器吗？",
+        "Ja, lite": "Yeah, a bit 嗯，用过一点",
+        "Ok, vad bra": "OK, that's good 好的，那很棒",
+        "Har du förstått hur den fungerar?": "Have you figured out how it works 你弄明白它怎么工作了吗？",
+        "Jodå, det var inte så svårt": "Sure, it wasn't that difficult 是的，不算难",
+        "Njae... inte exakt": "Nah... not really 嗯……不太算",
+        "Ok..?": "OK...? 好的……？",
+        "Vad var det jag skulle göra?": "What was I supposed to do 我要做什么来着？",
+        "Hacka den stora datorn här, den med ratten": "Hack the big one here, the one with the wheel 攻破这台大的，有个转轮的那台",
+        "Ja, exakt!": "Just like that 没错，就是这样",
+        "Såg du koden?": "Did you see the code 你看到代码了吗？",
+        "Ok? Bra": "OK? Great 好吗？太好了",
+        "Mm": "Mm 嗯",
+        "Bra": "Nice 不错",
+        "Grundprincipen är att du kopplar in din modifierare i ett föremål": "The basic principle is connecting your modifier to an object 基本原理是把修改器接到目标上",
+        "Och sen får du se koden som det föremålet innehåller": "Then you can see that object's code 然后你就能看到它的代码",
+        "Det är ju jättekonstigt!": "That's really weird 这也太奇怪了",
+        "Vem kom på att man kunde göra så?": "Who came up with this idea 这是谁想到的？",
+    }
+    total += replace_pairs(EN_DIR / 'Hank_FirstLecture.eng.mtf', hfl_map)
+
+    # _OnThePhone (menu/early)
+    otp_map = {
+        "PLAY GAME FROM THE BEGINNING": "PLAY GAME FROM THE BEGINNING 从头开始游戏",
+        "Chapter 1 (first day)": "Chapter 1 (first day) 第一章（第一天）",
+        "Chapter 2 (after dot)": "Chapter 2 (after dot) 第二章（俱乐部之后）",
+        "Chapter 3 (tests)": "Chapter 3 (tests) 第三章（试炼）",
+        "Chapter 4 (factory)": "Chapter 4 (factory) 第四章（工厂）",
+        "Chapter 5 (experiment)": "Chapter 5 (experiment) 第五章（实验）",
+        "Chapter 6 (final act)": "Chapter 6 (final act) 第六章（最终幕）",
+    }
+    total += replace_pairs(EN_DIR / '_OnThePhone.eng.mtf', otp_map)
+
+    # Hank_SecondLecture (selected)
+    hsl_map = {
+        "Jo": "Yeah 嗯",
+        "Ok": "OK 好的",
+        "Bra": "Good 好",
+    }
+    total += replace_pairs(EN_DIR / 'Hank_SecondLecture.eng.mtf', hsl_map)
 
     print(f"Polished lines: {total}")
 
