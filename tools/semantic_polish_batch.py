@@ -89,10 +89,90 @@ def main():
         "Ehmmmm vad tusan": "Ehmmm, what the heck 呃……搞什么啊",
     }
     total += replace_pairs(EN_DIR / 'Babcia_Arrival.eng.mtf', babcia_map)
+    # WellspringRepresentant_ShowingTheStorage semantic polish (head section)
+    wr_map = {
+        "Vart är du på väg?": "Where are you going 你要去哪？",
+        "Kom med nu": "Come with me 跟我来",
+        "Hallå?!": "Hello?! 喂？！",
+        "Är du med?": "Are you with me 你跟上了吗？",
+        "Förlåt, sa du något?": "Sorry, did you say something 抱歉，你刚说什么？",
+        "Alltså, jag försöker komma på vem det är du liknar": "Um, I'm trying to figure out who you look like 嗯……我在想你像谁",
+        "Det är någon skum skådis typ": "Like some oddball actor 有点像某个古怪的演员",
+        "Hmm...": "Hmm... 嗯……",
+        "Fan, jag kommer inte på det!": "Damn, I can't put my finger on it 糟了，我想不起来！",
+        "Vet du vem det kan vara?": "Do you know who it might be 你知道可能是谁吗？",
+        "Nå... jag vet inte riktigt": "Nah... I dunno 不太清楚",
+        "Hmm inte direkt": "Hmm, not really 嗯，也不太像",
+        "En del säger att jag är lik han i Seinfeldt": "Some people say that I look like that guy from Seinfeld 有人说我像《宋飞正传》里的那个人",
+        "Är det en film eller?": "Is that a movie 那是电影吗？",
+        "Nej men jag får tänka vidare på det...": "No, I'll have to keep thinking 不，回头我再想想",
+        "Du är så jävla lik alltså!": "You're so damn alike 你简直像到爆！",
+        "Helt sjukt": "That's crazy 太夸张了",
+        "OK, så det här är datorn som kontrollerar dörren in i lagret.": "OK, so here's the computer that controls the warehouse door 好，这台电脑控制仓库的门",
+        "Det är bara att skriva in 'unlock' och sedan lösenord så kan man gå genom dörren.": "Just enter 'unlock' and then the password 输入 'unlock'，再输入密码",
+        "Fan, jävla skitkukdator!!!": "Damn it, this computer is a piece of shit!!! 该死，这破电脑！！！",
+        "Vad är problemet?": "What's wrong 怎么了？",
+        "Den här datorn styr dörren till lagret": "This computer controls the door to the warehouse 这台电脑控制仓库的门",
+        "Men den accepterar inte mitt lösenord...": "But it won't accept my password 可它不接受我的密码……",
+        "Ska jag försöka istället?": "Should I try instead 要不要我来试试？",
+        "NEJ!": "NO! 不行！",
+        "Eller kanske...": "Maybe... 也许吧……",
+        "Kommer du inte in på datorn?": "You can't get into the computer 你进不去系统吗？",
+        "Nej, du får försöka själv sen": "No, you'll have to try on your own later 不，等会你自己试试",
+        "Verkar vara något fel med lösenordet": "Seems to be something wrong with the password 看来密码有问题",
+        "Oj, jag måste dra snart": "Oh, I need to go soon 哦，我得走了",
+        "Men först: den viktigaste regeln inom Wellspring!": "But first: the most important rule at Wellspring 但首先：Wellspring 最重要的一条规矩",
+        "Tala ALDRIG illa om Wellspring och våra varumärken": "NEVER speak ill of Wellspring or our brands 绝对不要说 Wellspring 或我们品牌的坏话",
+        "Naturligtvis": "Naturally 当然",
+        "Jag förstår": "I understand 我明白",
+        "Mm, OK...": "Mhm, OK 嗯，好",
+        "Kan du den regeln så kommer nog allt att gå bra": "Know that rule and you'll do fine 记住这条规矩，你就没问题",
+        "Sedan är det ju inte alla som har talang för att sälja": "And not everyone has the talent for selling 并不是每个人都擅长销售",
+        "Nej, självklart": "No, of course 当然不是",
+        "Jag tror att jag har lite talang i alla fall": "I think I have some talent at least 我觉得我多少还算有点天赋",
+        "Hur vet man om man har talang?": "How do you know if you're talented 怎么确定自己有没有天赋？",
+        "Det känner man": "You just feel it 自己能感觉到",
+        "Men jag måste dra nu som som sagt": "But I have to go now, as I said 我得走了，先这样",
+        "Lösenordet till datorn SKA vara abc123 om ingen har bytt": "The password SHOULD be abc123 unless someone changed it 密码应该是 abc123，除非被人改了",
+        "Eller så var det 123abc": "Or maybe it was 123abc 或者 123abc",
+        "123abc ?": "123abc ? 123abc？",
+        "Ja, eller abc123": "Yeah, or abc123 对，abc123",
+    }
+    total += replace_pairs(EN_DIR / 'WellspringRepresentant_ShowingTheStorage.eng.mtf', wr_map)
+
+    # Pixie_HackerTrial1 (intro segment)
+    pht1_map = {
+        "Va?": "What 什么？",
+        "Vad gör du här?": "What are you doing here 你在这里做什么？",
+        "Tänkte mest säga hej": "I was just gonna say hi 我就打个招呼",
+        "Tja... jag vet inte riktigt": "Well, I don't really know 嗯……我也说不清",
+        "Han har bett att få göra intagningsprovet": "He asked if he could take the trial 他想参加入会试炼",
+        "Jag ska göra testet!": "I'm taking the test 我来参加测试",
+        "OK..?!": "OK..?! OK..？！",
+        "Jag sa ju att du inte ska följa efter mig!": "I told you not to follow me 我说过别跟着我！",
+        "Lugn å fin nu, Pixie": "Take it easy, Pixie 冷静点，Pixie",
+        "Han har bett om att få göra intagningsprovet": "He's asked to take the trial 他要参加试炼",
+        "Jaha... ok?": "Oh... OK? 哦……好吧？",
+        "Vänta nu": "Wait a sec 等一下",
+        "Jag fattar typ ingenting": "I don't understand anything 我完全没听懂",
+        "Så du vill börja jobba här med oss Sebastian?": "So you want to work here with us, Sebastian 你想来这儿和我们一起干，Sebastian？",
+        "Eh, jo typ": "Uh, yeah, sorta 嗯，差不多吧",
+        "Ja!": "Yes! 是！",
+        "Det verkade så roligt": "It seemed like a lot of fun 看起来很有趣",
+        "Men Yulian, han kom just till stan": "But Yulian, he just came to town 但是 Yulian，他才刚来这座城",
+        "Han är försäljare, inte programmerare": "He's a salesman, not a programmer 他是销售，不是程序员",
+        "Lugn Pixie, vi behöver alla vi kan komma över": "Easy, Pixie, we need everyone we can get 放轻松，Pixie，我们需要一切能用的人手",
+        "Och han verkar ha tränat en del på egen hand, eller hur Sebastian?": "And he seems to have trained on his own, right, Sebastian 他看起来自己练过，对吧，Sebastian？",
+        "Ja exakt": "Yeah, exactly 对，没错",
+        "Mm... jag har en sån här modifierare också": "Mhm... I've got one of those modifiers, too 嗯……我也有这种修改器",
+        "Typ": "Kinda 有点吧",
+        "Ok, coolt... antar jag": "OK, cool... I guess 行吧，挺酷的……我想是",
+        "Ja det blir riktigt bra det här": "I think this'll be great 我觉得这会很棒",
+    }
+    total += replace_pairs(EN_DIR / 'Pixie_HackerTrial1.eng.mtf', pht1_map)
 
     print(f"Polished lines: {total}")
 
 
 if __name__ == "__main__":
     main()
-
