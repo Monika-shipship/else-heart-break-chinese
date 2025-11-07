@@ -69,15 +69,34 @@ def build_system_prompt(root: str) -> str:
 
 
 def build_user_prompt(file_name: str, lhs: str, rhs_current: str) -> str:
+  def _context_hint(name: str) -> str:
+    base = name
+    if '.' in base:
+      base = base.split('.', 1)[0]
+    speaker = ''
+    scene = ''
+    # 形如 Araki_AfterGhostVisit 或 _OnThePhone
+    if base.startswith('_'):
+      speaker = ''
+      scene = base.lstrip('_')
+    else:
+      parts = base.split('_', 1)
+      speaker = parts[0]
+      scene = parts[1] if len(parts) > 1 else ''
+    return f"Speaker: {speaker or '-'}; Scene: {scene or '-'}"
+
+  hint = _context_hint(file_name)
   payload = {
     "file": file_name,
     "instruction": (
       '请润色右侧译文 rhs，使其自然、符合口径，保持双语顺序（英文在前 中文在后）。\n'
       '输出严格 JSON 对象：{"rhs": "..."}，不要返回代码块/数组/多余文字。\n'
-      '保留占位/标签/转义，不要改动左侧瑞典语。'
+      '保留占位/标签/转义，不要改动左侧瑞典语。\n'
+      f'注意：文件名中包含当前说话者/场景线索（{hint}），请在口吻与词汇上与该说话者和场景保持一致。'
     ),
     "lhs_swedish": lhs,
     "rhs_current": rhs_current,
+    "context_hint": hint,
     "expect": {"rhs": "英文在前 中文在后"}
   }
   return json.dumps(payload, ensure_ascii=False)
@@ -113,7 +132,7 @@ def _sanitize_rhs(rhs: str) -> Optional[str]:
 
 def call_deepseek_line(api_key: str, system_prompt: str, file_name: str, lhs: str, rhs: str,
                        timeout: int = 60, temperature: float = 1.0, max_tokens: int = 400,
-                       session: Optional['requests.Session'] = None) -> str:
+                       session: Optional['requests.Session'] = None) -> Tuple[str, str, str]:
   if requests is None:
     raise RuntimeError("缺少 requests 库，请先 pip install requests")
   url = "https://api.deepseek.com/chat/completions"
@@ -161,12 +180,49 @@ def call_deepseek_line(api_key: str, system_prompt: str, file_name: str, lhs: st
           obj = json.loads(frag)
     if not isinstance(obj, dict) or 'rhs' not in obj or not isinstance(obj['rhs'], str):
       raise ValueError("模型未返回形如 {\"rhs\": \"...\"} 的 JSON 对象")
-    return obj['rhs']
+    return obj['rhs'], raw, user_prompt
   raise RuntimeError("多次请求失败")
 
 
+def _sanitize_filename(s: str) -> str:
+  return re.sub(r'[^\w\-\.]+', '_', s)
+
+
+def _write_line_log(log_dir: str, file_name: str, idx: int, lhs: str, rhs_current: str,
+                    system_prompt: Optional[str], user_prompt: Optional[str], raw_response: Optional[str], parsed_rhs: Optional[str],
+                    error: Optional[str]) -> None:
+  try:
+    os.makedirs(log_dir, exist_ok=True)
+    ts = int(time.time() * 1000)
+    base = f"{ts}_{_sanitize_filename(file_name)}_{idx}"
+    path = os.path.join(log_dir, base + '.json')
+    with open(path, 'w', encoding='utf-8') as f:
+      json.dump({
+        'file': file_name,
+        'index': idx,
+        'lhs': lhs,
+        'rhs_current': rhs_current,
+        'system_prompt': system_prompt,
+        'user_prompt': user_prompt,
+        'raw_response': raw_response,
+        'parsed_rhs': parsed_rhs,
+        'error': error,
+      }, f, ensure_ascii=False, indent=2)
+  except Exception:
+    pass
+
+
+def _fmt_eta(seconds: float) -> str:
+  if seconds <= 0 or seconds == float('inf'):
+    return '--:--:--'
+  m, s = divmod(int(seconds), 60)
+  h, m = divmod(m, 60)
+  return f"{h:02d}:{m:02d}:{s:02d}"
+
+
 def process_file(api_key: str, system_prompt: str, in_path: str, max_workers: int,
-                 timeout: int, temperature: float, max_tokens: int) -> Tuple[int, int]:
+                 timeout: int, temperature: float, max_tokens: int, log_dir: Optional[str] = None,
+                 progress: Optional[Dict[str, float]] = None) -> Tuple[int, int]:
   file_name = os.path.basename(in_path)
   pairs = read_pairs(in_path)
   # 收集任务
@@ -189,31 +245,65 @@ def process_file(api_key: str, system_prompt: str, in_path: str, max_workers: in
     for fut in as_completed(fut_map.keys()):
       idx, lhs, old_rhs = fut_map[fut]
       try:
-        new_rhs_raw = fut.result()
+        new_rhs_raw, raw_response, user_prompt = fut.result()
       except Exception as e:
         fail += 1
         print(f"[失败] {file_name}:{idx} {e}")
+        if log_dir:
+          _write_line_log(log_dir, file_name, idx, lhs, old_rhs, system_prompt, None, None, None, str(e))
         continue
       new_rhs = _sanitize_rhs(new_rhs_raw)
       if new_rhs is None:
         fail += 1
         print(f"[失败] {file_name}:{idx} 返回格式不合规")
+        if log_dir:
+          _write_line_log(log_dir, file_name, idx, lhs, old_rhs, system_prompt, user_prompt, raw_response, None, '返回格式不合规')
         continue
       # 占位符校验：以左侧瑞典语为准，避免旧 RHS 污染干扰
       required = set(_placeholders(lhs))
       if required and not required.issubset(set(_placeholders(new_rhs))):
         fail += 1
         print(f"[失败] {file_name}:{idx} 占位符不匹配")
+        if log_dir:
+          _write_line_log(log_dir, file_name, idx, lhs, old_rhs, system_prompt, user_prompt, raw_response, new_rhs, '占位符不匹配')
         continue
       # 写入
       line, _lhs, _rhs = pairs[idx]
       pairs[idx] = (line, lhs, new_rhs)
       ok += 1
-      if ok % 10 == 0:
-        print(f"[进度] {file_name} 成功 {ok} 行，失败 {fail} 行")
+      if log_dir:
+        _write_line_log(log_dir, file_name, idx, lhs, old_rhs, system_prompt, user_prompt, raw_response, new_rhs, None)
+      # 进度与 ETA
+      if progress is not None:
+        progress['done'] = progress.get('done', 0) + 1
+        done = int(progress['done'])
+        total = int(progress.get('total', 0))
+        elapsed = time.time() - progress.get('start', time.time())
+        rate = done / elapsed if elapsed > 0 else 0.0
+        eta = _fmt_eta((total - done) / rate if rate > 0 else float('inf'))
+        pct = (done / total * 100.0) if total > 0 else 0.0
+        if ok % 10 == 0:
+          print(f"[进度] 行 {done}/{total} ({pct:.1f}%), 文件 {int(progress.get('files_done', 0))}/{int(progress.get('files_total', 0))}, 预计剩余 {eta}")
+      else:
+        if ok % 10 == 0:
+          print(f"[进度] {file_name} 成功 {ok} 行，失败 {fail} 行")
 
   write_pairs(in_path, pairs)
-  print(f"[写入] {in_path} 完成：成功 {ok}，失败 {fail}")
+  if progress is not None:
+    # 更新文件计数并输出一次汇总
+    progress['files_done'] = progress.get('files_done', 0) + 1
+    done = int(progress.get('done', 0))
+    total = int(progress.get('total', 0))
+    files_done = int(progress.get('files_done', 0))
+    files_total = int(progress.get('files_total', 0))
+    elapsed = time.time() - progress.get('start', time.time())
+    rate = done / elapsed if elapsed > 0 else 0.0
+    eta = _fmt_eta((total - done) / rate if rate > 0 else float('inf'))
+    pct = (done / total * 100.0) if total > 0 else 0.0
+    print(f"[写入] {in_path} 完成：成功 {ok}，失败 {fail}")
+    print(f"[文件] 完成 {files_done}/{files_total} —— 行进度 {done}/{total} ({pct:.1f}%), 预计剩余 {eta}")
+  else:
+    print(f"[写入] {in_path} 完成：成功 {ok}，失败 {fail}")
   return (ok, fail)
 
 
@@ -227,6 +317,7 @@ def main():
   parser.add_argument('--temperature', type=float, default=1.3, help='采样温度，翻译推荐 1.3')
   parser.add_argument('--max-tokens', type=int, default=400, help='回复最大 tokens（避免截断）')
   parser.add_argument('--dry-run', action='store_true', help='仅统计，不调用 API 不写入')
+  parser.add_argument('--log-dir', default='logs/deepseek', help='日志目录（记录每行的输入/输出）')
   args = parser.parse_args()
 
   api_key = os.getenv('DEEPSEEK_API_KEY', '').strip()
@@ -272,11 +363,37 @@ def main():
       print(f"  - {name}")
     return
 
+  # 预计算总行数用于 ETA
+  total_lines = 0
+  for name in targets:
+    path = os.path.join(args.src_dir, name)
+    pairs = read_pairs(path)
+    total_lines += sum(1 for _line, lhs, rhs in pairs if lhs and rhs)
+  print(f"[开始] 文件 {len(targets)} 个，总行数 {total_lines}")
+
+  progress = {
+    'start': time.time(),
+    'done': 0.0,
+    'total': float(total_lines),
+    'files_done': 0.0,
+    'files_total': float(len(targets)),
+  }
+
+  # 为本次运行创建独立日志目录（时间命名），便于定位本轮日志
+  run_log_dir: Optional[str] = None
+  if args.log_dir:
+    run_log_dir = os.path.join(args.log_dir, time.strftime('%Y%m%d-%H%M%S'))
+    try:
+      os.makedirs(run_log_dir, exist_ok=True)
+      print(f"[日志] 本次运行日志目录：{run_log_dir}")
+    except Exception:
+      run_log_dir = args.log_dir
+
   # 正式执行
   grand_ok = grand_fail = 0
   for name in targets:
     ok, fail = process_file(api_key, system_prompt, os.path.join(args.src_dir, name),
-                            args.max_workers, args.timeout, args.temperature, args.max_tokens)
+                            args.max_workers, args.timeout, args.temperature, args.max_tokens, run_log_dir, progress)
     grand_ok += ok; grand_fail += fail
   print(f"[完成] 成功 {grand_ok} 行，失败 {grand_fail} 行。")
 
