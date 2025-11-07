@@ -2,240 +2,203 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+"""
+语义润色批处理（仅本批次对照）
+- 仅替换箭头右侧译文（英文在前，中文在后）；左侧瑞典语不改。
+- 三条格式规则：不使用中文引号；中文结尾不加“。”；右侧引号完整。
+运行：python tools/semantic_polish_batch.py
+说明：这是临时批处理脚本，每个批次清空上批对照再填入新对照即可。
+本次批次：_ 与 A 开头（_ / A / a）
+"""
+
 ROOT = Path(__file__).resolve().parents[1]
 EN_DIR = ROOT / "English"
 
 PAIR_RE = re.compile(r'^"(?P<lhs>(?:[^"\\]|\\.)*)"\s*=>\s*"(?P<rhs>(?:[^"\\]|\\.)*)"\s*$')
 
+# 归一化：将左侧键和文件中的左侧文本都转成“ASCII + ?”形式，以兼容
+# å/ä/ö 等变音在部分文件中被写成 '?' 的情况；仅用于匹配，不改变输出的原文。
+def _norm_lhs(s: str) -> str:
+  out = []
+  for ch in s:
+    # 保留 ASCII 可见字符与空格、标点；非 ASCII 或本就为 '?' 的统一成 '?'
+    if ch == '?' or (not ch.isascii()):
+      out.append('?')
+    else:
+      out.append(ch)
+  return ''.join(out)
+
 
 def replace_pairs(path: Path, mapping: dict[str, str]) -> int:
-    changed = 0
-    lines = path.read_text(encoding="utf-8").splitlines()
-    out: list[str] = []
-    for line in lines:
-        m = PAIR_RE.match(line)
-        if not m:
-            out.append(line)
-            continue
-        lhs = m.group('lhs')
-        rhs = m.group('rhs')
-        # Unescape for safe comparison
-        key = lhs.encode('utf-8').decode('utf-8')
-        if key in mapping:
-            new_rhs = mapping[key]
-            if new_rhs != rhs:
-                changed += 1
-            out.append(f'"{lhs}" => "{new_rhs}"')
-        else:
-            out.append(line)
-    if changed:
-        path.write_text("\n".join(out) + "\n", encoding="utf-8")
-    return changed
+  changed = 0
+  lines = path.read_text(encoding="utf-8").splitlines()
+  out: list[str] = []
+  # 预构建归一化后的映射
+  norm_map: dict[str, str] = {_norm_lhs(k): v for k, v in mapping.items()}
+  for line in lines:
+    m = PAIR_RE.match(line)
+    if not m:
+      out.append(line)
+      continue
+    lhs = m.group('lhs')
+    rhs = m.group('rhs')
+    key_norm = _norm_lhs(lhs)
+    if key_norm in norm_map:
+      new_rhs = norm_map[key_norm].strip()
+      if new_rhs.endswith('。'):
+        new_rhs = new_rhs[:-1]
+      if new_rhs != rhs:
+        changed += 1
+      out.append(f'"{lhs}" => "{new_rhs}"')
+    else:
+      out.append(line)
+  if changed:
+    path.write_text("\n".join(out) + "\n", encoding="utf-8")
+  return changed
 
 
 def main():
-    total = 0
-    # Babcia_Arrival semantic polish (initial segment)
-    babcia_map = {
-        "Bort med tassarna!": "Hands off 别碰",
-        "God kväll. Är det här Hotel Devotchka?": "Good evening. Is this the Hotel Devotchka  晚上好，这里是 Devotchka 酒店吗？",
-        "Det stämmer": "That's right 对",
-        "Jag tror att jag ska bo här...": "I think I'm supposed to stay here 我想我应该住在这里……",
-        "Jag heter Sebastian": "My name is Sebastian 我叫 Sebastian",
-        "Hejsan, jag skulle vilja checka in": "Hello, I'd like to check in 你好，我想办理入住",
-        "Jaha": "I see 我明白",
-        "Jag heter Sebastian och jag vill checka in här": "My name is Sebastian and I'd like to check in here 我叫 Sebastian，我想在这里办理入住",
-        "Lugn i stormen! En sekund": "Hold your horses! One second 别急，稍等一下",
-        "Hur var namnet?": "What's your name 您叫什么名字？",
-        "Sebastian": "Sebastian",
-        "Sebastian...": "Sebastian...",
-        "Sebbe": "Seb",
-        "OK": "OK 好",
-        "Låt mig kolla i datorn...": "Let me check the computer 我查一下电脑",
-        "Här har vi dig ja. Bokad av Wellspring Soda AB?": "There you are. Booked by Wellspring Soda Inc  找到了，由 Wellspring Soda 公司预订的？",
-        "Ja precis!": "Yes, exactly 是的，没错",
-        "Mm, jo men så heter de nog": "Mhm, yes, I think that's what they're called 嗯，是的，我想是这个名字",
-        "Det blir 499 kronor": "That'll be 499 kronor 需要 499 克朗",
-        "Va?": "What 什么？",
-        "Några problem?!": "Any problems  有什么问题？！",
-        "Jag trodde allt var betalat av mitt företag?": "I thought everything was paid by my employer 我以为公司已经付过钱了？",
-        "Jodå. Men det här är en depositionsavgift i händelse av förstörda föremål": "Yes. But this is a security deposit in case of damages to hotel property 是的，但这是押金，以防损坏酒店财物",
-        "Eh, tar ni kort?": "Uh, do you take cards 呃，可以刷卡吗？",
-        "Vi tar endast kort": "We only accept cards 我们只收信用卡",
-        "OK, jag tror att jag har mitt kort här någonstans...": "OK, I think my card is here somewhere 好，我的卡应该就在这附近……",
-        "Nej, det var inget": "No, never mind 不用了，算了",
-        "Ni har väl kreditkort?": "You do have a credit card, right 你有信用卡吧？",
-        "Eh... jadå det tror jag": "Uh... yeah, I think so 呃，是的，我想有",
-        "OK, jag ska bara ta fram mitt kort...": "OK, I'll just get my card 好，我去把卡拿出来",
-        "Undrar var jag lagt det...": "Wonder where I put it 不知道我把它放哪了……",
-        "Kanske i väskan..?": "Maybe in the bag 也许在包里？",
-        "Kreditkortet sa jag...": "The credit card, I said 我说的是信用卡……",
-        "Hmm, jag tror att jag måste ha tappat det...": "Hmm, I think I must have lost it 嗯，我可能把它弄丢了……",
-        "Det verkar tyvärr som att jag har blivit av med mitt kort": "Unfortunately, it seems I've lost my card 不巧，我的卡好像丢了",
-        "Jaha?": "Yes 是吗？",
-        "Det finns ingen möjlighet att skriva upp det på rummet eller så?": "Could you put it on my room bill 能先记在房账上吗？",
-        "Jo det kan vi nog ordna": "Yes, we can probably arrange that 可以，问题不大",
-        "Vissa administrativa avgifter tillkommer givetvis": "Of course, some administrative fees apply 当然，会收取一些管理费",
-        "OK...": "OK... 好……",
-        "Du får återkomma snarast när du har hittat kortet": "Come back as soon as you've found the card 找到卡后尽快回来办理",
-        "Ja, det ska jag!": "Yes, I will 好的，我会的",
-        # second OK lines will be handled if matched
-        "Jag får nog ta och gå och leta rätt på det...": "I'd better go and look for it 那我先去找找",
-        "Ja ja, gör så du": "Yes, do that 去吧",
-        "Ja?": "Yes 嗯？",
-        "Jag har kortet nu": "I have the card now 我找到卡了",
-        "Jaha, kan man få se det?": "All right, may I see it 好的，我看看",
-        "Eller vänta... nu hittar jag det inte igen": "Or wait... now I can't find it again 等等……我又找不到了",
-        "Ehmmmm vad tusan": "Ehmmm, what the heck 呃……搞什么啊",
-    }
-    total += replace_pairs(EN_DIR / 'Babcia_Arrival.eng.mtf', babcia_map)
-    # WellspringRepresentant_ShowingTheStorage semantic polish (head section)
-    wr_map = {
-        "Vart är du på väg?": "Where are you going 你要去哪？",
-        "Kom med nu": "Come with me 跟我来",
-        "Hallå?!": "Hello?! 喂？！",
-        "Är du med?": "Are you with me 你跟上了吗？",
-        "Förlåt, sa du något?": "Sorry, did you say something 抱歉，你刚说什么？",
-        "Alltså, jag försöker komma på vem det är du liknar": "Um, I'm trying to figure out who you look like 嗯……我在想你像谁",
-        "Det är någon skum skådis typ": "Like some oddball actor 有点像某个古怪的演员",
-        "Hmm...": "Hmm... 嗯……",
-        "Fan, jag kommer inte på det!": "Damn, I can't put my finger on it 糟了，我想不起来！",
-        "Vet du vem det kan vara?": "Do you know who it might be 你知道可能是谁吗？",
-        "Nå... jag vet inte riktigt": "Nah... I dunno 不太清楚",
-        "Hmm inte direkt": "Hmm, not really 嗯，也不太像",
-        "En del säger att jag är lik han i Seinfeldt": "Some people say that I look like that guy from Seinfeld 有人说我像《宋飞正传》里的那个人",
-        "Är det en film eller?": "Is that a movie 那是电影吗？",
-        "Nej men jag får tänka vidare på det...": "No, I'll have to keep thinking 不，回头我再想想",
-        "Du är så jävla lik alltså!": "You're so damn alike 你简直像到爆！",
-        "Helt sjukt": "That's crazy 太夸张了",
-        "OK, så det här är datorn som kontrollerar dörren in i lagret.": "OK, so here's the computer that controls the warehouse door 好，这台电脑控制仓库的门",
-        "Det är bara att skriva in 'unlock' och sedan lösenord så kan man gå genom dörren.": "Just enter 'unlock' and then the password 输入 'unlock'，再输入密码",
-        "Fan, jävla skitkukdator!!!": "Damn it, this computer is a piece of shit!!! 该死，这破电脑！！！",
-        "Vad är problemet?": "What's wrong 怎么了？",
-        "Den här datorn styr dörren till lagret": "This computer controls the door to the warehouse 这台电脑控制仓库的门",
-        "Men den accepterar inte mitt lösenord...": "But it won't accept my password 可它不接受我的密码……",
-        "Ska jag försöka istället?": "Should I try instead 要不要我来试试？",
-        "NEJ!": "NO! 不行！",
-        "Eller kanske...": "Maybe... 也许吧……",
-        "Kommer du inte in på datorn?": "You can't get into the computer 你进不去系统吗？",
-        "Nej, du får försöka själv sen": "No, you'll have to try on your own later 不，等会你自己试试",
-        "Verkar vara något fel med lösenordet": "Seems to be something wrong with the password 看来密码有问题",
-        "Oj, jag måste dra snart": "Oh, I need to go soon 哦，我得走了",
-        "Men först: den viktigaste regeln inom Wellspring!": "But first: the most important rule at Wellspring 但首先：Wellspring 最重要的一条规矩",
-        "Tala ALDRIG illa om Wellspring och våra varumärken": "NEVER speak ill of Wellspring or our brands 绝对不要说 Wellspring 或我们品牌的坏话",
-        "Naturligtvis": "Naturally 当然",
-        "Jag förstår": "I understand 我明白",
-        "Mm, OK...": "Mhm, OK 嗯，好",
-        "Kan du den regeln så kommer nog allt att gå bra": "Know that rule and you'll do fine 记住这条规矩，你就没问题",
-        "Sedan är det ju inte alla som har talang för att sälja": "And not everyone has the talent for selling 并不是每个人都擅长销售",
-        "Nej, självklart": "No, of course 当然不是",
-        "Jag tror att jag har lite talang i alla fall": "I think I have some talent at least 我觉得我多少还算有点天赋",
-        "Hur vet man om man har talang?": "How do you know if you're talented 怎么确定自己有没有天赋？",
-        "Det känner man": "You just feel it 自己能感觉到",
-        "Men jag måste dra nu som som sagt": "But I have to go now, as I said 我得走了，先这样",
-        "Lösenordet till datorn SKA vara abc123 om ingen har bytt": "The password SHOULD be abc123 unless someone changed it 密码应该是 abc123，除非被人改了",
-        "Eller så var det 123abc": "Or maybe it was 123abc 或者 123abc",
-        "123abc ?": "123abc ? 123abc？",
-        "Ja, eller abc123": "Yeah, or abc123 对，abc123",
-    }
-    total += replace_pairs(EN_DIR / 'WellspringRepresentant_ShowingTheStorage.eng.mtf', wr_map)
+  total = 0
 
-    # Pixie_HackerTrial1 (intro segment)
-    pht1_map = {
-        "Va?": "What 什么？",
-        "Vad gör du här?": "What are you doing here 你在这里做什么？",
-        "Tänkte mest säga hej": "I was just gonna say hi 我就打个招呼",
-        "Tja... jag vet inte riktigt": "Well, I don't really know 嗯……我也说不清",
-        "Han har bett att få göra intagningsprovet": "He asked if he could take the trial 他想参加入会试炼",
-        "Jag ska göra testet!": "I'm taking the test 我来参加测试",
-        "OK..?!": "OK..?! OK..？！",
-        "Jag sa ju att du inte ska följa efter mig!": "I told you not to follow me 我说过别跟着我！",
-        "Lugn å fin nu, Pixie": "Take it easy, Pixie 冷静点，Pixie",
-        "Han har bett om att få göra intagningsprovet": "He's asked to take the trial 他要参加试炼",
-        "Jaha... ok?": "Oh... OK? 哦……好吧？",
-        "Vänta nu": "Wait a sec 等一下",
-        "Jag fattar typ ingenting": "I don't understand anything 我完全没听懂",
-        "Så du vill börja jobba här med oss Sebastian?": "So you want to work here with us, Sebastian 你想来这儿和我们一起干，Sebastian？",
-        "Eh, jo typ": "Uh, yeah, sorta 嗯，差不多吧",
-        "Ja!": "Yes! 是！",
-        "Det verkade så roligt": "It seemed like a lot of fun 看起来很有趣",
-        "Men Yulian, han kom just till stan": "But Yulian, he just came to town 但是 Yulian，他才刚来这座城",
-        "Han är försäljare, inte programmerare": "He's a salesman, not a programmer 他是销售，不是程序员",
-        "Lugn Pixie, vi behöver alla vi kan komma över": "Easy, Pixie, we need everyone we can get 放轻松，Pixie，我们需要一切能用的人手",
-        "Och han verkar ha tränat en del på egen hand, eller hur Sebastian?": "And he seems to have trained on his own, right, Sebastian 他看起来自己练过，对吧，Sebastian？",
-        "Ja exakt": "Yeah, exactly 对，没错",
-        "Mm... jag har en sån här modifierare också": "Mhm... I've got one of those modifiers, too 嗯……我也有这种修改器",
-        "Typ": "Kinda 有点吧",
-        "Ok, coolt... antar jag": "OK, cool... I guess 行吧，挺酷的……我想是",
-        "Ja det blir riktigt bra det här": "I think this'll be great 我觉得这会很棒",
-    }
-    total += replace_pairs(EN_DIR / 'Pixie_HackerTrial1.eng.mtf', pht1_map)
-    # Pixie_HackerTrial1 (follow-up requests for modifier)
-    pht1_map_2 = {
-        "Ska du gå och hämta den och komma tillbaka här sen?": "Will you go get it and come back 要去拿一下再回来吗？",
-        "Mm, låter som en bra idé": "Yeah, sounds like a plan 嗯，听起来不错",
-        "Jag väntar här så länge": "I'll wait here 我先在这等着",
-        "Har du den nu?": "Do you have it now 现在拿到了吗？",
-        "Ni har ingen jag kan få låna?": "Do you have one I can borrow 有能借我用一下的吗？",
-        "Ska kolla...": "Lemme check 我看看",
-        "Här!": "Here! 给",
-        "Jag tror inte det tyvärr": "Don't think so, sorry 恐怕没有，抱歉",
-        "Du får gå och leta rätt på den": "You'll have to go find it 你得自己去找找",
-        "Bra": "Good 好",
-        "OK, så såhär ligger det till": "OK, so this is how it works 好，事情是这样的",
-    }
-    total += replace_pairs(EN_DIR / 'Pixie_HackerTrial1.eng.mtf', pht1_map_2)
+  # A-batch 映射：左侧以 A/a 开头的瑞典语句子
+  a_batch_map: dict[str, str] = {
+    # 常见感叹/寒暄
+    'Adjö': 'Goodbye 再见',
+    'Adjö då': 'Goodbye then 那再见',
+    'Aha': 'Aha 啊哈',
+    'Aha...': 'Aha... 啊哈……',
+    'Aha!': 'Aha! 啊哈！',
+    'Aha?': 'Aha? 啊哈？',
+    'Ah...': 'Ah... 啊……',
+    'Ah!': 'Ah! 啊！',
+    'Ah': 'Ah 啊',
+    'Ahhh!': 'Ahhh! 啊啊啊！',
+    'Ah, tack!': 'Ah, thanks! 啊，谢谢！',
+    'Ah, där har jag varit': "Ah, I've been there 嗯，我去过那儿",
+    'Aj': 'Ouch 哎哟',
 
-    # Hank_FirstLecture (intro/common lines)
-    hfl_map = {
-        "Kom över hit är du snäll": "Would you please come over here 请到这边来一下",
-        "Ok, ska vi börja då?": "OK, shall we start 好的，我们开始吧",
-        "Ok, visst": "OK, sure 好的，当然",
-        "Jag väntar här så länge då": "I'll wait here then 我先在这等着",
-        "Hallå där, då kör vi": "Hey, let's do this 开始吧",
-        "Har testat din modifierare någonting förut?": "Have you tried your modifier yet 你之前用过修改器吗？",
-        "Ja, lite": "Yeah, a bit 嗯，用过一点",
-        "Ok, vad bra": "OK, that's good 好的，那很棒",
-        "Har du förstått hur den fungerar?": "Have you figured out how it works 你弄明白它怎么工作了吗？",
-        "Jodå, det var inte så svårt": "Sure, it wasn't that difficult 是的，不算难",
-        "Njae... inte exakt": "Nah... not really 嗯……不太算",
-        "Ok..?": "OK...? 好的……？",
-        "Vad var det jag skulle göra?": "What was I supposed to do 我要做什么来着？",
-        "Hacka den stora datorn här, den med ratten": "Hack the big one here, the one with the wheel 攻破这台大的，有个转轮的那台",
-        "Ja, exakt!": "Just like that 没错，就是这样",
-        "Såg du koden?": "Did you see the code 你看到代码了吗？",
-        "Ok? Bra": "OK? Great 好吗？太好了",
-        "Mm": "Mm 嗯",
-        "Bra": "Nice 不错",
-        "Grundprincipen är att du kopplar in din modifierare i ett föremål": "The basic principle is connecting your modifier to an object 基本原理是把修改器接到目标上",
-        "Och sen får du se koden som det föremålet innehåller": "Then you can see that object's code 然后你就能看到它的代码",
-        "Det är ju jättekonstigt!": "That's really weird 这也太奇怪了",
-        "Vem kom på att man kunde göra så?": "Who came up with this idea 这是谁想到的？",
-    }
-    total += replace_pairs(EN_DIR / 'Hank_FirstLecture.eng.mtf', hfl_map)
+    # 指令/短句
+    'Aktivera armen': 'Activate the arm 启用手臂',
 
-    # _OnThePhone (menu/early)
-    otp_map = {
-        "PLAY GAME FROM THE BEGINNING": "PLAY GAME FROM THE BEGINNING 从头开始游戏",
-        "Chapter 1 (first day)": "Chapter 1 (first day) 第一章（第一天）",
-        "Chapter 2 (after dot)": "Chapter 2 (after dot) 第二章（俱乐部之后）",
-        "Chapter 3 (tests)": "Chapter 3 (tests) 第三章（试炼）",
-        "Chapter 4 (factory)": "Chapter 4 (factory) 第四章（工厂）",
-        "Chapter 5 (experiment)": "Chapter 5 (experiment) 第五章（实验）",
-        "Chapter 6 (final act)": "Chapter 6 (final act) 第六章（最终幕）",
-    }
-    total += replace_pairs(EN_DIR / '_OnThePhone.eng.mtf', otp_map)
+    # 询问/对话套话
+    'Allt väl?': 'Everything alright? 一切都好吗？',
+    'Allting': 'Everything 一切',
+    'Allting är sammankopplat': 'Everything is connected 万物相连',
+    'Allt suger...': 'Everything sucks... 一切都糟透了……',
+    'Alltid redo': 'Always ready 时刻准备着',
+    'Allt som gör vardagen så praktisk!': 'Everything that makes everyday life so convenient! 让日常更方便的一切！',
+    'Alltihop började när de började bryta malm i gruvan': 'It all started when they began mining ore in the mine 一切始于他们在矿井开始开采矿石的时候',
 
-    # Hank_SecondLecture (selected)
-    hsl_map = {
-        "Jo": "Yeah 嗯",
-        "Ok": "OK 好的",
-        "Bra": "Good 好",
-    }
-    total += replace_pairs(EN_DIR / 'Hank_SecondLecture.eng.mtf', hsl_map)
+    # Alltså 开头口头禅类
+    'Alltså...': 'I mean... 我是说……',
+    'Alltså... typ': 'I mean... kinda 我是说……差不多吧',
+    'Alltså, du går bara förbi färjan och svänger sedan höger runt huset': 'I mean, you just pass the ferry and then turn right around the house 你就从渡口那边走过去，然后绕着房子右转',
+    'Alltså, du går över bron till Burrows och sen går du mot ministeriet': 'I mean, you cross the bridge to Burrows and then head towards the Ministry 你过桥去 Burrows，然后往部委那边走',
+    'Alltså, du borde gå': 'I mean, you should go 我觉得你该走了',
+    'Alltså hmm': 'I mean, hmm 我是说，嗯',
+    'Alltså, hmm': 'I mean, hmm 我是说，嗯',
+    'Alltså, jag vet inte': "I mean, I don't know 我也不太清楚",
+    'Alltså, jag vet bara inte riktigt hur jag ska bete mig': "I mean, I just don't really know how to behave 我只是不太知道该怎么表现",
+    'Alltså, jag kan inte så mycket om jazz': "I mean, I don't know much about jazz 我对爵士不太懂",
+    'Alltså, jag tror inte det': "I mean, I don't think so 我觉得不是",
+    'Alltså, jag tror att jag måste åka tillbaka...': 'I mean, I think I have to go back... 我想我得回去了……',
+    'Alltså, jag tänkte bara säga...': 'I mean, I just wanted to say... 我就是想说……',
+    'Alltså, lite': 'I mean, a little 有一点吧',
+    'Alltså, jag har ett hotell bokat åt mig': 'I mean, I have a hotel booked for me 我这边已经订好酒店了',
+    'Alltså, man måste försöka ha ett öppet sinne dude': 'I mean, you gotta try to keep an open mind, dude 我是说，得保持开放点，兄弟',
+    'Alltså, om du kan hitta mer skit på honom så är det awesome': "I mean, if you can dig up more dirt on him, that'd be awesome 要是你能多挖到他点黑料就太棒了",
+    'Alltså, Pixie jobbar ju inte med skor': "I mean, Pixie doesn't work with shoes Pixie 又不是干卖鞋的",
+    'Alltså, principen för att ta bort spärrarna är mycket enkel': 'I mean, the principle for removing the restrictions is very simple 拆限制的原理其实很简单',
+    'Alltså, spöken är inte så konstiga grejer som folk ofta får för sig': "I mean, ghosts aren't as weird as people think 我是说，鬼没大家想得那么离奇",
+    'Alltså, vad gör ni där egentligen?': 'I mean, what are you actually doing there 你们到底在那干嘛？',
+    'Alltså, vad kan man modifiera med den?': 'I mean, what can you modify with it 这个到底能改什么？',
+    'Alltså, vi gömmer oss ju inte!': "I mean, we're not hiding! 我们又不是在躲着！",
+    'Alltså... var ligger mitt rum? Jag hittar det inte': "I mean... where's my room? I can't find it 我房间在哪？我找不到",
+    'Alltså, jag försöker komma på vem det är du liknar': "I mean, I'm trying to figure out who you look like 我在想你像谁",
+    'Alltså det är ashäftigt att du vill vara med och hjälpa till här Sebbe': "I mean it's awesome that you want to help out here, Sebbe 你愿意来这帮忙真是太酷了，Sebbe",
+    'Alltså det är lugnt Sebbe': "I mean it's fine, Sebbe 没事的，Sebbe",
+    'Alltså det är något creepy med det här stället': "I mean there's something creepy about this place 我总觉得这地方有点渗人",
+    'Alltså det är olika, jag fick mitt gig där av en slump': "I mean it depends, I got my gig there by chance 这要看情况，我那活儿是碰巧拿到的",
+    'Alltså fan': 'I mean, damn 我靠',
+    'Alltså hmm... finns det en chans för mig att få jobba här hos er?': 'I mean, hmm... is there a chance I could work here? 我在想……我有机会在这儿干活吗？',
+    'Alltså snälla... kan jag inte få börja jobba hos er?': "I mean please... can't I start working with you? 拜托……我能不能在你们这儿干？",
+    'Alltså vi trodde ju mest att han höll på att bli galen': "I mean we mostly thought he was going crazy 我们当时还以为他快疯了",
+    'Alltså, ägaren brukar inte bli så glad': "I mean, the owner usually doesn't like that 老板一般不太高兴这个",
+    'Alltså, den är väl inte jättebra egentligen': "I mean, it's not really that great 说实话，它也没多好",
+    'Alltså, det är inte något allvarligt': "I mean, it's nothing serious 不是什么大事",
+    'Alltså, det är ju flummiga grejer antar jag': "I mean, it's trippy stuff I guess 这玩意儿挺迷幻的，我猜",
+    'Alltså, det är något med datorer va?': "I mean, it's something with computers, right? 跟电脑有关，对吧？",
+    'Alltså, det är oftast gitarrer...': "I mean, it's usually guitars... 一般都是吉他……",
+    'Alltså, det verkar inte finnas någon säng på mitt rum': "I mean, there doesn't seem to be a bed in my room 我房间里好像没有床",
+    'Alltså, det verkar lite väl drastiskt kanske': "I mean, that seems a bit drastic maybe 这也太激进了点吧",
+    'Alltså, du verkar ha gjort något alldeles amazing': "I mean, you seem to have done something absolutely amazing 你好像干了件真的很了不起的事",
+    'Alltså, dude... du måste chilla': "I mean, dude... you gotta chill 兄弟……冷静点",
+    'Alltså, helst inte': "I mean, preferably not 最好别",
+    'Alltså, jag är inte så bra än': "I mean, I'm not that good yet 我现在还不太行",
+    'Alltså, jag har ett antal fler samtal som jag måste ta här ikväll': "I mean, I have a bunch more calls to make tonight 我今晚还有一堆电话要打",
 
-    print(f"Polished lines: {total}")
+    # 其他 A 开头
+    'Amääännnn...': 'Maaaan... 天哪……',
+    'Aldrig hört namnet': 'Never heard the name 从没听说过这个名字',
+    'Annars då?': 'How are things otherwise? 其他还好吗？',
+    'Ah segt': 'Ah, bummer 哦，真糟',
+    'Alright, bra': 'Alright, good 好的，行',
+    'Andra våningen': 'Second floor 二楼',
+    'Amen skaffa derå!': 'Then go get one! 那就搞一个啊！',
+
+    # Araki 相关
+    'Araki': 'Araki 荒木',
+    'Araki är redan där inne tror jag': 'Araki is already in there, I think Araki 应该已经在里面了',
+    "Araki pratar jämt om hur hon 'skapar liv'": "Araki keeps talking about how she 'creates life' Araki 老说她如何“创造生命”",
+    'Araki!': 'Araki! 荒木！',
+
+    # A 批内目标文件的通用句（提升语义与口径）
+    # Albert_Ghosts
+    'Var är jag?': 'Where am I? 我在哪？',
+    'Var ÄR jag?!!?!': 'Where AM I?!!?! 我在哪？！?!',
+    'Visst är det fantastiskt': "Isn't it fantastic? 这不是很棒吗？",
+    'Det är vackert': "It's beautiful 真美",
+    'Jag önskar att jag kunde ta in allt på samma gång': 'I wish I could take it all in at once 真希望我能一下子全都消化',
+    'Det var tur, det finns så dåligt med sittplatser': "Lucky for us, there are so few seats around here 还好这样，这里座位实在太少了",
+    'Varken Zarah eller jag kunde ju sova': "Neither Zarah nor I could sleep Zarah 和我都睡不着",
+    'Zarah lyckades släpa in en soffa åt oss': 'Zarah managed to drag a sofa in here for us Zarah 设法给我们拖来了一张沙发',
+
+    # 下划线场景常见修正
+    'Jörgen, vi verkar ha fått besök under natten': 'Jörgen, looks like we had visitors last night Jörgen，看起来昨晚有人来过',
+    'Jaså?': 'Oh, really? 哦，真的？',
+    'Det stämmer!': "That's right! 没错！",
+    'Oj, verkligen?!': 'Really?! 真的吗？！',
+    'Gör inget motstånd': "Don't resist 不要反抗",
+    'Var försiktig i så fall': 'In that case, be careful 那样的话小心点',
+    'Mhm?': 'Mhm? 嗯？',
+    'Mhm': 'Mhm 嗯',
+
+    # Amanda_CanSellSoda
+    'Svårt att fatta?': "Hard to understand? 很难懂吗？",
+    'Hej, fortfarande inte intresserad': 'Hi, still not interested 我还是不感兴趣',
+
+    # Araki_AfterGhostVisit（语气更口语化，术语更准确）
+    'Tjena': 'Hey 嘿',
+    'Läget?': "How's it going? 最近怎么样？",
+    'Jag är seg i skallen': "My brain's sluggish 脑子有点转不动",
+    'Läste en grym bok om funktionell komposition i går när jag skulle sova': "I read an awesome book on functional composition last night when I was supposed to sleep 我昨晚该睡的时候在看一本讲函数式组合的好书",
+    'Abstrakt...': 'Abstract... 挺抽象的……',
+    'Kleislipilar, om det säger dig något?': "Kleisli arrows, if that rings a bell? Kleisli 箭（范畴论）听起来熟吗？",
+    'Japp, han är på sitt kontor': "Yeah, he's in his office 他在办公室",
+    'Vilket är den största anledningen till att vi inte vet mer om deras organisation': "Which is the main reason we don't know more about their organization 这也是我们不了解他们组织更多内幕的主要原因",
+  }
+
+  # 仅对文件名以 '_' 或 A/a 开头的 .eng.mtf 应用本批映射（按文件批次）
+  for path in EN_DIR.glob('*.eng.mtf'):
+    name = path.name
+    if not name:
+      continue
+    if name[0].lower() not in {'a', '_'}:
+      continue
+    total += replace_pairs(path, a_batch_map)
+
+  print(f'Polished lines: {total}')
 
 
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+  main()
