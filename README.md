@@ -2,6 +2,29 @@
 
 本项目提供了一套工具，用于半自动地对游戏《Else Heart.Break()》的汉化文本进行高质量润色。它利用 DeepSeek 的 API 来优化翻译文件（`.eng.mtf`）中右侧的文本，确保其格式为高质量、双语的“英文在前，中文在后”，同时保持左侧的瑞典语原文不变。
 
+## 如何使用翻译文件
+
+本仓库的 `English` 目录包含了经过润色的、可直接在游戏中使用的翻译文件。所有文本均由 DeepSeek 翻译，并经过了初步校对。
+
+**[点此下载翻译文件](https://github.com/Monika-shipship/else-heart-break-chinese/releases/download/%E6%AD%A3%E5%BC%8F%E7%89%88/EHB_Chinese_Patch_v1.0.0.zip)** 
+
+### 使用方法
+
+1.  **重要：备份原始文件！**
+    请找到您的游戏安装目录，在其中定位到 `ElseHeartbreak_Data\InitData\Translations\English` 文件夹。**请先将这个 `English` 文件夹完整备份到其他安全位置**。
+
+2.  **替换文件**
+    将本仓库中的 `English` 文件夹**覆盖**游戏目录中原有的 `English` 文件夹。
+
+3.  **进入游戏**
+    启动游戏。如果进入后未显示中文，请尝试在游戏设置中切换一下语言（例如切换到其他语言再切回来）。
+
+### 注意事项
+- 本汉化为**英中对照**版本，以方便学习和校对。
+- 由于游戏引擎的限制，过长的文本可能会在显示时被裁切。
+
+---
+
 ## 项目来源
 
 本仓库是在 [1PercentSync/else-heart-break-chinese](https://github.com/1PercentSync/else-heart-break-chinese) 的基础上更新而来。感谢 `1PercentSync` 的初始工作！
@@ -119,25 +142,4 @@
 | `--glossary-out`| `glossary/out`| 术语表输出目录。 |
 | `--mine-terms`| `False` | 启用术语挖掘。 |
 
----
 
-## 如何使用翻译文件
-
-本仓库的 `English` 目录包含了经过润色的、可直接在游戏中使用的翻译文件。所有文本均由 DeepSeek 翻译，并经过了初步校对。
-
-**[点此下载翻译文件]()** (注：链接待补充)
-
-### 使用方法
-
-1.  **重要：备份原始文件！**
-    请找到您的游戏安装目录，在其中定位到 `ElseHeartbreak_Data\InitData\Translations\English` 文件夹。**请先将这个 `English` 文件夹完整备份到其他安全位置**。
-
-2.  **替换文件**
-    将本仓库中的 `English` 文件夹**覆盖**游戏目录中原有的 `English` 文件夹。
-
-3.  **进入游戏**
-    启动游戏。如果进入后未显示中文，请尝试在游戏设置中切换一下语言（例如切换到其他语言再切回来）。
-
-### 注意事项
-- 本汉化为**英中对照**版本，以方便学习和校对。
-- 由于游戏引擎的限制，过长的文本可能会在显示时被裁切。
