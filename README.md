@@ -6,22 +6,48 @@
 
 本仓库的 `English` 目录包含了经过润色的、可直接在游戏中使用的翻译文件。所有文本均由 DeepSeek 翻译，并经过了初步校对。
 
-**[点此下载翻译文件](https://github.com/Monika-shipship/else-heart-break-chinese/releases/download/%E6%AD%A3%E5%BC%8F%E7%89%88/EHB_Chinese_Patch_v1.0.0.zip)** 
+**[点此下载翻译文件](https://github.com/Monika-shipship/else-heart-break-chinese/releases/download/v1.1.0/EHB_Chinese_Patch_v1.1.0.zip)** 
 
 ### 使用方法
 
 1.  **重要：备份原始文件！**
-    请找到您的游戏安装目录，在其中定位到 `ElseHeartbreak_Data\InitData\Translations\English` 文件夹。**请先将这个 `English` 文件夹完整备份到其他安全位置**。
+    - **备份翻译文件**: 请找到您的游戏安装目录，在其中定位到 `ElseHeartbreak_Data\InitData\Translations\English` 文件夹。**请先将这个 `English` 文件夹完整备份到其他安全位置**。
+    - **备份核心文件**: 同样地，请备份 `ElseHeartbreak_Data\Managed` 目录下的 `Assembly-CSharp.dll`, `GameWorld2.dll`, `TingTing.dll` 这三个文件。
 
 2.  **替换文件**
-    将本仓库中的 `English` 文件夹**覆盖**游戏目录中原有的 `English` 文件夹。
+    - **翻译对话**将本仓库中的 `English` 文件夹**覆盖**游戏目录中原有的 `ElseHeartbreak_Data\InitData\Translations\English` 文件夹。这个文件夹中的内容是负责翻译**人物对话**的
+    - **翻译交互按钮**将 `UItrans_zh` 目录下的 `Assembly-CSharp.dll`, `GameWorld2.dll`, `TingTing.dll` 三个文件**覆盖**到 `ElseHeartbreak_Data\Managed` 文件夹中。这部分文件主要负责**游戏界面、物品交互和API文档**的翻译。
 
 3.  **进入游戏**
     启动游戏。如果进入后未显示中文，请尝试在游戏设置中切换一下语言（例如切换到其他语言再切回来）。
 
+
+## 效果展示
+
+### 对话翻译
+
+![对话翻译展示1](Image/059338c197b6a92b122949291c146319.png)
+![alt text](Image/89ff48d82927a36eb2dae0f354f97780.png)
+![alt text](Image/da82650b680b58e1e0062fef598ad34f.png)
+
+### 交互界面展示
+
+这些翻译需要覆盖dll文件来实现，作者是通过 [dnSpy](https://github.com/dnSpyEx/dnSpy) 软件来实现直接编辑 dll 文本来实现的，本仓库中的翻译保留了所有的英文翻译，如果你觉得中文翻译有不妥的地方，可以直接用 [dnSpy](https://github.com/dnSpyEx/dnSpy) 搜索，直接修改即可
+
+![alt text](Image/4803f4a2f6bbc07f371f6ee379bda6f5.png)  ![alt text](Image/e3e533da20d812c6acf03d2832fb089e.png) ![alt text](Image/e09e58bcb24847bf4f29d297cd2b6185.png) ![alt text](Image/6be8b4468fdc4f9eb35749418a3b110b.png) ![alt text](Image/0c375db9a9cf40ac1470229eba2c5e40.png)
+
 ### 注意事项
 - 本汉化为**英中对照**版本，以方便学习和校对。
 - 由于游戏引擎的限制，过长的文本可能会在显示时被裁切。
+
+---
+
+## 更新日志
+
+- **v1.1.0 (2025-11-08)**
+  - **新增**: 界面汉化（主界面和设置中的英文貌似是放在level文件里的，我没学会如何修改），包括游戏内交互按钮、物品名称和API文档。
+  - **更新**: 使用方法现在包含覆盖 `Assembly-CSharp.dll`, `GameWorld2.dll`, `TingTing.dll` 文件的步骤。
+
 
 ---
 
