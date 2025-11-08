@@ -96,12 +96,12 @@ namespace GameWorld2
 		}
 
 		// Token: 0x17000090 RID: 144
-		// (get) Token: 0x060001B8 RID: 440 RVA: 0x00009A58 File Offset: 0x00007C58
+		// (get) Token: 0x060001B8 RID: 440
 		public override string verbDescription
 		{
 			get
 			{
-				return "sit down";
+				return "sit down坐下";
 			}
 		}
 

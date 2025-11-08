@@ -37,72 +37,72 @@ namespace GameWorld2
 			base.UpdateBubbleTimer();
 		}
 
-		// Token: 0x0600031A RID: 794 RVA: 0x000122E8 File Offset: 0x000104E8
-		[SprakAPI(new string[] { "Set the color of the lamp", "red", "green", "blue" })]
+		// Token: 0x0600031A RID: 794
+		[SprakAPI(new string[] { "Set the color of the lamp设置灯的颜色", "red红", "green绿", "blue蓝" })]
 		public void API_SetColor(float r, float g, float b)
 		{
 			this.logger.Log(string.Concat(new object[] { "Called API_SetColor with arguments ", r, ", ", g, ", ", b }));
 			this.color = new Float3(r, g, b);
 		}
 
-		// Token: 0x0600031B RID: 795 RVA: 0x0001234C File Offset: 0x0001054C
-		[SprakAPI(new string[] { "Returns true if it is night" })]
+		// Token: 0x0600031B RID: 795
+		[SprakAPI(new string[] { "Returns true if it is night如果是晚上则返回真" })]
 		public bool API_IsNight()
 		{
 			return base.gameClock.hours > 18 || base.gameClock.hours < 6;
 		}
 
-		// Token: 0x0600031C RID: 796 RVA: 0x00012384 File Offset: 0x00010584
-		[SprakAPI(new string[] { "Returns a random value between 0.0 and 1.0" })]
+		// Token: 0x0600031C RID: 796
+		[SprakAPI(new string[] { "Returns a random value between 0.0 and 1.0返回 0.0 到 1.0 之间的随机值" })]
 		public float API_Random()
 		{
 			return (float)Lamp.s_random.NextDouble();
 		}
 
-		// Token: 0x0600031D RID: 797 RVA: 0x00012394 File Offset: 0x00010594
-		[SprakAPI(new string[] { "Returns the time since day 0, whatever that means (in seconds)" })]
+		// Token: 0x0600031D RID: 797
+		[SprakAPI(new string[] { "Returns the time since day 0, whatever that means (in seconds)返回自第0天以来的时间(秒)" })]
 		public float API_Time()
 		{
 			return base.gameClock.totalSeconds;
 		}
 
-		// Token: 0x0600031E RID: 798 RVA: 0x000123B0 File Offset: 0x000105B0
-		[SprakAPI(new string[] { "The sinus function", "x" })]
+		// Token: 0x0600031E RID: 798
+		[SprakAPI(new string[] { "The sinus function正弦函数", "x" })]
 		public float API_Sin(float x)
 		{
 			return (float)Math.Sin((double)x);
 		}
 
-		// Token: 0x0600031F RID: 799 RVA: 0x000123BC File Offset: 0x000105BC
-		[SprakAPI(new string[] { "Say something" })]
+		// Token: 0x0600031F RID: 799
+		[SprakAPI(new string[] { "Say something说点什么" })]
 		public void API_Say(string text)
 		{
 			this.Say(text, "");
 		}
 
-		// Token: 0x06000320 RID: 800 RVA: 0x000123CC File Offset: 0x000105CC
-		[SprakAPI(new string[] { "Pause the master program", "number of seconds to pause for" })]
+		// Token: 0x06000320 RID: 800
+		[SprakAPI(new string[] { "Pause the master program暂停主程序", "number of seconds to pause for暂停的秒数" })]
 		public void API_Sleep(float seconds)
 		{
 			this.masterProgram.sleepTimer = seconds;
 		}
 
-		// Token: 0x06000321 RID: 801 RVA: 0x000123DC File Offset: 0x000105DC
-		[SprakAPI(new string[] { "Turn on the lamp", "" })]
+		// Token: 0x06000321 RID: 801
+		[SprakAPI(new string[] { "Turn on the lamp开灯", "" })]
 		public void API_TurnOn()
 		{
 			this.on = true;
 		}
 
-		// Token: 0x06000322 RID: 802 RVA: 0x000123E8 File Offset: 0x000105E8
-		[SprakAPI(new string[] { "Turn off the lamp", "" })]
+		// Token: 0x06000322 RID: 802
+		[SprakAPI(new string[] { "Turn off the lamp关灯", "" })]
 		public void API_TurnOff()
 		{
 			this.on = false;
 		}
 
-		// Token: 0x06000323 RID: 803 RVA: 0x000123F4 File Offset: 0x000105F4
-		[SprakAPI(new string[] { "Play a sound", "name" })]
+		// Token: 0x06000323 RID: 803
+		[SprakAPI(new string[] { "Play a sound播放声音", "name" })]
 		public void API_PlaySound(string name)
 		{
 			base.PlaySound(name);
@@ -127,22 +127,22 @@ namespace GameWorld2
 		}
 
 		// Token: 0x170000B9 RID: 185
-		// (get) Token: 0x06000326 RID: 806 RVA: 0x00012428 File Offset: 0x00010628
+		// (get) Token: 0x06000326 RID: 806
 		public override string verbDescription
 		{
 			get
 			{
-				return "kick";
+				return "kick 踢";
 			}
 		}
 
 		// Token: 0x170000BA RID: 186
-		// (get) Token: 0x06000327 RID: 807 RVA: 0x00012430 File Offset: 0x00010630
+		// (get) Token: 0x06000327 RID: 807
 		public override string tooltipName
 		{
 			get
 			{
-				return "lamp";
+				return "lamp 灯";
 			}
 		}
 

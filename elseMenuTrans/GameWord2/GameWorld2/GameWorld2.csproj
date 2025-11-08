@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D3FA6984-9BB3-4370-9431-D7E4C7F1863A}</ProjectGuid>
+    <ProjectGuid>{8DC11B82-A62A-406E-BE37-6A5697E8E121}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>GameWorld2</RootNamespace>
     <AssemblyName>GameWorld2</AssemblyName>

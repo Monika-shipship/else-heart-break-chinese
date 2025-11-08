@@ -33,12 +33,12 @@ namespace GameWorld2
 		}
 
 		// Token: 0x17000164 RID: 356
-		// (get) Token: 0x0600062E RID: 1582 RVA: 0x0001CE78 File Offset: 0x0001B078
+		// (get) Token: 0x0600062E RID: 1582
 		public override string verbDescription
 		{
 			get
 			{
-				return "inspect";
+				return "inspect检查";
 			}
 		}
 

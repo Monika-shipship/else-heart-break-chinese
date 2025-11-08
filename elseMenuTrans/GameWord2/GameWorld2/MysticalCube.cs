@@ -25,60 +25,60 @@ namespace GameWorld2
 			this.CELL_color = base.EnsureCell<Float3>("color", new Float3(0f, 0f, 0f));
 		}
 
-		// Token: 0x06000199 RID: 409 RVA: 0x000096B0 File Offset: 0x000078B0
-		[SprakAPI(new string[] { "Increase mystery level by any amount", "The amount" })]
+		// Token: 0x06000199 RID: 409
+		[SprakAPI(new string[] { "Increase mystery level by any amount提升任意数量的神秘等级", "The amount" })]
 		public void API_IncreaseMysteryLevel(float amount)
 		{
-			this.logger.Log("Called API_IncreaseMysteryLevel with argument " + amount);
+			this.logger.Log("Called API_IncreaseMysteryLevel with argument " + amount.ToString());
 			this.mysteryLevel += (int)amount;
 		}
 
-		// Token: 0x0600019A RID: 410 RVA: 0x000096E8 File Offset: 0x000078E8
-		[SprakAPI(new string[] { "Set the color of the cube", "Amount of red (0 - 1)", "Amount of green (0 - 1)", "Amount of blue (0 - 1)" })]
+		// Token: 0x0600019A RID: 410
+		[SprakAPI(new string[] { "Set the color of the cube设置立方体的颜色", "Amount of red (0 - 1)红色值 (0 - 1)", "Amount of green (0 - 1)绿色值 (0 - 1)", "Amount of blue (0 - 1)蓝色值 (0 - 1)" })]
 		public void API_SetColor(float r, float g, float b)
 		{
 			this.logger.Log(string.Concat(new object[] { "Called API_SetColor with arguments ", r, ", ", g, ", ", b }));
 			this.color = new Float3(r, g, b);
 		}
 
-		// Token: 0x0600019B RID: 411 RVA: 0x0000974C File Offset: 0x0000794C
-		[SprakAPI(new string[] { "Get a random value between 0 and 1", "" })]
+		// Token: 0x0600019B RID: 411
+		[SprakAPI(new string[] { "Get a random value between 0 and 1获取 0 到 1 之间的随机值", "" })]
 		public float API_Random()
 		{
 			return (float)MysticalCube.s_random.NextDouble();
 		}
 
-		// Token: 0x0600019C RID: 412 RVA: 0x00009768 File Offset: 0x00007968
-		[SprakAPI(new string[] { "Play a sound", "name" })]
+		// Token: 0x0600019C RID: 412
+		[SprakAPI(new string[] { "Play a sound播放一段音效", "name" })]
 		public void API_PlaySound(string name)
 		{
 			base.PlaySound(name);
 			base.audioLoop = false;
 		}
 
-		// Token: 0x0600019D RID: 413 RVA: 0x00009778 File Offset: 0x00007978
-		[SprakAPI(new string[] { "The sinus function", "x" })]
+		// Token: 0x0600019D RID: 413
+		[SprakAPI(new string[] { "The sinus function正弦函数", "x" })]
 		public float API_Sin(float x)
 		{
 			return (float)Math.Sin((double)x);
 		}
 
-		// Token: 0x0600019E RID: 414 RVA: 0x00009784 File Offset: 0x00007984
-		[SprakAPI(new string[] { "The cosinus function", "x" })]
+		// Token: 0x0600019E RID: 414
+		[SprakAPI(new string[] { "The cosinus function余弦函数", "x" })]
 		public float API_Cos(float x)
 		{
 			return (float)Math.Cos((double)x);
 		}
 
-		// Token: 0x0600019F RID: 415 RVA: 0x00009790 File Offset: 0x00007990
-		[SprakAPI(new string[] { "Get the total time as a float" })]
+		// Token: 0x0600019F RID: 415
+		[SprakAPI(new string[] { "Get the total time as a float获取总时间-浮点数格式" })]
 		public float API_Time()
 		{
 			return this._worldSettings.totalWorldTime;
 		}
 
-		// Token: 0x060001A0 RID: 416 RVA: 0x000097A0 File Offset: 0x000079A0
-		[SprakAPI(new string[] { "Pause the master program", "number of seconds to pause for" })]
+		// Token: 0x060001A0 RID: 416
+		[SprakAPI(new string[] { "Pause the master program暂停主程序", "number of seconds to pause for暂停的秒数" })]
 		public void API_Sleep(float seconds)
 		{
 			this.masterProgram.sleepTimer = seconds;
@@ -102,22 +102,22 @@ namespace GameWorld2
 		}
 
 		// Token: 0x17000086 RID: 134
-		// (get) Token: 0x060001A3 RID: 419 RVA: 0x000097D4 File Offset: 0x000079D4
+		// (get) Token: 0x060001A3 RID: 419
 		public override string verbDescription
 		{
 			get
 			{
-				return "push button";
+				return "push button按下按钮";
 			}
 		}
 
 		// Token: 0x17000087 RID: 135
-		// (get) Token: 0x060001A4 RID: 420 RVA: 0x000097DC File Offset: 0x000079DC
+		// (get) Token: 0x060001A4 RID: 420
 		public override string tooltipName
 		{
 			get
 			{
-				return "mystical Cube";
+				return "mystical Cube神秘立方体";
 			}
 		}
 

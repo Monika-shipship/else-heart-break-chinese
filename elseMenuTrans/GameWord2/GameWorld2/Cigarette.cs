@@ -11,7 +11,7 @@ namespace GameWorld2
 		{
 			get
 			{
-				return "cigarette" + ((base.charges > 0) ? "" : " (used)");
+				return "cigarette香烟" + ((base.charges > 0) ? "" : " (used已使用)");
 			}
 		}
 
@@ -21,7 +21,7 @@ namespace GameWorld2
 		{
 			get
 			{
-				return "smoke";
+				return "smoke抽烟";
 			}
 		}
 	}

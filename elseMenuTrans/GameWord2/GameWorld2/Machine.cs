@@ -10,11 +10,11 @@ namespace GameWorld2
 	// Token: 0x02000065 RID: 101
 	public class Machine : MimanTing
 	{
-		// Token: 0x060005FF RID: 1535 RVA: 0x0001C3CC File Offset: 0x0001A5CC
+		// Token: 0x060005FF RID: 1535
 		protected override void SetupCells()
 		{
 			base.SetupCells();
-			this.CELL_programName = base.EnsureCell<string>("masterProgramName", "MachineA");
+			this.CELL_programName = base.EnsureCell<string>("masterProgramName", "MachineA机器A");
 			this.CELL_goodsName = base.EnsureCell<string>("goodsName", "");
 		}
 
@@ -61,22 +61,22 @@ namespace GameWorld2
 		}
 
 		// Token: 0x17000153 RID: 339
-		// (get) Token: 0x06000605 RID: 1541 RVA: 0x0001C478 File Offset: 0x0001A678
+		// (get) Token: 0x06000605 RID: 1541
 		public override string verbDescription
 		{
 			get
 			{
-				return "inspect";
+				return "inspect检查";
 			}
 		}
 
 		// Token: 0x17000154 RID: 340
-		// (get) Token: 0x06000606 RID: 1542 RVA: 0x0001C480 File Offset: 0x0001A680
+		// (get) Token: 0x06000606 RID: 1542
 		public override string tooltipName
 		{
 			get
 			{
-				return "machine";
+				return "machine机器";
 			}
 		}
 
@@ -220,8 +220,8 @@ namespace GameWorld2
 			}
 		}
 
-		// Token: 0x06000612 RID: 1554 RVA: 0x0001C740 File Offset: 0x0001A940
-		[SprakAPI(new string[] { "Refine the mineral at a specific position, can accidentally mess up other parts of the mineral chain" })]
+		// Token: 0x06000612 RID: 1554
+		[SprakAPI(new string[] { "Refine the mineral at a specific position, can accidentally mess up other parts of the mineral chain在特殊的位置提炼矿物，可能意外破坏矿物链中其他部分" })]
 		public void API_Refine(float pos)
 		{
 			if (this.currentGoods == null)
@@ -245,8 +245,8 @@ namespace GameWorld2
 			this.masterProgram.sleepTimer = 2f;
 		}
 
-		// Token: 0x06000613 RID: 1555 RVA: 0x0001C7D4 File Offset: 0x0001A9D4
-		[SprakAPI(new string[] { "Get an overview of the minerals inside the goods" })]
+		// Token: 0x06000613 RID: 1555
+		[SprakAPI(new string[] { "Get an overview of the minerals inside the goods获得货物里的矿物概览" })]
 		public string API_Analyze()
 		{
 			if (this.currentGoods == null)
@@ -256,13 +256,13 @@ namespace GameWorld2
 			Goods goods = this.currentGoods as Goods;
 			if (goods == null)
 			{
-				return "Can only analyze goods";
+				return "Can only analyze goods只能统计货物";
 			}
 			return goods.mineralsDisplayString;
 		}
 
-		// Token: 0x06000614 RID: 1556 RVA: 0x0001C810 File Offset: 0x0001AA10
-		[SprakAPI(new string[] { "Get an estimate of the purity of the goods" })]
+		// Token: 0x06000614 RID: 1556
+		[SprakAPI(new string[] { "Get an estimate of the purity of the goods估计货物的纯度" })]
 		public float API_Purity()
 		{
 			if (this.currentGoods == null)
@@ -277,18 +277,18 @@ namespace GameWorld2
 			return goods.GetPureness();
 		}
 
-		// Token: 0x06000615 RID: 1557 RVA: 0x0001C84C File Offset: 0x0001AA4C
-		[SprakAPI(new string[] { "Convert the goods into an object" })]
+		// Token: 0x06000615 RID: 1557
+		[SprakAPI(new string[] { "Convert the goods into an object将货物转化为物品" })]
 		public string API_Convert()
 		{
 			if (this.currentGoods == null)
 			{
-				return "No goods to process";
+				return "No goods to process没有货物来处理";
 			}
 			Goods goods = this.currentGoods as Goods;
 			if (goods == null)
 			{
-				return "Can only convert goods";
+				return "Can only convert goods只能转化货物";
 			}
 			this.RunBlock();
 			float pureness = goods.GetPureness();
@@ -302,29 +302,29 @@ namespace GameWorld2
 			this.masterProgram.sleepTimer = 2f;
 			if (pureness > 0.9f)
 			{
-				Hackdev hackdev = this._tingRunner.CreateTing<Hackdev>("Modifier" + this._worldSettings.tickNr, base.position, base.direction, "SmallHackdev");
+				Hackdev hackdev = this._tingRunner.CreateTing<Hackdev>("Modifier" + this._worldSettings.tickNr.ToString(), base.position, base.direction, "SmallHackdev");
 				this.currentGoods = hackdev;
 				return hackdev.name;
 			}
 			if (pureness > 0.7f)
 			{
-				MysticalCube mysticalCube = this._tingRunner.CreateTing<MysticalCube>("MysticalCube" + this._worldSettings.tickNr, base.position, base.direction, "MysticalCube");
+				MysticalCube mysticalCube = this._tingRunner.CreateTing<MysticalCube>("MysticalCube" + this._worldSettings.tickNr.ToString(), base.position, base.direction, "MysticalCube");
 				this.currentGoods = mysticalCube;
 				return mysticalCube.name;
 			}
 			if (pureness > 0.5f)
 			{
-				Key key = this._tingRunner.CreateTing<Key>("Key" + this._worldSettings.tickNr, base.position, base.direction, "Old_Key");
+				Key key = this._tingRunner.CreateTing<Key>("Key" + this._worldSettings.tickNr.ToString(), base.position, base.direction, "Old_Key");
 				this.currentGoods = key;
 				return key.name;
 			}
 			if (pureness > 0.25f)
 			{
-				Floppy floppy = this._tingRunner.CreateTing<Floppy>("Floppy" + this._worldSettings.tickNr, base.position, base.direction, "Diskette_Diskette" + Randomizer.GetIntValue(1, 10));
+				Floppy floppy = this._tingRunner.CreateTing<Floppy>("Floppy" + this._worldSettings.tickNr.ToString(), base.position, base.direction, "Diskette_Diskette" + Randomizer.GetIntValue(1, 10).ToString());
 				this.currentGoods = floppy;
 				return floppy.name;
 			}
-			Screwdriver screwdriver = this._tingRunner.CreateTing<Screwdriver>("Screwdriver" + this._worldSettings.tickNr, base.position, base.direction, "Screwdriver_Screwdriver");
+			Screwdriver screwdriver = this._tingRunner.CreateTing<Screwdriver>("Screwdriver" + this._worldSettings.tickNr.ToString(), base.position, base.direction, "Screwdriver_Screwdriver");
 			this.currentGoods = screwdriver;
 			return screwdriver.name;
 		}

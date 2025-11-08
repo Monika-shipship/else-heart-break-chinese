@@ -102,7 +102,7 @@ namespace GameWorld2
 				{
 					return base.name;
 				}
-				return "person";
+				return "person人";
 			}
 		}
 
@@ -114,9 +114,9 @@ namespace GameWorld2
 			{
 				if (this.sleeping)
 				{
-					return "can't talk to sleeping";
+					return "can't talk to sleeping不能和睡觉的人交谈";
 				}
-				return "talk to";
+				return "talk to交谈";
 			}
 		}
 
@@ -190,7 +190,7 @@ namespace GameWorld2
 			{
 				if (this.isAvatar)
 				{
-					this._worldSettings.Notify(base.name, base.name + " is busy!");
+					this._worldSettings.Notify(base.name, base.name + " is busy!正忙！");
 					return;
 				}
 				D.Log(string.Concat(new object[] { base.name, " is trying to interact with ", pTingToInteractWith, " but she/he is busy." }));
@@ -215,7 +215,7 @@ namespace GameWorld2
 					}
 					else
 					{
-						this._worldSettings.Notify(base.name, "It is empty!");
+						this._worldSettings.Notify(base.name, "It is empty!它是空的！");
 					}
 				}
 				else if (pTingToInteractWith is Snus)
@@ -226,7 +226,7 @@ namespace GameWorld2
 					}
 					else
 					{
-						this._worldSettings.Notify(base.name, "No snus left!");
+						this._worldSettings.Notify(base.name, "No snus left!没有鼻烟了！");
 					}
 				}
 				else if (pTingToInteractWith is Cigarette)
@@ -237,7 +237,7 @@ namespace GameWorld2
 					}
 					else
 					{
-						this._worldSettings.Notify(base.name, "It's all used up!");
+						this._worldSettings.Notify(base.name, "It's all used up!已经用完了！");
 					}
 				}
 				else if (pTingToInteractWith is Drug)
@@ -295,7 +295,7 @@ namespace GameWorld2
 					Character character = pTingToInteractWith as Character;
 					if (this.isAvatar && character.sleeping)
 					{
-						this._worldSettings.Notify(base.name, "The person is sleeping");
+						this._worldSettings.Notify(base.name, "The person is sleeping这个人正在睡觉");
 					}
 					else
 					{
@@ -337,7 +337,7 @@ namespace GameWorld2
 					}
 					if (door.targetDoor == null)
 					{
-						this._worldSettings.Notify(base.name, "The door is broken");
+						this._worldSettings.Notify(base.name, "The door is broken门坏了");
 						base.StopAction();
 						return;
 					}
@@ -346,7 +346,7 @@ namespace GameWorld2
 						Character[] tingsOfTypeInRoom = this._tingRunner.GetTingsOfTypeInRoom<Character>(door.targetDoor.room.name);
 						if (tingsOfTypeInRoom.Length > 0 && door.elevatorFloor != door.targetDoor.elevatorFloor)
 						{
-							this._worldSettings.Notify(base.name, "The elevator is in use");
+							this._worldSettings.Notify(base.name, "The elevator is in use电梯正在使用中");
 							base.StopAction();
 							return;
 						}
@@ -557,7 +557,7 @@ namespace GameWorld2
 			}
 			else if (base.actionName == "LockedDoor")
 			{
-				this._worldSettings.Notify(base.name, "The door is locked");
+				this._worldSettings.Notify(base.name, "The door is locked门锁了");
 				D.isNull(pOtherTing, "pOtherTing is null");
 				this._dialogueRunner.EventHappened(base.name + "_yank_" + pOtherTing.name);
 			}
@@ -572,7 +572,7 @@ namespace GameWorld2
 				}
 				else
 				{
-					this._worldSettings.Notify(base.name, "Door was just locked");
+					this._worldSettings.Notify(base.name, "Door was just locked门刚锁上");
 				}
 			}
 			else if (base.actionName == "WalkingThroughDoor")
@@ -919,14 +919,14 @@ namespace GameWorld2
 				Ting[] inventoryItems = character3.inventoryItems;
 				if (inventoryItems.Length == 0)
 				{
-					this._worldSettings.Notify(base.name, "Nothing to steal");
+					this._worldSettings.Notify(base.name, "Nothing to steal没什么可偷的");
 				}
 				else
 				{
 					Ting ting = Randomizer.RandNth<Ting>(inventoryItems);
 					this.MoveHandItemToInventory();
 					this.SetHandItem(ting as MimanTing);
-					this._worldSettings.Notify(base.name, "You stole: " + ting.tooltipName);
+					this._worldSettings.Notify(base.name, "You stole你偷到了: " + ting.tooltipName);
 				}
 			}
 		}
@@ -1076,11 +1076,11 @@ namespace GameWorld2
 				bool isDaytime = this._worldSettings.gameTimeClock.isDaytime;
 				if (this.isAvatar && !flag)
 				{
-					this._worldSettings.Notify(base.name, "Not feeling tired enough to sleep");
+					this._worldSettings.Notify(base.name, "Not feeling tired enough to sleep还不太困，睡不着");
 				}
 				else if (this.isAvatar && isDaytime && this.sleepiness < 80f)
 				{
-					this._worldSettings.Notify(base.name, "It's too bright to sleep");
+					this._worldSettings.Notify(base.name, "It's too bright to sleep太亮了，睡不着");
 				}
 				else
 				{
@@ -1164,7 +1164,7 @@ namespace GameWorld2
 			}
 			else
 			{
-				this._worldSettings.Notify(base.name, "Can't put current hand item into bag");
+				this._worldSettings.Notify(base.name, "Can't put current hand item into bag无法将当前物品放入背包");
 			}
 		}
 
@@ -1173,7 +1173,7 @@ namespace GameWorld2
 		{
 			if (this.isAvatar && this.busy)
 			{
-				this._worldSettings.Notify(base.name, base.name + " is busy!");
+				this._worldSettings.Notify(base.name, base.name + " is busy!正忙！");
 				return;
 			}
 			if (this.handItem == null)
@@ -1185,7 +1185,7 @@ namespace GameWorld2
 			PointTileNode tile = base.room.GetTile(worldCoordinate.localPosition);
 			if (tile == null || tile.HasOccupants())
 			{
-				this._worldSettings.Notify(base.name, "Can't put " + this.handItem.name + " there");
+				this._worldSettings.Notify(base.name, "Can't put 不能把 " + this.handItem.name + " there放在那里");
 				return;
 			}
 			base.StartAction("Dropping", this.handItem, 1f, 1.5f);
@@ -1196,7 +1196,7 @@ namespace GameWorld2
 		{
 			if (this.isAvatar && this.busy)
 			{
-				this._worldSettings.Notify(base.name, base.name + " is busy!");
+				this._worldSettings.Notify(base.name, base.name + " is busy!正忙！");
 				return;
 			}
 			if (this.handItem == null)
@@ -1219,7 +1219,7 @@ namespace GameWorld2
 		{
 			if (this.isAvatar && this.busy)
 			{
-				this._worldSettings.Notify(base.name, base.name + " is busy so can't put hand item into inventory!");
+				this._worldSettings.Notify(base.name, base.name + " is busy so can't put hand item into inventory!正忙，无法将物品放入背包!");
 				return;
 			}
 			if (this.isAvatar && this.inventoryIsFull)
@@ -1263,7 +1263,7 @@ namespace GameWorld2
 				if (this.isAvatar && !conversationTarget.waitForGift)
 				{
 					D.Log(string.Concat(new object[] { base.name, " can't give item to ", conversationTarget, ", won't accept gift." }));
-					this._worldSettings.Notify(base.name, "Person won't accept gift.");
+					this._worldSettings.Notify(base.name, "Person won't accept gift.对方不接受礼物");
 				}
 				else
 				{
@@ -1384,7 +1384,7 @@ namespace GameWorld2
 			pHackableTing.PrepareForBeingHacked();
 			if (pHackableTing == this.hackdev)
 			{
-				this._worldSettings.Notify(base.name, "Modifier can't modify itself");
+				this._worldSettings.Notify(base.name, "Modifier can't modify itself修改器不能修改它自己");
 			}
 			else if (pHackableTing.programs.Length > 0)
 			{
@@ -1398,7 +1398,7 @@ namespace GameWorld2
 					else
 					{
 						D.Log("Hacking not allowed with current device for character " + this.name);
-						this._worldSettings.Notify(this.name, "Not allowed with current device");
+						this._worldSettings.Notify(this.name, "Not allowed with current device 当前设备不允许此操作");
 						this.StopAction();
 					}
 				});
@@ -1415,12 +1415,12 @@ namespace GameWorld2
 				}
 				else
 				{
-					this._worldSettings.Notify(base.name, "No Allow-function in " + this.hackdev.name);
+					this._worldSettings.Notify(base.name, "No Allow-function in 缺少Allow函数于 " + this.hackdev.name);
 				}
 			}
 			else
 			{
-				this._worldSettings.Notify(base.name, "No programs to hack in " + pHackableTing.name);
+				this._worldSettings.Notify(base.name, "No programs to hack in 没有可骇入的程序，在 " + pHackableTing.name);
 				base.StopAction();
 			}
 		}
@@ -1485,7 +1485,7 @@ namespace GameWorld2
 				Door door = pOtherTing as Door;
 				if (door.isBusy)
 				{
-					this._worldSettings.Notify(base.name, "Door in use, will wait in line");
+					this._worldSettings.Notify(base.name, "Door in use, will wait in line 门正在使用，请排队");
 					this.rememberToUseDoorAfterWaitingPolitely = door;
 					this.WalkTo(new WorldCoordinate(base.room.name, door.waitingPoint));
 					return;
@@ -2841,7 +2841,7 @@ namespace GameWorld2
 		public Door rememberToUseDoorAfterWaitingPolitely;
 
 		// Token: 0x0400004D RID: 77
-		private static string[] buySentences = new string[] { "Hej, kan jag få köpa något?", "Det vanliga tack", "Tjena!", "Jag tar en", "En till om jag får be" };
+		private static string[] buySentences = new string[] { "Hej, kan jag få köpa något?你好，我能买点东西吗?", "Det vanliga tack老样子，谢谢", "Tjena!嘿！", "Jag tar en我来一个", "En till om jag får be可以的话，再来一个" };
 
 		// Token: 0x0400004E RID: 78
 		private static int buySentenceCounter = Randomizer.GetIntValue(0, 100);
@@ -2850,7 +2850,7 @@ namespace GameWorld2
 		private static List<string> canBeBotheredWhen = new List<string> { "", "Walking", "GettingUpFromSeat" };
 
 		// Token: 0x04000050 RID: 80
-		private static List<string> noTimeToTalkLines = new List<string> { "Ursäkta, jag har inte tid att prata nu", "Kan vi ta det lite senare?", "Va? Vi kan ta det imorgon kanske?", "Nej, jag vill inte prata just nu", "?!", "Jag hinner inte nu", "Oj, jag har inte tid att snacka nu", "Huh?" };
+		private static List<string> noTimeToTalkLines = new List<string> { "Ursäkta, jag har inte tid att prata nu抱歉，我现在没时间说话", "Kan vi ta det lite senare?我们能待会儿再说吗？", "Va? Vi kan ta det imorgon kanske?啥？也许明天再说？", "Nej, jag vill inte prata just nu不，我现在不想说话", "?!", "Jag hinner inte nu我现在没空", "Oj, jag har inte tid att snacka nu哎呀，我现在没时间聊天", "Huh?哈？" };
 
 		// Token: 0x02000008 RID: 8
 		public enum WalkMode

@@ -14,7 +14,7 @@ namespace GameWorld2
 		{
 			base.SetupCells();
 			this.CELL_ammount = base.EnsureCell<float>("ammount", 100f);
-			this.CELL_liquidType = base.EnsureCell<string>("liquidType", "beer");
+			this.CELL_liquidType = base.EnsureCell<string>("liquidType", "beer啤酒");
 			this.CELL_programName = base.EnsureCell<string>("masterProgramName", "FolkBeer");
 		}
 
@@ -74,7 +74,7 @@ namespace GameWorld2
 		{
 			get
 			{
-				return this.liquidType + ((this.amount > 0f) ? (" (" + this.amount + "%)") : " (empty)");
+				return this.liquidType + ((this.amount > 0f) ? (" (" + this.amount + "%)") : " (empty空)");
 			}
 		}
 
@@ -84,7 +84,7 @@ namespace GameWorld2
 		{
 			get
 			{
-				return "drink";
+				return "drink喝";
 			}
 		}
 
@@ -100,37 +100,37 @@ namespace GameWorld2
 			if (base.name.ToLower().Contains("coffee") || base.name.ToLower().Contains("cup"))
 			{
 				this.masterProgramName = "Coffee";
-				this.liquidType = "coffee";
+				this.liquidType = "coffee咖啡";
 			}
 			else if (base.name.ToLower().Contains("soda"))
 			{
 				this.masterProgramName = "WellspringSoda";
-				this.liquidType = "Wellspring soda";
+				this.liquidType = "Wellspring soda汽水";
 			}
 			else if (base.name.ToLower().Contains("cola") || base.name.ToLower().Contains("coke"))
 			{
 				this.masterProgramName = "WellspringSoda";
-				this.liquidType = "cola";
+				this.liquidType = "cola可乐";
 			}
 			else if (base.name.ToLower().Contains("beer"))
 			{
 				this.masterProgramName = "FolkBeer";
-				this.liquidType = "beer";
+				this.liquidType = "beer啤酒";
 			}
 			else if (base.name.ToLower().Contains("booze"))
 			{
 				this.masterProgramName = "AlcoholicDrink";
-				this.liquidType = "booze";
+				this.liquidType = "booze 烈酒";
 			}
 			else if (base.name.ToLower().Contains("margherita") || base.name.ToLower().Contains("longisland") || base.name.ToLower().Contains("bloodymary") || base.name.ToLower().Contains("drymartini"))
 			{
 				this.masterProgramName = "AlcoholicDrink";
-				this.liquidType = "drink";
+				this.liquidType = "drink鸡尾酒";
 			}
 			else if (base.name.ToLower().Contains("water") || base.name.ToLower().Contains("glass"))
 			{
 				this.masterProgramName = "Water";
-				this.liquidType = "water";
+				this.liquidType = "water水";
 			}
 		}
 
@@ -148,8 +148,8 @@ namespace GameWorld2
 			return d;
 		}
 
-		// Token: 0x06000119 RID: 281 RVA: 0x00007FE4 File Offset: 0x000061E4
-		[SprakAPI(new string[] { "Change the speed of the drinker", "amount" })]
+		// Token: 0x06000119 RID: 281
+		[SprakAPI(new string[] { "Change the speed of the drinker改变饮用者的速度", "amount数量" })]
 		public void API_Speed(float d)
 		{
 			if (this._drinker == null)
@@ -169,8 +169,8 @@ namespace GameWorld2
 			this.amount -= Math.Abs(num);
 		}
 
-		// Token: 0x0600011A RID: 282 RVA: 0x00008080 File Offset: 0x00006280
-		[SprakAPI(new string[] { "Change the charisma of the drinker", "amount" })]
+		// Token: 0x0600011A RID: 282
+		[SprakAPI(new string[] { "Change the charisma of the drinker改变饮用者的魅力", "amount数量" })]
 		public void API_Charisma(float d)
 		{
 			if (this._drinker == null)
@@ -182,8 +182,8 @@ namespace GameWorld2
 			this.amount -= Math.Abs(num);
 		}
 
-		// Token: 0x0600011B RID: 283 RVA: 0x000080C8 File Offset: 0x000062C8
-		[SprakAPI(new string[] { "Change the smelliness of the drinker", "amount" })]
+		// Token: 0x0600011B RID: 283
+		[SprakAPI(new string[] { "Change the smelliness of the drinker改变饮用者的体味", "amount" })]
 		public void API_Smelliness(float d)
 		{
 			if (this._drinker == null)
@@ -195,8 +195,8 @@ namespace GameWorld2
 			this.amount -= Math.Abs(num);
 		}
 
-		// Token: 0x0600011C RID: 284 RVA: 0x00008110 File Offset: 0x00006310
-		[SprakAPI(new string[] { "Change the sleepiness of the drinker", "amount" })]
+		// Token: 0x0600011C RID: 284
+		[SprakAPI(new string[] { "Change the sleepiness of the drinker改变饮用者的困倦度", "amount" })]
 		public void API_Sleepiness(float d)
 		{
 			if (this._drinker == null)
@@ -208,8 +208,8 @@ namespace GameWorld2
 			this.amount -= Math.Abs(num);
 		}
 
-		// Token: 0x0600011D RID: 285 RVA: 0x00008158 File Offset: 0x00006358
-		[SprakAPI(new string[] { "Change the drunkenness of the drinker", "amount" })]
+		// Token: 0x0600011D RID: 285
+		[SprakAPI(new string[] { "Change the drunkenness of the drinker改变饮用者的醉酒度", "amount" })]
 		public void API_Drunkenness(float d)
 		{
 			if (this._drinker == null)
@@ -221,8 +221,8 @@ namespace GameWorld2
 			this.amount -= Math.Abs(num);
 		}
 
-		// Token: 0x0600011E RID: 286 RVA: 0x000081A0 File Offset: 0x000063A0
-		[SprakAPI(new string[] { "Just lower the amount of liquid", "x" })]
+		// Token: 0x0600011E RID: 286
+		[SprakAPI(new string[] { "Just lower the amount of liquid仅减少液体量", "x" })]
 		public void API_Drink(float d)
 		{
 			if (this._drinker == null)
@@ -232,8 +232,8 @@ namespace GameWorld2
 			this.amount -= Math.Max(0f, d);
 		}
 
-		// Token: 0x0600011F RID: 287 RVA: 0x000081D4 File Offset: 0x000063D4
-		[SprakAPI(new string[] { "Undocumented effect", "amount" })]
+		// Token: 0x0600011F RID: 287
+		[SprakAPI(new string[] { "Undocumented effect未记录的效果", "amount" })]
 		public void API_Corruption(float d)
 		{
 			if (this._drinker == null)
@@ -245,8 +245,8 @@ namespace GameWorld2
 			this.amount -= Math.Abs(num);
 		}
 
-		// Token: 0x06000120 RID: 288 RVA: 0x0000821C File Offset: 0x0000641C
-		[SprakAPI(new string[] { "Test if the drinker has a certain name" })]
+		// Token: 0x06000120 RID: 288
+		[SprakAPI(new string[] { "Test if the drinker has a certain name测试饮用者是否为特定名称" })]
 		public bool API_IsUser(string name)
 		{
 			if (this._drinker != null)
@@ -256,8 +256,8 @@ namespace GameWorld2
 			return name == "";
 		}
 
-		// Token: 0x06000121 RID: 289 RVA: 0x0000825C File Offset: 0x0000645C
-		[SprakAPI(new string[] { "Get the name of the drinker" })]
+		// Token: 0x06000121 RID: 289
+		[SprakAPI(new string[] { "Get the name of the drinker获取饮用者的名称" })]
 		public string API_GetUser()
 		{
 			if (this._drinker != null)
@@ -267,15 +267,15 @@ namespace GameWorld2
 			return "";
 		}
 
-		// Token: 0x06000122 RID: 290 RVA: 0x0000827C File Offset: 0x0000647C
-		[SprakAPI(new string[] { "Get the room of the drink" })]
+		// Token: 0x06000122 RID: 290
+		[SprakAPI(new string[] { "Get the room of the drink获取饮料所在的房间" })]
 		public string API_GetRoom()
 		{
 			return base.room.name;
 		}
 
-		// Token: 0x06000123 RID: 291 RVA: 0x0000828C File Offset: 0x0000648C
-		[SprakAPI(new string[] { "Say something" })]
+		// Token: 0x06000123 RID: 291
+		[SprakAPI(new string[] { "Say something说点什么" })]
 		public void API_Say(string something)
 		{
 			this.Say(something, "");

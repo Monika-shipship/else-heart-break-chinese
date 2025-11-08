@@ -13,7 +13,7 @@ namespace GameWorld2
 			this._computer = pComputer;
 		}
 
-		// Token: 0x06000552 RID: 1362 RVA: 0x00019EC4 File Offset: 0x000180C4
+		// Token: 0x06000552 RID: 1362
 		private Door GetElevatorDoor()
 		{
 			foreach (MimanTing ting in this._computer.connectedTings)
@@ -23,19 +23,18 @@ namespace GameWorld2
 					return ting as Door;
 				}
 			}
-			throw new Error("Can't access elevator door");
+			throw new Error("Can't access elevator door无法访问电梯门");
 		}
 
-		// Token: 0x06000553 RID: 1363 RVA: 0x00019F14 File Offset: 0x00018114
-		[SprakAPI(new string[] { "Move the elevator to another floor", "the floor nr" })]
+		// Token: 0x06000553 RID: 1363
+		[SprakAPI(new string[] { "Move the elevator to another floor移动电梯到另一楼层", "the floor nr楼层号" })]
 		public void API_GotoFloor(float floorNr)
 		{
-			Door elevatorDoor = this.GetElevatorDoor();
-			elevatorDoor.elevatorFloor = (int)floorNr;
+			this.GetElevatorDoor().elevatorFloor = (int)floorNr;
 		}
 
-		// Token: 0x06000554 RID: 1364 RVA: 0x00019F30 File Offset: 0x00018130
-		[SprakAPI(new string[] { "Get current floor nr" })]
+		// Token: 0x06000554 RID: 1364
+		[SprakAPI(new string[] { "Get current floor nr获取当前楼层号" })]
 		public float API_GetFloor()
 		{
 			return (float)this.GetElevatorDoor().elevatorFloor;

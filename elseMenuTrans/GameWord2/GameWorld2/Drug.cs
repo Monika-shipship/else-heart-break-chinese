@@ -10,12 +10,12 @@ namespace GameWorld2
 	// Token: 0x0200002C RID: 44
 	public class Drug : MimanTing
 	{
-		// Token: 0x060003E2 RID: 994 RVA: 0x00013D60 File Offset: 0x00011F60
+		// Token: 0x060003E2 RID: 994
 		protected override void SetupCells()
 		{
 			base.SetupCells();
 			this.CELL_programName = base.EnsureCell<string>("masterProgramName", "Citnap");
-			this.CELL_drugType = base.EnsureCell<string>("drugType", "drug");
+			this.CELL_drugType = base.EnsureCell<string>("drugType", "drug药物");
 			this.CELL_charges = base.EnsureCell<int>("charges", 1);
 		}
 
@@ -25,35 +25,39 @@ namespace GameWorld2
 			return this._program != null;
 		}
 
-		// Token: 0x060003E4 RID: 996 RVA: 0x00013DC4 File Offset: 0x00011FC4
+		// Token: 0x060003E4 RID: 996
 		public override void FixBeforeSaving()
 		{
 			if (base.name.ToLower().Contains("bun"))
 			{
 				this.masterProgramName = "Bun";
-				this.drugType = "Bun";
+				this.drugType = "Bun面包";
+				return;
 			}
-			else if (base.name.ToLower().Contains("baguette"))
+			if (base.name.ToLower().Contains("baguette"))
 			{
 				this.masterProgramName = "Baguette";
-				this.drugType = "baguette";
+				this.drugType = "baguette法棍";
+				return;
 			}
-			else if (base.name.ToLower().Contains("cig"))
+			if (base.name.ToLower().Contains("cig"))
 			{
 				this.masterProgramName = "Cigarette";
-				this.drugType = "cigarette";
+				this.drugType = "cigarette香烟";
 				this.charges = 4;
+				return;
 			}
-			else if (base.name.ToLower().Contains("snus"))
+			if (base.name.ToLower().Contains("snus"))
 			{
 				this.masterProgramName = "Snus";
-				this.drugType = "snus";
+				this.drugType = "snus鼻烟";
 				this.charges = Randomizer.GetIntValue(6, 10);
+				return;
 			}
-			else if (base.name.ToLower().Contains("slip"))
+			if (base.name.ToLower().Contains("slip"))
 			{
 				this.masterProgramName = "Citnap";
-				this.drugType = "drug";
+				this.drugType = "drug药物";
 			}
 		}
 
@@ -78,12 +82,12 @@ namespace GameWorld2
 		}
 
 		// Token: 0x170000F6 RID: 246
-		// (get) Token: 0x060003E7 RID: 999 RVA: 0x00013EF8 File Offset: 0x000120F8
+		// (get) Token: 0x060003E7 RID: 999
 		public override string verbDescription
 		{
 			get
 			{
-				return "eat";
+				return "eat食用";
 			}
 		}
 
@@ -119,8 +123,8 @@ namespace GameWorld2
 			}
 		}
 
-		// Token: 0x060003EC RID: 1004 RVA: 0x00013F40 File Offset: 0x00012140
-		[SprakAPI(new string[] { "Trippy" })]
+		// Token: 0x060003EC RID: 1004
+		[SprakAPI(new string[] { "Trippy迷幻" })]
 		public void API_Trippy()
 		{
 			if (this._user == null)
@@ -131,8 +135,8 @@ namespace GameWorld2
 			this._user.StartAction(Drug.trippyAnims[Randomizer.GetIntValue(0, Drug.trippyAnims.Length)], null, 9999f, 3f);
 		}
 
-		// Token: 0x060003ED RID: 1005 RVA: 0x00013F90 File Offset: 0x00012190
-		[SprakAPI(new string[] { "Turn left" })]
+		// Token: 0x060003ED RID: 1005
+		[SprakAPI(new string[] { "Turn left左转" })]
 		public void API_TurnLeft()
 		{
 			if (this._user == null)
@@ -142,8 +146,8 @@ namespace GameWorld2
 			this._user.TurnLeft();
 		}
 
-		// Token: 0x060003EE RID: 1006 RVA: 0x00013FAC File Offset: 0x000121AC
-		[SprakAPI(new string[] { "Turn right" })]
+		// Token: 0x060003EE RID: 1006
+		[SprakAPI(new string[] { "Turn right右转" })]
 		public void API_TurnRight()
 		{
 			if (this._user == null)
@@ -153,8 +157,8 @@ namespace GameWorld2
 			this._user.TurnRight();
 		}
 
-		// Token: 0x060003EF RID: 1007 RVA: 0x00013FC8 File Offset: 0x000121C8
-		[SprakAPI(new string[] { "Make time appear to go faster" })]
+		// Token: 0x060003EF RID: 1007
+		[SprakAPI(new string[] { "Make time appear to go faster让时间流逝得更快" })]
 		public void API_FastForward()
 		{
 			if (this._user == null)
@@ -164,23 +168,23 @@ namespace GameWorld2
 			this._dialogueRunner.EventHappened(this._user.name + "_TookFastForwardDrug");
 		}
 
-		// Token: 0x060003F0 RID: 1008 RVA: 0x00014004 File Offset: 0x00012204
-		[SprakAPI(new string[] { "Move forward one step" })]
+		// Token: 0x060003F0 RID: 1008
+		[SprakAPI(new string[] { "Move forward one step向前移动一步" })]
 		public void API_Move()
 		{
 			WorldCoordinate worldCoordinate = new WorldCoordinate(base.room.name, base.localPoint + IntPoint.DirectionToIntPoint(base.direction));
 			base.position = worldCoordinate;
 		}
 
-		// Token: 0x060003F1 RID: 1009 RVA: 0x00014040 File Offset: 0x00012240
-		[SprakAPI(new string[] { "Pause the master program", "number of seconds to pause for" })]
+		// Token: 0x060003F1 RID: 1009
+		[SprakAPI(new string[] { "Pause the master program暂停主程序", "number of seconds to pause for暂停的秒数" })]
 		public void API_Sleep(float seconds)
 		{
 			this.masterProgram.sleepTimer = seconds;
 		}
 
-		// Token: 0x060003F2 RID: 1010 RVA: 0x00014050 File Offset: 0x00012250
-		[SprakAPI(new string[] { "Get a quick energy boost" })]
+		// Token: 0x060003F2 RID: 1010
+		[SprakAPI(new string[] { "Get a quick energy boost快速获取能量" })]
 		public void API_QuickBoost()
 		{
 			this._user.sleepiness -= 10f;

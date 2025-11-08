@@ -73,22 +73,22 @@ namespace GameWorld2
 		}
 
 		// Token: 0x1700015D RID: 349
-		// (get) Token: 0x06000623 RID: 1571 RVA: 0x0001CC68 File Offset: 0x0001AE68
+		// (get) Token: 0x06000623 RID: 1571
 		public override string verbDescription
 		{
 			get
 			{
-				return "inspect";
+				return "inspect检查";
 			}
 		}
 
 		// Token: 0x1700015E RID: 350
-		// (get) Token: 0x06000624 RID: 1572 RVA: 0x0001CC70 File Offset: 0x0001AE70
+		// (get) Token: 0x06000624 RID: 1572
 		public override string tooltipName
 		{
 			get
 			{
-				return "goods";
+				return "goods货物";
 			}
 		}
 

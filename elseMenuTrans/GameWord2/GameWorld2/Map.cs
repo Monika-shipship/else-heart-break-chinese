@@ -23,22 +23,22 @@ namespace GameWorld2
 		}
 
 		// Token: 0x170001E6 RID: 486
-		// (get) Token: 0x06000786 RID: 1926 RVA: 0x0002109C File Offset: 0x0001F29C
+		// (get) Token: 0x06000786 RID: 1926
 		public override string tooltipName
 		{
 			get
 			{
-				return "map";
+				return "map地图";
 			}
 		}
 
 		// Token: 0x170001E7 RID: 487
-		// (get) Token: 0x06000787 RID: 1927 RVA: 0x000210A4 File Offset: 0x0001F2A4
+		// (get) Token: 0x06000787 RID: 1927
 		public override string verbDescription
 		{
 			get
 			{
-				return "look at [m]";
+				return "look at查看 [m]";
 			}
 		}
 

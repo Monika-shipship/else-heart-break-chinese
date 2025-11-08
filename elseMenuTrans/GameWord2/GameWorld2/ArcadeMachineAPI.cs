@@ -12,8 +12,8 @@ namespace GameWorld2
 			this._computer = pComputer;
 		}
 
-		// Token: 0x0600057B RID: 1403 RVA: 0x0001B08C File Offset: 0x0001928C
-		[SprakAPI(new string[] { "Is a key pressed? (left/right/down/up/space)" })]
+		// Token: 0x0600057B RID: 1403
+		[SprakAPI(new string[] { "Is a key pressed? (left/right/down/up/space)是否有按键按下？ (左/右/下/上/空格)" })]
 		public bool API_IsKeyPressed(string key)
 		{
 			if (this._computer.isKeyPressed == null)

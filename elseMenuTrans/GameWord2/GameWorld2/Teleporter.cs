@@ -36,8 +36,8 @@ namespace GameWorld2
 			this.Say(text, "");
 		}
 
-		// Token: 0x06000336 RID: 822 RVA: 0x0001258C File Offset: 0x0001078C
-		[SprakAPI(new string[] { "Get the coordinates of your current position" })]
+		// Token: 0x06000336 RID: 822
+		[SprakAPI(new string[] { "Get the coordinates of your current position获取你当前位置的坐标" })]
 		public string API_Position()
 		{
 			if (this._user != null)
@@ -50,48 +50,47 @@ namespace GameWorld2
 					this._user.localPoint.y
 				});
 			}
-			throw new Exception("User is null");
+			throw new Exception("User is null使用者不存在");
 		}
 
-		// Token: 0x06000337 RID: 823 RVA: 0x00012600 File Offset: 0x00010800
-		[SprakAPI(new string[] { "Teleport to another position in the same room. Returns an error message as a string.", "x", "y" })]
+		// Token: 0x06000337 RID: 823
+		[SprakAPI(new string[] { "Teleport to another position in the same room. Returns an error message as a string.传送到同一房间的另一位置。返回错误信息字符串", "x", "y" })]
 		public string API_Teleport(float x, float y)
 		{
 			if (!this.IsAllowedToTeleport(this._user as Character))
 			{
 				D.Log("Not allowed to teleport");
-				return "Not allowed";
+				return "Not allowed不允许";
 			}
 			WorldCoordinate worldCoordinate = new WorldCoordinate(this._user.room.name, (int)x, (int)y);
-			PointTileNode tile = this._user.room.GetTile(worldCoordinate.localPosition);
-			if (tile != null)
+			if (this._user.room.GetTile(worldCoordinate.localPosition) != null)
 			{
 				this._user.position = worldCoordinate;
-				return "Success";
+				return "Success成功";
 			}
-			return "Can't move there";
+			return "Can't move there不能移动到那里";
 		}
 
-		// Token: 0x06000338 RID: 824 RVA: 0x00012684 File Offset: 0x00010884
-		[SprakAPI(new string[] { "Teleport to another position anywhere in the world, returns status.", "room", "x", "y" })]
+		// Token: 0x06000338 RID: 824
+		[SprakAPI(new string[] { "Teleport to another position anywhere in the world, returns status.传送到世界任意位置，返回状态", "room房间", "x", "y" })]
 		public string API_SetWorldPosition(string room, float x, float y)
 		{
 			if (room.Contains("inventory") || room.Contains("locker"))
 			{
-				return "Can't teleport there";
+				return "Can't teleport there不能传送到那里";
 			}
 			if (!this.IsAllowedToTeleport(this._user as Character))
 			{
 				D.Log("Not allowed to set world position");
-				return "Not allowed";
+				return "Not allowed不允许";
 			}
 			if (this._roomRunner.HasRoom(room))
 			{
 				WorldCoordinate worldCoordinate = new WorldCoordinate(room, (int)x, (int)y);
 				this._user.position = worldCoordinate;
-				return "Success";
+				return "Success成功";
 			}
-			return "Can't find room '" + room + "'";
+			return "Can't find room无法找到房间 '" + room + "'";
 		}
 
 		// Token: 0x06000339 RID: 825 RVA: 0x0001271C File Offset: 0x0001091C
@@ -119,22 +118,22 @@ namespace GameWorld2
 		}
 
 		// Token: 0x170000C0 RID: 192
-		// (get) Token: 0x0600033C RID: 828 RVA: 0x0001276C File Offset: 0x0001096C
+		// (get) Token: 0x0600033C RID: 828
 		public override string verbDescription
 		{
 			get
 			{
-				return "press button";
+				return "press button按下按钮";
 			}
 		}
 
 		// Token: 0x170000C1 RID: 193
-		// (get) Token: 0x0600033D RID: 829 RVA: 0x00012774 File Offset: 0x00010974
+		// (get) Token: 0x0600033D RID: 829
 		public override string tooltipName
 		{
 			get
 			{
-				return "teleporting device";
+				return "teleporting device传送装置";
 			}
 		}
 

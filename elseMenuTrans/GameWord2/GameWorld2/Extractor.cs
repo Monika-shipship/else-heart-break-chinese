@@ -30,8 +30,8 @@ namespace GameWorld2
 			base.UpdateBubbleTimer();
 		}
 
-		// Token: 0x06000347 RID: 839 RVA: 0x00012870 File Offset: 0x00010A70
-		[SprakAPI(new string[] { "Get the name of the attached thing" })]
+		// Token: 0x06000347 RID: 839
+		[SprakAPI(new string[] { "Get the name of the attached thing获取所连接物品的名称" })]
 		public string API_GetName()
 		{
 			this.API_Sleep(Randomizer.GetValue(1f, 3f));
@@ -46,24 +46,24 @@ namespace GameWorld2
 			return this._target.name;
 		}
 
-		// Token: 0x06000348 RID: 840 RVA: 0x000128E0 File Offset: 0x00010AE0
-		[SprakAPI(new string[] { "Get the user defined label of the attached thing" })]
+		// Token: 0x06000348 RID: 840
+		[SprakAPI(new string[] { "Get the user defined label of the attached thing获取所连接物品的自定义标签" })]
 		public string API_GetLabel()
 		{
 			this.API_Sleep(Randomizer.GetValue(1f, 2f));
 			return this._target.userDefinedLabel;
 		}
 
-		// Token: 0x06000349 RID: 841 RVA: 0x00012910 File Offset: 0x00010B10
-		[SprakAPI(new string[] { "Set the user defined label of the attached thing" })]
+		// Token: 0x06000349 RID: 841
+		[SprakAPI(new string[] { "Set the user defined label of the attached thing设置所连接物品的自定义标签" })]
 		public void API_SetLabel(string label)
 		{
 			this.API_Sleep(Randomizer.GetValue(1f, 2f));
 			this._target.userDefinedLabel = label;
 		}
 
-		// Token: 0x0600034A RID: 842 RVA: 0x00012934 File Offset: 0x00010B34
-		[SprakAPI(new string[] { "Sleepiness of attached character" })]
+		// Token: 0x0600034A RID: 842
+		[SprakAPI(new string[] { "Sleepiness of attached character所连接角色的困倦度" })]
 		public float API_GetSleepiness()
 		{
 			this.API_Sleep(Randomizer.GetValue(1f, 3f));
@@ -71,11 +71,11 @@ namespace GameWorld2
 			{
 				return (this._target as Character).sleepiness;
 			}
-			throw new Error("Attached thing is not a Character");
+			throw new Error("Attached thing is not a Character所连接对象不是一个角色");
 		}
 
-		// Token: 0x0600034B RID: 843 RVA: 0x00012984 File Offset: 0x00010B84
-		[SprakAPI(new string[] { "Speed of attached character" })]
+		// Token: 0x0600034B RID: 843
+		[SprakAPI(new string[] { "Speed of attached character所连接角色的速度" })]
 		public float API_GetSpeed()
 		{
 			this.API_Sleep(Randomizer.GetValue(1f, 3f));
@@ -83,11 +83,11 @@ namespace GameWorld2
 			{
 				return (this._target as Character).walkSpeed;
 			}
-			throw new Error("Attached thing is not a Character");
+			throw new Error("Attached thing is not a Character所连接对象不是一个角色");
 		}
 
-		// Token: 0x0600034C RID: 844 RVA: 0x000129D4 File Offset: 0x00010BD4
-		[SprakAPI(new string[] { "Charisma of attached character" })]
+		// Token: 0x0600034C RID: 844
+		[SprakAPI(new string[] { "Charisma of attached character所连接角色的魅力值" })]
 		public float API_GetCharisma()
 		{
 			this.API_Sleep(Randomizer.GetValue(1f, 3f));
@@ -95,40 +95,38 @@ namespace GameWorld2
 			{
 				return (this._target as Character).charisma;
 			}
-			throw new Error("Attached thing is not a Character");
+			throw new Error("Attached thing is not a Character所连接对象不是一个角色");
 		}
 
-		// Token: 0x0600034D RID: 845 RVA: 0x00012A24 File Offset: 0x00010C24
-		[SprakAPI(new string[] { "Get the connections of the attached thing" })]
+		// Token: 0x0600034D RID: 845
+		[SprakAPI(new string[] { "Get the connections of the attached thing获取所连接物品的连接" })]
 		public object[] API_GetConnections()
 		{
 			this.API_Sleep(Randomizer.GetValue(2f, 3f));
 			return this._target.connectedTings.Select((MimanTing t) => t.name).ToArray<string>();
 		}
 
-		// Token: 0x0600034E RID: 846 RVA: 0x00012A78 File Offset: 0x00010C78
-		[SprakAPI(new string[] { "Say something", "text" })]
+		// Token: 0x0600034E RID: 846
+		[SprakAPI(new string[] { "Say something说点什么", "text文本" })]
 		public void API_Say(string text)
 		{
 			this.Say(text, "");
 		}
 
-		// Token: 0x0600034F RID: 847 RVA: 0x00012A88 File Offset: 0x00010C88
-		[SprakAPI(new string[] { "Copy a piece of text to the clipboard", "text" })]
+		// Token: 0x0600034F RID: 847
+		[SprakAPI(new string[] { "Copy a piece of text to the clipboard复制一段文本到剪贴板", "text" })]
 		public void API_CopyToClipboard(string text)
 		{
 			if (this._worldSettings.onCopyToClipboard != null)
 			{
 				this._worldSettings.onCopyToClipboard(text);
+				return;
 			}
-			else
-			{
-				D.Log("copyToClipboard is null");
-			}
+			D.Log("copyToClipboard is null");
 		}
 
-		// Token: 0x06000350 RID: 848 RVA: 0x00012AC8 File Offset: 0x00010CC8
-		[SprakAPI(new string[] { "Pause the master program", "number of seconds to pause for" })]
+		// Token: 0x06000350 RID: 848
+		[SprakAPI(new string[] { "Pause the master program暂停主程序", "number of seconds to pause for暂停的秒数" })]
 		public void API_Sleep(float seconds)
 		{
 			this.masterProgram.sleepTimer = seconds;
@@ -153,10 +151,10 @@ namespace GameWorld2
 			return true;
 		}
 
-		// Token: 0x06000354 RID: 852 RVA: 0x00012B08 File Offset: 0x00010D08
+		// Token: 0x06000354 RID: 852
 		public override string UseTingOnTingDescription(Ting pOtherTing)
 		{
-			return "Extract from " + pOtherTing.tooltipName;
+			return "Extract from 提取自" + pOtherTing.tooltipName;
 		}
 
 		// Token: 0x170000C4 RID: 196
@@ -170,22 +168,22 @@ namespace GameWorld2
 		}
 
 		// Token: 0x170000C5 RID: 197
-		// (get) Token: 0x06000356 RID: 854 RVA: 0x00012B20 File Offset: 0x00010D20
+		// (get) Token: 0x06000356 RID: 854
 		public override string verbDescription
 		{
 			get
 			{
-				return "reset";
+				return "reset重置";
 			}
 		}
 
 		// Token: 0x170000C6 RID: 198
-		// (get) Token: 0x06000357 RID: 855 RVA: 0x00012B28 File Offset: 0x00010D28
+		// (get) Token: 0x06000357 RID: 855
 		public override string tooltipName
 		{
 			get
 			{
-				return "extractor";
+				return "extractor提取器";
 			}
 		}
 

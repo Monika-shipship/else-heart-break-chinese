@@ -117,52 +117,52 @@ namespace GameWorld2
 			base.StartAction("Opening", null, 2f, 2f);
 		}
 
-		// Token: 0x06000148 RID: 328 RVA: 0x0000898C File Offset: 0x00006B8C
-		[SprakAPI(new string[] { "Lock the door, returns success/fail", "The security code" })]
+		// Token: 0x06000148 RID: 328
+		[SprakAPI(new string[] { "Lock the door, returns success/fail锁门，返回成功/失败", "The security code安全代码" })]
 		public bool API_Lock(float code)
 		{
 			return this.Lock(code);
 		}
 
-		// Token: 0x06000149 RID: 329 RVA: 0x00008998 File Offset: 0x00006B98
-		[SprakAPI(new string[] { "Unlock the door, returns success/fail", "The security code" })]
+		// Token: 0x06000149 RID: 329
+		[SprakAPI(new string[] { "Unlock the door, returns success/fail解锁，返回成功/失败", "The security code安全代码" })]
 		public bool API_Unlock(float code)
 		{
 			return this.Unlock(code);
 		}
 
-		// Token: 0x0600014A RID: 330 RVA: 0x000089A4 File Offset: 0x00006BA4
+		// Token: 0x0600014A RID: 330
 		public bool Lock(float pCode)
 		{
 			if ((int)pCode == this.code)
 			{
 				this.isLocked = true;
 				this.SyncLockOnTargetDoor();
-				D.Log(base.name + " was locked with code " + pCode);
-				this.Say("Locked!", "");
+				D.Log(base.name + " was locked with code " + pCode.ToString());
+				this.Say("Locked!已上锁！", "");
 				base.PlaySound("DoorLock");
 				base.audioLoop = false;
 				return true;
 			}
-			D.Log(base.name + " FAILED to be locked with code " + pCode);
-			this.Say("Key is not working, invalid code: " + pCode, "");
+			D.Log(base.name + " FAILED to be locked with code " + pCode.ToString());
+			this.Say("Key is not working, invalid code:钥匙无效，错误代码: " + pCode.ToString(), "");
 			return false;
 		}
 
-		// Token: 0x0600014B RID: 331 RVA: 0x00008A44 File Offset: 0x00006C44
+		// Token: 0x0600014B RID: 331
 		public bool Unlock(float pCode)
 		{
 			if ((int)pCode == this.code || this.code == 0)
 			{
 				this.isLocked = false;
 				this.SyncLockOnTargetDoor();
-				this.Say("Unlocked!", "");
+				this.Say("Unlocked!已解锁！", "");
 				base.PlaySound("DoorUnlock");
 				base.audioLoop = false;
 				return true;
 			}
-			D.Log(base.name + " FAILED to be unlocked with code " + pCode);
-			this.Say("Key is not working, invalid code: " + pCode, "");
+			D.Log(base.name + " FAILED to be unlocked with code " + pCode.ToString());
+			this.Say("Key is not working, invalid code:钥匙无效，错误代码: " + pCode.ToString(), "");
 			return false;
 		}
 
@@ -193,8 +193,8 @@ namespace GameWorld2
 			this.masterProgram.Start();
 		}
 
-		// Token: 0x0600014E RID: 334 RVA: 0x00008B60 File Offset: 0x00006D60
-		[SprakAPI(new string[] { "Walk out through another door" })]
+		// Token: 0x0600014E RID: 334
+		[SprakAPI(new string[] { "Walk out through another door穿过并从另一扇门出去" })]
 		public void API_Goto(string doorName)
 		{
 			if (this._user == null)
@@ -224,7 +224,7 @@ namespace GameWorld2
 				}
 				return;
 			}
-			throw new Error("Can't find door with name " + doorName);
+			throw new Error("Can't find door with name不能找到名称为 " + doorName + "的门");
 		}
 
 		// Token: 0x0600014F RID: 335 RVA: 0x00008CA8 File Offset: 0x00006EA8
@@ -253,8 +253,8 @@ namespace GameWorld2
 			}
 		}
 
-		// Token: 0x06000150 RID: 336 RVA: 0x00008D84 File Offset: 0x00006F84
-		[SprakAPI(new string[] { "Get the name of the person using the door" })]
+		// Token: 0x06000150 RID: 336
+		[SprakAPI(new string[] { "Get the name of the person using the door获取正在使用门的人的名称" })]
 		public string API_GetUser()
 		{
 			if (this._user != null)
@@ -264,8 +264,8 @@ namespace GameWorld2
 			return "";
 		}
 
-		// Token: 0x06000151 RID: 337 RVA: 0x00008DA4 File Offset: 0x00006FA4
-		[SprakAPI(new string[] { "Stop the person to walk through the door" })]
+		// Token: 0x06000151 RID: 337
+		[SprakAPI(new string[] { "Stop the person to walk through the door阻止人穿过这扇门" })]
 		public void API_StopUser()
 		{
 			if (this._user != null)
@@ -275,15 +275,15 @@ namespace GameWorld2
 			}
 		}
 
-		// Token: 0x06000152 RID: 338 RVA: 0x00008DC8 File Offset: 0x00006FC8
-		[SprakAPI(new string[] { "Say something" })]
+		// Token: 0x06000152 RID: 338
+		[SprakAPI(new string[] { "Say something说点什么" })]
 		public void API_Say(string message)
 		{
 			this.Say(message, "");
 		}
 
-		// Token: 0x06000153 RID: 339 RVA: 0x00008DD8 File Offset: 0x00006FD8
-		[SprakAPI(new string[] { "Pause the master program", "number of seconds to pause for" })]
+		// Token: 0x06000153 RID: 339
+		[SprakAPI(new string[] { "Pause the master program暂停主程序", "number of seconds to pause for暂停的秒数" })]
 		public void API_Sleep(float seconds)
 		{
 			this.masterProgram.sleepTimer = seconds;
@@ -474,7 +474,7 @@ namespace GameWorld2
 		{
 			get
 			{
-				return "door";
+				return "door门";
 			}
 		}
 
@@ -484,7 +484,7 @@ namespace GameWorld2
 		{
 			get
 			{
-				return "open";
+				return "open开";
 			}
 		}
 
@@ -554,7 +554,7 @@ namespace GameWorld2
 		}
 
 		// Token: 0x17000072 RID: 114
-		// (get) Token: 0x0600016D RID: 365 RVA: 0x000091D0 File Offset: 0x000073D0
+		// (get) Token: 0x0600016D RID: 365
 		private string src
 		{
 			get
@@ -564,7 +564,7 @@ namespace GameWorld2
 		}
 
 		// Token: 0x17000073 RID: 115
-		// (get) Token: 0x0600016E RID: 366 RVA: 0x000091E4 File Offset: 0x000073E4
+		// (get) Token: 0x0600016E RID: 366
 		private string ministrySrc
 		{
 			get

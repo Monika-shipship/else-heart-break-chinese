@@ -14,40 +14,40 @@ namespace GameWorld2
 			this._tingRunner = pTingRunner;
 		}
 
-		// Token: 0x06000540 RID: 1344 RVA: 0x00019854 File Offset: 0x00017A54
-		[SprakAPI(new string[] { "Turn off a lamp" })]
+		// Token: 0x06000540 RID: 1344
+		[SprakAPI(new string[] { "Turn off a lamp关闭一盏灯" })]
 		public void API_TurnOff(string lampName)
 		{
 			Lamp lamp = this.GetLamp(lampName);
 			if (lamp != null)
 			{
 				lamp.on = false;
-				this._computer.API_Print("'" + lampName + "' was turned off");
+				this._computer.API_Print("'" + lampName + "' was turned off已关闭");
 			}
 			else
 			{
-				this._computer.API_Print("Can't find a lamp named '" + lampName + "'");
+				this._computer.API_Print("Can't find a lamp named找不到名为 '" + lampName + "'的灯");
 			}
 		}
 
-		// Token: 0x06000541 RID: 1345 RVA: 0x000198B4 File Offset: 0x00017AB4
-		[SprakAPI(new string[] { "Turn on a lamp" })]
+		// Token: 0x06000541 RID: 1345
+		[SprakAPI(new string[] { "Turn on a lamp打开一盏灯" })]
 		public void API_TurnOn(string lampName)
 		{
 			Lamp lamp = this.GetLamp(lampName);
 			if (lamp != null)
 			{
 				lamp.on = true;
-				this._computer.API_Print("'" + lampName + "' was turned on");
+				this._computer.API_Print("'" + lampName + "' was turned on已开启");
 			}
 			else
 			{
-				this._computer.API_Print("Can't find a lamp named '" + lampName + "'");
+				this._computer.API_Print("Can't find a lamp named找不到名为 '" + lampName + "'的灯");
 			}
 		}
 
-		// Token: 0x06000542 RID: 1346 RVA: 0x00019914 File Offset: 0x00017B14
-		[SprakAPI(new string[] { "Flip the switch on a lamp" })]
+		// Token: 0x06000542 RID: 1346
+		[SprakAPI(new string[] { "Flip the switch on a lamp切换灯的开关" })]
 		public void API_Switch(string lampName)
 		{
 			Lamp lamp = this.GetLamp(lampName);
@@ -56,17 +56,17 @@ namespace GameWorld2
 				if (lamp.on)
 				{
 					lamp.on = false;
-					this._computer.API_Print("'" + lampName + "' was switched off");
+					this._computer.API_Print("'" + lampName + "' was switched off已关闭");
 				}
 				else
 				{
 					lamp.on = true;
-					this._computer.API_Print("'" + lampName + "' was switched on");
+					this._computer.API_Print("'" + lampName + "' was switched on已开启");
 				}
 			}
 			else
 			{
-				this._computer.API_Print("Can't find a lamp named '" + lampName + "'");
+				this._computer.API_Print("Can't find a lamp named 找不到名为'" + lampName + "'的灯");
 			}
 		}
 

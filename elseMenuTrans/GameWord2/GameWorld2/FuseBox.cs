@@ -28,22 +28,22 @@ namespace GameWorld2
 		}
 
 		// Token: 0x170000E1 RID: 225
-		// (get) Token: 0x060003A8 RID: 936 RVA: 0x0001347C File Offset: 0x0001167C
+		// (get) Token: 0x060003A8 RID: 936
 		public override string verbDescription
 		{
 			get
 			{
-				return "inspect";
+				return "inspect检查";
 			}
 		}
 
 		// Token: 0x170000E2 RID: 226
-		// (get) Token: 0x060003A9 RID: 937 RVA: 0x00013484 File Offset: 0x00011684
+		// (get) Token: 0x060003A9 RID: 937
 		public override string tooltipName
 		{
 			get
 			{
-				return "fuse box";
+				return "fuse box保险丝盒";
 			}
 		}
 
@@ -129,8 +129,8 @@ namespace GameWorld2
 			this.masterProgram.Start();
 		}
 
-		// Token: 0x060003B2 RID: 946 RVA: 0x00013644 File Offset: 0x00011844
-		[SprakAPI(new string[] { "Use with caution" })]
+		// Token: 0x060003B2 RID: 946
+		[SprakAPI(new string[] { "Use with caution请谨慎使用" })]
 		public void API_Slurp()
 		{
 			if (this._user != null)
@@ -139,22 +139,22 @@ namespace GameWorld2
 			}
 		}
 
-		// Token: 0x060003B3 RID: 947 RVA: 0x00013664 File Offset: 0x00011864
-		[SprakAPI(new string[] { "Get the name of the fuse box" })]
+		// Token: 0x060003B3 RID: 947
+		[SprakAPI(new string[] { "Get the name of the fuse box获取保险丝盒的名称" })]
 		public string API_GetName()
 		{
 			return base.name;
 		}
 
-		// Token: 0x060003B4 RID: 948 RVA: 0x0001366C File Offset: 0x0001186C
-		[SprakAPI(new string[] { "Say something" })]
+		// Token: 0x060003B4 RID: 948
+		[SprakAPI(new string[] { "Say something说点什么" })]
 		public void API_Say(string text)
 		{
 			this.Say(text, "");
 		}
 
-		// Token: 0x060003B5 RID: 949 RVA: 0x0001367C File Offset: 0x0001187C
-		[SprakAPI(new string[] { "Log something" })]
+		// Token: 0x060003B5 RID: 949
+		[SprakAPI(new string[] { "Log something记录日志" })]
 		public void API_Log(string text)
 		{
 			D.Log(text);

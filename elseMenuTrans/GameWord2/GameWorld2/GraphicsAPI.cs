@@ -14,8 +14,8 @@ namespace GameWorld2
 			this._computer = pComputer;
 		}
 
-		// Token: 0x0600052D RID: 1325 RVA: 0x0001906C File Offset: 0x0001726C
-		[SprakAPI(new string[] { "Draw a line on the screen" })]
+		// Token: 0x0600052D RID: 1325
+		[SprakAPI(new string[] { "Draw a line on the screen在屏幕上画一条线" })]
 		public void API_Line(float x1, float y1, float x2, float y2)
 		{
 			if (this._computer.onLineDrawing != null)
@@ -24,8 +24,8 @@ namespace GameWorld2
 			}
 		}
 
-		// Token: 0x0600052E RID: 1326 RVA: 0x000190B4 File Offset: 0x000172B4
-		[SprakAPI(new string[] { "Draw text in a specific place", "X position in character coordinates", "Y position in character coordinates", "The text to print" })]
+		// Token: 0x0600052E RID: 1326
+		[SprakAPI(new string[] { "Draw text in a specific place在特定位置绘制文本", "X position in character coordinates X 坐标", "Y position in character coordinates Y 坐标", "The text to print要打印的文本" })]
 		public void API_Text(float x, float y, string text)
 		{
 			if (this._computer.onTextDrawing != null)
@@ -39,7 +39,7 @@ namespace GameWorld2
 		{
 			if (args[0].GetType() != typeof(SortedDictionary<KeyWrapper, object>))
 			{
-				throw new Error("Must get an array of points");
+				throw new Error("Must get an array of points必须提供一个点数组");
 			}
 			if (this._computer.onLineDrawing != null)
 			{
@@ -73,8 +73,8 @@ namespace GameWorld2
 			return VoidType.voidType;
 		}
 
-		// Token: 0x06000530 RID: 1328 RVA: 0x000191F4 File Offset: 0x000173F4
-		[SprakAPI(new string[] { "Draw a rectangle on the screen" })]
+		// Token: 0x06000530 RID: 1328
+		[SprakAPI(new string[] { "Draw a rectangle on the screen在屏幕上画一个矩形" })]
 		public void API_Rect(float x1, float y1, float x2, float y2)
 		{
 			if (this._computer.onRectDrawing != null)
@@ -83,8 +83,8 @@ namespace GameWorld2
 			}
 		}
 
-		// Token: 0x06000531 RID: 1329 RVA: 0x0001923C File Offset: 0x0001743C
-		[SprakAPI(new string[] { "Clear the screen and display graphical elements" })]
+		// Token: 0x06000531 RID: 1329
+		[SprakAPI(new string[] { "Clear the screen and display graphical elements清空屏幕并显示图形" })]
 		public void API_DisplayGraphics()
 		{
 			if (this._computer.onDisplayGraphics != null)
@@ -93,8 +93,8 @@ namespace GameWorld2
 			}
 		}
 
-		// Token: 0x06000532 RID: 1330 RVA: 0x00019264 File Offset: 0x00017464
-		[SprakAPI(new string[] { "Set the color to draw or print text with" })]
+		// Token: 0x06000532 RID: 1330
+		[SprakAPI(new string[] { "Set the color to draw or print text with设置绘制或打印文本的颜色" })]
 		public void API_Color(float r, float g, float b)
 		{
 			if (this._computer.onSetColor != null)
@@ -103,15 +103,15 @@ namespace GameWorld2
 			}
 		}
 
-		// Token: 0x06000533 RID: 1331 RVA: 0x0001929C File Offset: 0x0001749C
-		[SprakAPI(new string[] { "Keep a value between 0 and an upper bound", "Value", "Upper bound" })]
+		// Token: 0x06000533 RID: 1331
+		[SprakAPI(new string[] { "Keep a value between 0 and an upper bound使一个值保持在0和上限之间", "Value值", "Upper bound上限" })]
 		public float API_Repeat(float x, float bound)
 		{
 			return x - (float)Math.Floor((double)(x / bound)) * bound;
 		}
 
-		// Token: 0x06000534 RID: 1332 RVA: 0x000192AC File Offset: 0x000174AC
-		[SprakAPI(new string[] { "Hue, Saturation, Value -> [r, g, b]", "Hue", "Saturation", "Value" })]
+		// Token: 0x06000534 RID: 1332
+		[SprakAPI(new string[] { "Hue, Saturation, Value -> [r, g, b] 色相,饱和度,亮度 -> [红,绿,蓝]", "Hue色相", "Saturation饱和度", "Value亮度" })]
 		public SortedDictionary<KeyWrapper, object> API_HSVtoRGB(float H, float S, float V)
 		{
 			Float3 @float = new Float3(1f, 1f, 1f);
@@ -132,14 +132,13 @@ namespace GameWorld2
 				@float.x = 0f;
 				@float.y = 0f;
 				@float.z = 0f;
-				float num = H * 6f;
-				int num2 = (int)Math.Floor((double)num);
-				float num3 = num - (float)num2;
+				float num7 = H * 6f;
+				int num2 = (int)Math.Floor((double)num7);
+				float num3 = num7 - (float)num2;
 				float num4 = V * (1f - S);
 				float num5 = V * (1f - S * num3);
 				float num6 = V * (1f - S * (1f - num3));
-				int num7 = num2;
-				switch (num7 + 1)
+				switch (num2 + 1)
 				{
 				case 0:
 					@float.x = V;
@@ -217,8 +216,8 @@ namespace GameWorld2
 			return x;
 		}
 
-		// Token: 0x06000536 RID: 1334 RVA: 0x00019584 File Offset: 0x00017784
-		[SprakAPI(new string[] { "[r, g, b] -> Hue, Saturation, Value", "Red", "Green", "Blue" })]
+		// Token: 0x06000536 RID: 1334
+		[SprakAPI(new string[] { "[r, g, b] -> Hue, Saturation, Value [红,绿,蓝] -> 色相,饱和度,亮度", "Red红", "Green绿", "Blue蓝" })]
 		public SortedDictionary<KeyWrapper, object> API_RGBToHSV(float r, float g, float b)
 		{
 			float num;

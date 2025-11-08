@@ -21,7 +21,7 @@ namespace GameWorld2
 			}
 		}
 
-		// Token: 0x06000456 RID: 1110 RVA: 0x00015D38 File Offset: 0x00013F38
+		// Token: 0x06000456 RID: 1110
 		public float Execute(Character pCharacter, MimanTingRunner pTingRunner, RoomRunner pRoomRunner, DialogueRunner pDialogueRunner, WorldSettings pWorldSettings)
 		{
 			if (pCharacter.busy)
@@ -37,16 +37,15 @@ namespace GameWorld2
 				this._sellPoint = pTingRunner.GetTing(this._sellPointName);
 				this._roomName = this._sellPoint.room.name;
 			}
-			bool flag = pCharacter.room.name == this._roomName;
+			bool flag5 = pCharacter.room.name == this._roomName;
 			bool flag2 = pCharacter.handItem is Drink;
 			bool flag3 = flag2;
 			bool flag4 = pCharacter.actionName == "";
-			bool flag5 = pCharacter.position == this._sellPoint.position;
-			if (flag5)
+			if (pCharacter.position == this._sellPoint.position)
 			{
 				pCharacter.direction = this._sellPoint.direction;
 			}
-			if (flag)
+			if (flag5)
 			{
 				if (pCharacter.timetableMemory == "")
 				{
@@ -95,7 +94,7 @@ namespace GameWorld2
 								(pCharacter.handItem as Drink).amount = 100f;
 							}
 							pCharacter.GiveHandItemToPerson();
-							pCharacter.Say("Varsågod!", "OrderingDrinks");
+							pCharacter.Say("Varsågod!给你！", "OrderingDrinks");
 							pCharacter.timetableMemory = "";
 							pCharacter.logger.Log(pCharacter.name + " gave thing to sell");
 						}

@@ -10,11 +10,11 @@ namespace GameWorld2
 	// Token: 0x0200000D RID: 13
 	public class Key : MimanTing
 	{
-		// Token: 0x0600012D RID: 301 RVA: 0x00008428 File Offset: 0x00006628
+		// Token: 0x0600012D RID: 301
 		protected override void SetupCells()
 		{
 			base.SetupCells();
-			this.CELL_programName = base.EnsureCell<string>("masterProgramName", "BlankSlate");
+			this.CELL_programName = base.EnsureCell<string>("masterProgramName", "BlankSlate空白钥匙");
 		}
 
 		// Token: 0x1700005B RID: 91
@@ -33,7 +33,7 @@ namespace GameWorld2
 		{
 			get
 			{
-				return "use";
+				return "use使用";
 			}
 		}
 
@@ -53,12 +53,12 @@ namespace GameWorld2
 			return this._program != null;
 		}
 
-		// Token: 0x06000132 RID: 306 RVA: 0x0000846C File Offset: 0x0000666C
+		// Token: 0x06000132 RID: 306
 		public override string UseTingOnTingDescription(Ting pOtherTing)
 		{
 			if (pOtherTing is Door)
 			{
-				return ((!(pOtherTing as Door).isLocked) ? "lock" : "unlock") + " door";
+				return ((!(pOtherTing as Door).isLocked) ? "lock锁上" : "unlock解锁") + " door门";
 			}
 			return base.UseTingOnTingDescription(pOtherTing);
 		}
@@ -124,8 +124,8 @@ namespace GameWorld2
 			this.masterProgram.Start();
 		}
 
-		// Token: 0x06000139 RID: 313 RVA: 0x000085D4 File Offset: 0x000067D4
-		[SprakAPI(new string[] { "Unlock, returns true on success" })]
+		// Token: 0x06000139 RID: 313
+		[SprakAPI(new string[] { "Unlock, returns true on success解锁，成功则返回真" })]
 		public bool API_Unlock(float code)
 		{
 			Door door = base.actionOtherObject as Door;
@@ -137,8 +137,8 @@ namespace GameWorld2
 			return door.Unlock(code);
 		}
 
-		// Token: 0x0600013A RID: 314 RVA: 0x00008608 File Offset: 0x00006808
-		[SprakAPI(new string[] { "Lock, returns true on success" })]
+		// Token: 0x0600013A RID: 314
+		[SprakAPI(new string[] { "Lock, returns true on success上锁，成功则返回真" })]
 		public bool API_Lock(float code)
 		{
 			Door door = base.actionOtherObject as Door;
@@ -150,8 +150,8 @@ namespace GameWorld2
 			return door.Lock(code);
 		}
 
-		// Token: 0x0600013B RID: 315 RVA: 0x0000863C File Offset: 0x0000683C
-		[SprakAPI(new string[] { "Lock or unlock depending on if the door is locked" })]
+		// Token: 0x0600013B RID: 315
+		[SprakAPI(new string[] { "Lock or unlock depending on if the door is locked根据门的状态上锁或解锁" })]
 		public bool API_Toggle(float code)
 		{
 			Door door = base.actionOtherObject as Door;

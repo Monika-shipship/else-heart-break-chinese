@@ -87,22 +87,22 @@ namespace GameWorld2
 		}
 
 		// Token: 0x170001CE RID: 462
-		// (get) Token: 0x06000754 RID: 1876 RVA: 0x00020B14 File Offset: 0x0001ED14
+		// (get) Token: 0x06000754 RID: 1876
 		public override string verbDescription
 		{
 			get
 			{
-				return "try to walk through";
+				return "try to walk through尝试穿过";
 			}
 		}
 
 		// Token: 0x170001CF RID: 463
-		// (get) Token: 0x06000755 RID: 1877 RVA: 0x00020B1C File Offset: 0x0001ED1C
+		// (get) Token: 0x06000755 RID: 1877
 		public override string tooltipName
 		{
 			get
 			{
-				return "fence";
+				return "fence栅栏";
 			}
 		}
 
@@ -240,8 +240,8 @@ namespace GameWorld2
 			}
 		}
 
-		// Token: 0x06000762 RID: 1890 RVA: 0x00020D54 File Offset: 0x0001EF54
-		[SprakAPI(new string[] { "Stops the person to walk through the fence" })]
+		// Token: 0x06000762 RID: 1890
+		[SprakAPI(new string[] { "Stops the person to walk through the fence阻止角色穿过栅栏" })]
 		public void API_Grill()
 		{
 			D.Log("Grill!");
@@ -252,8 +252,8 @@ namespace GameWorld2
 			}
 		}
 
-		// Token: 0x06000763 RID: 1891 RVA: 0x00020DA8 File Offset: 0x0001EFA8
-		[SprakAPI(new string[] { "Get the name of the person walking through fence" })]
+		// Token: 0x06000763 RID: 1891
+		[SprakAPI(new string[] { "Get the name of the person walking through fence获取正在穿过栅栏的人的名称" })]
 		public string API_GetUser()
 		{
 			if (this.user == null)
@@ -263,15 +263,15 @@ namespace GameWorld2
 			return this.user.name;
 		}
 
-		// Token: 0x06000764 RID: 1892 RVA: 0x00020DC8 File Offset: 0x0001EFC8
-		[SprakAPI(new string[] { "Is the user carrying a modifier?" })]
+		// Token: 0x06000764 RID: 1892
+		[SprakAPI(new string[] { "Is the user carrying a modifier?使用者是否携带了修改器？" })]
 		public bool API_UserHasModifier()
 		{
 			return this.user != null && this.user.hasHackdev;
 		}
 
-		// Token: 0x06000765 RID: 1893 RVA: 0x00020DE4 File Offset: 0x0001EFE4
-		[SprakAPI(new string[] { "Say something" })]
+		// Token: 0x06000765 RID: 1893
+		[SprakAPI(new string[] { "Say something说点什么" })]
 		public void API_Say(string text)
 		{
 			this.Say(text, "");

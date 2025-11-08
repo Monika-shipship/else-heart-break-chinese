@@ -106,7 +106,7 @@ namespace GameWorld2
 		{
 			get
 			{
-				return "sleep in";
+				return "sleep in睡在";
 			}
 		}
 
@@ -116,7 +116,7 @@ namespace GameWorld2
 		{
 			get
 			{
-				return "bed";
+				return "bed床";
 			}
 		}
 

@@ -38,12 +38,12 @@ namespace GameWorld2
 		}
 
 		// Token: 0x17000193 RID: 403
-		// (get) Token: 0x060006C7 RID: 1735 RVA: 0x0001F668 File Offset: 0x0001D868
+		// (get) Token: 0x060006C7 RID: 1735
 		public override string tooltipName
 		{
 			get
 			{
-				return "frying pan";
+				return "frying pan煎锅";
 			}
 		}
 
@@ -54,12 +54,12 @@ namespace GameWorld2
 		}
 
 		// Token: 0x17000194 RID: 404
-		// (get) Token: 0x060006C9 RID: 1737 RVA: 0x0001F680 File Offset: 0x0001D880
+		// (get) Token: 0x060006C9 RID: 1737
 		public override string verbDescription
 		{
 			get
 			{
-				return "use";
+				return "use使用";
 			}
 		}
 

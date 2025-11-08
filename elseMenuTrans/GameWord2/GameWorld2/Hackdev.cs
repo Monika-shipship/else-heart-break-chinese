@@ -10,11 +10,11 @@ namespace GameWorld2
 	// Token: 0x0200005B RID: 91
 	public class Hackdev : MimanTing
 	{
-		// Token: 0x0600057E RID: 1406 RVA: 0x0001B0F4 File Offset: 0x000192F4
+		// Token: 0x0600057E RID: 1406
 		protected override void SetupCells()
 		{
 			base.SetupCells();
-			this.CELL_programName = base.EnsureCell<string>("masterProgramName", "BasicHackdev");
+			this.CELL_programName = base.EnsureCell<string>("masterProgramName", "BasicHackdev骇客设备");
 			this.CELL_level = base.EnsureCell<int>("level", 0);
 		}
 
@@ -35,12 +35,12 @@ namespace GameWorld2
 		}
 
 		// Token: 0x17000128 RID: 296
-		// (get) Token: 0x06000581 RID: 1409 RVA: 0x0001B144 File Offset: 0x00019344
+		// (get) Token: 0x06000581 RID: 1409
 		public override string verbDescription
 		{
 			get
 			{
-				return "use";
+				return "use使用";
 			}
 		}
 
@@ -118,11 +118,11 @@ namespace GameWorld2
 			}
 		}
 
-		// Token: 0x0600058A RID: 1418 RVA: 0x0001B240 File Offset: 0x00019440
-		[SprakAPI(new string[] { "Log" })]
+		// Token: 0x0600058A RID: 1418
+		[SprakAPI(new string[] { "Log日志" })]
 		public void API_Log(string text)
 		{
-			D.Log("LOG: " + text);
+			D.Log("LOG日志: " + text);
 		}
 
 		// Token: 0x04000172 RID: 370

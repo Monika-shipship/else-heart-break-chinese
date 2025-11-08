@@ -10,14 +10,14 @@ namespace GameWorld2
 	// Token: 0x02000010 RID: 16
 	public class Floppy : MimanTing
 	{
-		// Token: 0x06000189 RID: 393 RVA: 0x00009444 File Offset: 0x00007644
+		// Token: 0x06000189 RID: 393
 		protected override void SetupCells()
 		{
 			base.SetupCells();
-			this.CELL_programName = base.EnsureCell<string>("masterProgramName", "BlankSlate");
+			this.CELL_programName = base.EnsureCell<string>("masterProgramName", "BlankSlate空白软盘");
 		}
 
-		// Token: 0x0600018A RID: 394 RVA: 0x00009464 File Offset: 0x00007664
+		// Token: 0x0600018A RID: 394
 		public override void FixBeforeSaving()
 		{
 			base.FixBeforeSaving();
@@ -25,12 +25,10 @@ namespace GameWorld2
 			{
 				if (base.room.name.Contains("Ministry"))
 				{
-					this.masterProgramName = "MinistryData" + Randomizer.GetIntValue(0, 10);
+					this.masterProgramName = "MinistryData部委数据" + Randomizer.GetIntValue(0, 10).ToString();
+					return;
 				}
-				else
-				{
-					this.masterProgramName = "DigitalTrash" + Randomizer.GetIntValue(0, 30);
-				}
+				this.masterProgramName = "DigitalTrash数字垃圾" + Randomizer.GetIntValue(0, 30).ToString();
 			}
 		}
 
@@ -57,12 +55,12 @@ namespace GameWorld2
 		}
 
 		// Token: 0x17000081 RID: 129
-		// (get) Token: 0x0600018E RID: 398 RVA: 0x00009530 File Offset: 0x00007730
+		// (get) Token: 0x0600018E RID: 398
 		public override string verbDescription
 		{
 			get
 			{
-				return "inspect";
+				return "inspect读取";
 			}
 		}
 
