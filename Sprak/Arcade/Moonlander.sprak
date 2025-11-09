@@ -1,11 +1,11 @@
 ClearText()
 
 Print("***************")
-Print("* MOON LANDER *")
+Print("* MOON LANDER / 月球着陆器 *")
 Print("***************")
 Print("")
-Print("Can you land")
-Print("safely on the moon?")
+Print("Can you land / 你能安全降落")
+Print("safely on the moon? / 在月球上吗？")
 Print("")
 Sleep(2)
 
@@ -15,9 +15,9 @@ number speed = -10.0
 
 loop
     PrintStats()
-    number x = Input("How much fuel to use?")
+    number x = Input("How much fuel to use? / 使用多少燃料？")
     if x > gas
-        Print("Not enough fuel!")
+        Print("Not enough fuel! / 燃料不足！")
         x = gas 
     end
 
@@ -30,14 +30,14 @@ loop
     altitude = Round(altitude)
 
     if altitude < 0
-        Print("You crashed!")
+        Print("You crashed! / 你坠毁了！")
         PlaySound("Explosion 1")
         break
     else if altitude < 5 and speed > -50.0
-        Print("You landed safely")
-        Print("on the moon!")
+        Print("You landed safely / 你安全着陆了")
+        Print("on the moon! / 在月球上！")
         Print("")
-        Print("GOOD JOB")
+        Print("GOOD JOB / 干得好")
         break
     else
         Print("")
@@ -48,7 +48,7 @@ end
 
 
 void PrintStats()
-    Print("Fuel: " + gas)
-    Print("Altitude: " + altitude)
-    Print("Speed: " + speed)
+    Print("Fuel: " + gas + " / 燃料: " + gas)
+    Print("Altitude: " + altitude + " / 高度: " + altitude)
+    Print("Speed: " + speed + " / 速度: " + speed)
 end

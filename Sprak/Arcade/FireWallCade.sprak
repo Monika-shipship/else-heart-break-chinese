@@ -8,13 +8,14 @@
 
 
 # If the game is too fast on your machine, set cycleSpeedupThreshold to 1
+# 如果游戏在你的机器上运行太快，请将 cycleSpeedupThreshold 设置为 1
 
 
-###  With loooove from
+###  With loooove from / 来自...的爱
 #     mistik - https://twitter.com/dalibormesaric
 #     pootzko - https://twitter.com/pootzko
 
-### Constants VARS - Trololol
+### Constants VARS - Trololol / 常量变量 - 恶作剧
 var keys = ["left", "right", "up", "down", "space"]
 var input = []
 var previousInput = []
@@ -26,14 +27,16 @@ var firewallHeight = 10
 var packetWidth = 28
 var packetHeight = 20
 
-### Variable VARS
+### Variable VARS / 可变变量
 var currentScreen = "splash"
 var selectedMenuItem = "newGame"
 
 # For each wave - [isLeftPacketMalware?, isRightPacketMalware?]
+# 对于每个波次 - [左侧数据包是恶意软件吗？, 右侧数据包是恶意软件吗？]
 var packetWaves = [[false, false]]
 
 # Each firewall has two properties - [defaultX, isOpen]
+# 每个防火墙有两个属性 - [默认X坐标, 是否打开]
 var firewalls = [[130, "closed"], [332, "closed"]]
 
 var malwareSpeed = 1
@@ -155,32 +158,32 @@ void DisplaySplashScreen()
     Text(3, 13, "   _|  _|  _|    _|    _|  _|        _|        ")
     Text(3, 14, "     _|  _|      _|    _|  _|_|_|_|  _|_|_|_|  ")
 
-    Text(3, 19, "Press (SPACE) to start")
-    Text(3, 21, "by misticni & pootzko")
+    Text(3, 19, "Press (SPACE) to start / 按 (空格) 开始")
+    Text(3, 21, "by misticni & pootzko / 作者 misticni & pootzko")
 end
 
 void DisplayMenuNewGameSelected()
-    Text(20, 10, "-> New game")
-    Text(20, 12, "   About")
+    Text(20, 10, "-> New game / -> 新游戏")
+    Text(20, 12, "   About /   关于")
 end
 
 void DisplayMenuAboutSelected()
-    Text(20, 10, "   New game")
-    Text(20, 12, "-> About")
+    Text(20, 10, "   New game /   新游戏")
+    Text(20, 12, "-> About / -> 关于")
 end
 
 void DisplayAboutScreen()
-    Text(3, 3, "Firewall is a game where you control passthrough")
-    Text(3, 4, "of information packets. Some packets are useful,")
-    Text(3, 5, "other represent malware. Make sure that you close")
-    Text(3, 6, "the ports when there is a malicious packet coming!")
-    Text(3, 7, "Open the ports to allow the useful packets to")
-    Text(3, 8, "pass through.")
+    Text(3, 3, "Firewall is a game where you control passthrough / 防火墙是一款控制信息包通过的游戏")
+    Text(3, 4, "of information packets. Some packets are useful, / 一些数据包是有用的，")
+    Text(3, 5, "other represent malware. Make sure that you close / 其他的则代表恶意软件。请确保您关闭")
+    Text(3, 6, "the ports when there is a malicious packet coming! / 端口，当有恶意数据包传来时！")
+    Text(3, 7, "Open the ports to allow the useful packets to / 打开端口以允许有用的数据包")
+    Text(3, 8, "pass through. / 通过。")
 
-    Text(3, 10, "Use the left and right arrow keys to control")
-    Text(3, 11, "your left and right firewall ports.")
+    Text(3, 10, "Use the left and right arrow keys to control / 使用左右箭头键来控制")
+    Text(3, 11, "your left and right firewall ports. / 你的左右防火墙端口。")
 
-    Text(3, 16, "Press (SPACE) to go back")
+    Text(3, 16, "Press (SPACE) to go back / 按 (空格) 返回")
 end
 
 void ExecuteGameCycle()
@@ -199,7 +202,7 @@ end
 
 void SetScore()
     ClearText()
-    Print("Score: " + score)
+    Print("Score: " + score + " / 分数: " + score)
     #Print("Queue: " + waveCount)
 end
 
@@ -410,7 +413,7 @@ void DrawGameOverArt()
         loop i from 0 to 13
             Print(" ")
         end
-        Print("            Game Over! Press(CTRL + R) to restart")
+        Print("            Game Over! Press(CTRL + R) to restart / 游戏结束！按(CTRL + R)重新开始")
 
 
         loop y from 0 to 16

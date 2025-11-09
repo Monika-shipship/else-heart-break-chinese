@@ -1,9 +1,9 @@
 
 void OnHack(string name)
     Sleep(1)
-    Say("WARNING! Detected hacker: " + name)
+    Say("WARNING! Detected hacker: / 警告！检测到黑客：" + name)
     Sleep(1)
-    Say("Initiating defense mechanisms...")
+    Say("Initiating defense mechanisms... / 启动防御机制...")
     Sleep(2)
        
     ZapPerson(name)
@@ -15,6 +15,6 @@ void OnHack(string name)
 end
 
 void OnIntruder(string name)
-    Print("Entered room: " + name)
+    Print("Entered room: / 进入房间者：" + name)
 end
 

@@ -9,6 +9,7 @@ Print("                                      | |            ")
 Print("                                      |_|        ")
 Print("")
 Print("                     By ZDog Technology")
+Print("                     作者 ZDog Technology")
 Sleep(4)
 ClearText()
 
@@ -25,7 +26,7 @@ void winscreen()
         ClearText()
         Print("You are now the proud owner of [Monetary Value Here]")
         Print("")
-        Print("Congratulations!")
+        Print("恭喜！")
         Sleep("0.5")
         ClearText()
         Print("You are now the proud owner of [Monetary Value Here]")
@@ -36,15 +37,15 @@ end
 void levelone()
     loop
         ClearText()
-        Print("Welcome to BankMaster Security Systems!")
+        Print("欢迎使用 BankMaster 安全系统！")
         string input
-        input = Input("Please enter password:")
+        input = Input("请输入密码:")
         if input == "Guest"
-            Print("Access Granted!")
+            Print("访问已授予！")
             Sleep(1)
             break
         else
-            Print("Access Denied!")
+            Print("访问被拒绝！")
             Sleep(1)
         end
     end
@@ -53,16 +54,16 @@ end
 void leveltwo()
     loop
         ClearText()
-        Print("Level 2 of Security")
+        Print("二级安全")
         string input
         array password = ["a","d","m","i","n"]
-        input = Input("Please enter password:")
+        input = Input("请输入密码:")
         if input == password[0] + password[1] + password[2] + password[3] + password[4]
-            Print("Access Granted!")
+            Print("访问已授予！")
             Sleep(1)
             break
         else
-            Print("Access Denied!")
+            Print("访问被拒绝！")
             Sleep(1)
         end
     end
@@ -80,9 +81,9 @@ end
 void levelthree()
     loop
         ClearText()
-        Print("Level 3 of Security")
+        Print("三级安全")
         array answer = "qbttxpse"
-        array input = Input("Please enter password:")
+        array input = Input("请输入密码:")
         convert(input)
         number count = Count(input) - 1
         bool equal
@@ -95,11 +96,11 @@ void levelthree()
             end
         end
         if equal == true
-            Print("Access Granted!")
+            Print("访问已授予！")
             Sleep(1)
             break
         else
-            Print("Access Denied!")
+            Print("访问被拒绝！")
             Sleep(1)
         end
     end
@@ -108,15 +109,15 @@ end
 void levelfour()
     loop
         ClearText()
-        Print("Level 4 of Security")
+        Print("四级安全")
         string input
-        input = Input("Please enter password:")
+        input = Input("请输入密码:")
         if input == "42"
-            Print("Access Granted!")
+            Print("访问已授予！")
             Sleep(1)
             break
         else
-            Print("Access Denied!")
+            Print("访问被拒绝！")
             Sleep(1)
         end
     end
@@ -139,9 +140,9 @@ end
 void levelfive()
     loop
         ClearText()
-        Print("Level 5 of Security")
+        Print("五级安全")
         array answer = "sdrawkcab"
-        array input = Input("Please enter password:")
+        array input = Input("请输入密码:")
         convert2(input)
         number count = Count(input) - 1
         bool equal
@@ -154,11 +155,11 @@ void levelfive()
             end
         end
         if equal == true
-            Print("Access Granted!")
+            Print("访问已授予！")
             Sleep(1)
             break
         else
-            Print("Access Denied!")
+            Print("访问被拒绝！")
             Sleep(1)
         end
     end

@@ -10,6 +10,7 @@ void Shoot(number x, number y)
     shot["y"] = y
     Append(shots, shot)
     #Print("n: " + n + " shots: " + shots)
+    # 打印: "n: " + n + " shots: " + shots
 end
 
 number lastT = Time()

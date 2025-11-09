@@ -1,4 +1,5 @@
 # Elliot (8) & Mattias (old) made this 2014
+# Elliot (8岁) 和 Mattias (老人) 于 2014 年制作
 
 var game = [];
     game["x"] = 0;
@@ -187,11 +188,11 @@ bool MatchTiles(var tile1, var tile2)
 end
 
 void DrawText()
-   PrintS("SUBSH00TERS");
+   PrintS("SUBSH00TERS / 潜艇射手");
    PrintS(" | ");
-   PrintS("SCORE: " + session["score"]);
+   PrintS("SCORE: " + session["score"] + " / 分数: " + session["score"]);
    PrintS(" | ");
-   PrintS("LIVES: " + session["lives"]);
+   PrintS("LIVES: " + session["lives"] + " / 生命: " + session["lives"]);
    PrintS(" | ");
 end
 

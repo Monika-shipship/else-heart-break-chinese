@@ -7,17 +7,17 @@ Print("")
 Print("")
 Print("")
 Print("")
-Print("                              SHOOT")
+Print("                              SHOOT / 射击")
 PlaySound("Powerup 1")
 Sleep(0.5)
 Print("")
 Print("")
-Print("                              SPACE")
+Print("                              SPACE / 太空")
 PlaySound("Powerup 2")
 Sleep(0.5)
 Print("")
 Print("")
-Print("                            TRIANGLES")
+Print("                            TRIANGLES / 三角形")
 PlaySound("Powerup 3")
 Sleep(1)
 
@@ -271,7 +271,7 @@ void CheckHit()
             if Abs(enemy["x"]) > spaceWidth or Abs(enemy["y"]) > spaceWidth or Abs(enemy["z"]) > spaceWidth
                 enemy["deathTime"] = Time()
                 enemy["gotAway"] = true
-                currentMessage = "ENEMY GOT AWAY"
+                currentMessage = "ENEMY GOT AWAY / 敌人逃跑了"
             end
         end
 
@@ -341,7 +341,7 @@ void DrawCrossHair()
     Line(256, 133, 256, 138)
 
     Color(1, 1, 0)
-    Text(1, 1, "Score " + score)
+    Text(1, 1, "Score " + score + " / 分数 " + score)
 
     Color(0, 0.1, 0)
     Text(16, 23, "" + enemy["x"] + ":" + enemy["y"] + ":" + enemy["z"])

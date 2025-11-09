@@ -1,5 +1,6 @@
 
 # Elliot (8) & Mattias (old) made this 2014
+# Elliot (8岁) & Mattias (老人) 2014年制作
 
 var game = [];
     game["x"] = 0;
@@ -217,6 +218,7 @@ end
 void DrawBackground(bool isDead)
     
     #sky
+    #天空
     if(isDead)
         Color(Random(), 0, 0);
     else
@@ -226,6 +228,7 @@ void DrawBackground(bool isDead)
     Rect(game["x"], game["y"], game["w"], game["h"]);
     
     #sun
+    #太阳
     if(isDead)
         Color(Random(), 0, 0);
     else
@@ -237,6 +240,7 @@ void DrawBackground(bool isDead)
     DrawRect(game["w"] / 3, game["horizon"] - 5, 185, 10);
     
     #water
+    #水
     if(isDead)
         Color(Random(), 0, 0);
     else
@@ -254,6 +258,7 @@ void DrawEnemy(var enemy
     var newY = pos["y"] + (Sin(Time() * 2) * 6);
     
     #scope   
+    #潜望镜
     Color(0, 0, 0);
     DrawRect(pos["x"], newY, 20, 30);
     DrawRect(pos["x"] - 10, newY - 10, 20, 10);
@@ -261,6 +266,7 @@ void DrawEnemy(var enemy
     DrawRect(pos["x"] - 10, newY - 10, 10, 5);
     
     # bar
+    # 进度条
     if(p < 0.4)
         Color(1, 0, 0);
     else
@@ -270,6 +276,7 @@ void DrawEnemy(var enemy
     DrawRect(pos["x"] - 0, newY - 20, p * bar["w"], bar["h"]);
     
     #mask
+    #遮罩
     Color(0, 0.5, 1);
     DrawRect(pos["x"], pos["y"] + 20, 50, 12);
 end

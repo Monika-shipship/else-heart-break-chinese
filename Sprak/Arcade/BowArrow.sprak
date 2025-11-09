@@ -72,6 +72,7 @@ number TimeSinceStart()
 end
 
 # Game loop
+# 游戏循环
 loop
     number dt = Time() - gt
     gt = Time()
@@ -86,6 +87,7 @@ loop
         CheckArrowTargetCollision()
         DrawMain()
     else # Game over
+        # 游戏结束
         ClearText()
         Print("Your score: " + score)
         Print("Press SPACE to play again")
@@ -116,13 +118,16 @@ end
 
 void DrawMain()
     # Target
+    # 目标
     DrawObject(TargetX, TargetY, targetWidth, targetHeight, clrGreen)
 
     # Player Arrow
+    # 玩家箭矢
     DrawObject(ArrowX, ArrowY, ArrowWidth, ArrowHeight - arrowHeadSize, clrBrown) 
     DrawObject(ArrowX - arrowHeadSize/4, ArrowY, arrowHeadSize, arrowHeadSize, clrGrey)
 
     # Dead arrows
+    # 已死亡的箭矢
     loop pos in deadArrowsPos
         DrawObject(pos[0], pos[1], ArrowWidth, ArrowHeight - arrowHeadSize, clrBrown) 
     end
@@ -139,12 +144,15 @@ end
 void DrawBow()
     Color(clrBrown[0], clrBrown[1], clrBrown[2])
     # Angles to the right
+    # 右侧角度
     Line(playerX + 30, playerY, playerX  + 60, playerY + 15)
 
     # Angles to the left
+    # 左侧角度
     Line(playerX - 30, playerY, playerX - 60, playerY + 15)
 
     # Straight line
+    # 直线
     Line(playerX - 30, playerY, playerX + 30, playerY)
 
     Color(clrWhite[0], clrWhite[1], clrWhite[2])
@@ -171,6 +179,7 @@ end
 bool Collided(number rect1X, number rect1Y, number rect1Width, number rect1Height, number rect2X, number rect2Y, number rect2Width, number rect2Height)
     if (rect1X < rect2X + rect2Width * xScale && rect1X + rect1Width * xScale > rect2X && rect1Y < rect2Y + rect2Height * yScale && rect1Height * yScale + rect1Y > rect2Y)
         # Collision detected!
+        # 检测到碰撞！
         return true
     end
     return false
@@ -180,6 +189,7 @@ void UpdatePlayerArrow(number dt)
     ArrowY -= ArrowSpeed * dt
 
     # Checks if the arrow has left the screen
+    # 检查箭矢是否已离开屏幕
     if(ArrowY <= 0)
         shotIsFired = false
         deadArrowsPos[Count(deadArrowsPos)] = [ArrowX, ArrowY]
@@ -198,6 +208,7 @@ void UpdateTarget(number dt)
     TargetY += ((targetWaveSize * Sin(Time())) * yScale) * dt
 
     # Checks if the Target collides with any walls
+    # 检查目标是否与任何墙壁碰撞
     if(TargetX < 0 + targetWidth)
         targetSpeedX = -targetSpeedX
     end
@@ -236,6 +247,7 @@ void ReadInput()
         isKeySpacePressed = false
     end
      # No key pressed...
+     # 没有按键被按下...
     if(isKeyUpPressed == false && isKeyDownPressed == false && isKeyLeftPressed == false && isKeyRightPressed == false)
         isKeyUpPressed = false
         isKeyDownPressed = false
@@ -282,6 +294,7 @@ end
 
 void RectWithScale(number x, number y, number width, number height)
     # Includes screen size
+    # 包括屏幕尺寸
     Rect(x, y, x + (width * xScale), y + (height * yScale))
 end
 

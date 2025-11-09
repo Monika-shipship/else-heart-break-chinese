@@ -107,6 +107,7 @@ end
 
 void CollisionDetectBullet()
     #test collide bullet with asteroids
+    # 测试子弹与小行星的碰撞
     loop objects
         if( HasIndex(@, "type") )
             if(@["type"] == "asteroid")
@@ -124,6 +125,7 @@ end
 
 void CollisionDetectShip()
     #test collide bullet with asteroids
+    # 测试子弹与小行星的碰撞
     loop objects
         if( HasIndex(@, "type") )
             if(@["type"] == "asteroid")
@@ -165,6 +167,7 @@ void ExplodeShip()
     currentlevel = 0
   else
     currentlevel -- # restart level
+    # 重新开始关卡
   end
 end
 
@@ -301,6 +304,7 @@ void InitLevel(number level)
     objects = []
     asteroidCount = 0
     # CreateObject("warpFrame", 0, 0, frame, "debug")
+    # 创建对象("warpFrame", 0, 0, frame, "debug")
 
     ship = CreateObject("ship", (warp_left + warp_right) / 2, (warp_top + warp_bottom) / 2, [-10, -6, 10, 0, -10, 6, -7, 0], "ship")
     ship["radius"] = 8

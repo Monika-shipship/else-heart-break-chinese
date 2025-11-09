@@ -1,5 +1,6 @@
-# sstar b*rd!
+# sstar b*rd! / 星星鸟！
 # for best results, screwdriver the arcade to 500mhz!
+# 为了获得最佳效果，请将街机超频至 500mhz！
 
 DisplayGraphics()#clear the buffer
 
@@ -133,9 +134,9 @@ array rd2
 array p1
 array p2
 
-#debug stuff
+#debug stuff / 调试内容
 array test_attr = [[0,0], [0,0], [0,0],["n/a","n/a"]]
-array test_label = ["position", "speed","acceleration", "create enemy"]
+array test_label = ["position / 位置", "speed / 速度","acceleration / 加速度", "create enemy / 创建敌人"]
 
 number selected_attr = 0
 number selected_index = 0
@@ -328,10 +329,10 @@ void Game(number dt)
                 current_bucket = 0
                 enemies_left_in_bucket = 0
                 current_level_data = levels[current_level]
-                Print("setup bucket" + current_level_data[current_bucket])
+                Print("setup bucket" + current_level_data[current_bucket] + " / 设置桶" + current_level_data[current_bucket])
                 SetupBucket(current_level_data[current_bucket])
             end     
-            Print("Score : " + score)
+            Print("Score : " + score + " / 分数 : " + score)
             UpdatePlayer()
             if KeyReleased("space") 
                 FireBullet()
@@ -483,8 +484,8 @@ void Lose()
     loop from 0 to 12
         Print("")
     end
-    Print("                  GAME OVER")
-    Print("                  SCORE:" + score)
+    Print("                  GAME OVER / 游戏结束")
+    Print("                  SCORE:" + score + " / 分数:" + score)
 
     game_objects = []
     DrawObject(lose_badguys)
@@ -492,7 +493,7 @@ void Lose()
 end
 
 void Win()
-    var text = ["YOU","WIN!","the world is", "safe from those", "darn stars"," "," ","peace and love", "are now free once again", " "," ","reload your weapon and", "go home, sir"," "," ","the time of", "violence is over now"]
+    var text = ["YOU / 你","WIN! / 赢了！","the world is / 世界是", "safe from those / 安全的", "darn stars / 可恶的星星"," "," ","peace and love / 和平与爱", "are now free once again / 现在又自由了", " "," ","reload your weapon and / 重新装填你的武器然后", "go home, sir / 回家吧，先生"," "," ","the time of / 的时代", "violence is over now / 暴力现在结束了"]
 
     loop t in text
         RPrint(t)

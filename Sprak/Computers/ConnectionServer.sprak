@@ -12,7 +12,7 @@ void BroadcastMessage(string msg, array args)
         if id > -1
             RemoteFunctionCall(id, msg, args)
         else
-            Print("Invalid connection!")
+            Print("Invalid connection! / 无效连接！")
         end
     end    
 end
