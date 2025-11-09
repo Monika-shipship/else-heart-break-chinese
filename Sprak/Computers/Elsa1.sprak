@@ -4,5 +4,5 @@ if GetUser() == "Elsa"
     Connect("Outpost")
     Slurp()
 else
-  Print("Hello " + GetUser() + ", you are not authorized.")
+  Print("Hello " + GetUser() + ", you are not authorized. / 你好 " + GetUser() + "，你未经授权。")
 end

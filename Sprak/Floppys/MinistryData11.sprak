@@ -1,4 +1,4 @@
-# ILLEGAL!
+# ILLEGAL! / # 非法！
 
 ClearText()
 var machine = Connect("FactoryMachineA")

@@ -493,7 +493,7 @@ void Lose()
 end
 
 void Win()
-    var text = ["YOU / 你","WIN! / 赢了！","the world is / 世界是", "safe from those / 安全的", "darn stars / 可恶的星星"," "," ","peace and love / 和平与爱", "are now free once again / 现在又自由了", " "," ","reload your weapon and / 重新装填你的武器然后", "go home, sir / 回家吧，先生"," "," ","the time of / 的时代", "violence is over now / 暴力现在结束了"]
+    var text = ["YOU / 你","WIN! / 赢了！","the world is / 世界再次", "safe from those / 安全了", "darn stars / 远离了那些可恶的星星"," "," ","peace and love / 和平与爱", "are now free once again / 现在又回归了了", " "," ","reload your weapon and / 重新装填你的武器然后", "go home, sir / 回家吧，先生"," "," ","the time of / 暴力的时代", "violence is over now / 现在结束了"]
 
     loop t in text
         RPrint(t)

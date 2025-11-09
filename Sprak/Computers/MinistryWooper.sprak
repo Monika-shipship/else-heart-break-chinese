@@ -1,12 +1,12 @@
 
 ClearText()
 
-Print("MINISTRY CRYPTO")
+Print("MINISTRY CRYPTO / 部门加密")
 
-string s = Input("Enter key: ")
+string s = Input("Enter key:  / 输入密钥：")
 number k = CharToInt(s[0])
 
-Print("Enter message:")
+Print("Enter message: / 输入消息：")
 string message = Input("")
 
 string encrypted = ""
@@ -23,7 +23,7 @@ loop c in message
     end
 end
 
-Print("Encrypted:")
+Print("Encrypted: / 已加密：")
 Print("------------")
 Print(encrypted)
 Print("------------")

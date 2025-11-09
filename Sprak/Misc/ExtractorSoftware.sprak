@@ -1,5 +1,5 @@
 ﻿
-Say("Extracting...")
+Say("Extracting... / 正在提取...")
 
 string name = GetName()
 

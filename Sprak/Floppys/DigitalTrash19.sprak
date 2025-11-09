@@ -1,4 +1,4 @@
-The Three Monad Laws
+The Three Monad Laws / 三个Monad定律
 ====================
 
 return a >>= k  ==  k a

@@ -6,6 +6,13 @@
 #Print("2")
 #Print("1")
 #Slurp()
+#Connect("CentralServer")
+#Print("按回车键进入计算机")
+#Input("")
+#Print("3")
+#Print("2")
+#Print("1")
+#Slurp()
 
 number EnergyLevel()
     return 62300520

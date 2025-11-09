@@ -2,7 +2,7 @@
 void CheckBalance()
 	var computer = Connect("FinanceComputer")
 	var balance = computer.GetBalanceForPerson(GetNameOfCardOwner())
-	Print("Balance: " + balance)
+	Print("Balance: / 余额： " + balance)
 end
 
 void MakeTransaction(number amount)

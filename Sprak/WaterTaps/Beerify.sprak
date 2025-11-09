@@ -3,4 +3,4 @@ SetLiquidAmount(100)
 
 ClearCode()
 AppendCode("Drunkenness(100)")
-AppendCode("# tastes great!")
+AppendCode("# tastes great! / 味道好极了！")

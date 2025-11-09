@@ -8,9 +8,9 @@ void PerformMove(string name)
 	else if(name == "Right")
 		TurnRight()
 	else if(name == "Wait")
-		Print("Waiting...")
+		Print("Waiting... / 等待中...")
 	else
-		Print("Can't understand move " + name)
+		Print("Can't understand move / 无法理解的移动 " + name)
 	end
 	Sleep(0.5)
 	CallFunctionOnEnemyFishes("Ai", 0.5)

@@ -1,13 +1,13 @@
 
 ClearText()
 DisplayGraphics()
-Print("Floppy data reader")
+Print("Floppy data reader / 软盘数据读取器")
 Print("==================")
 Sleep(1)
 
 if HasFloppy()
     Print("")
-    Print("Data on floppy:")
+    Print("Data on floppy: / 软盘上的数据：")
     Print("")
     var allData = LoadData()
     loop data in allData
@@ -16,5 +16,5 @@ if HasFloppy()
     end
     Print("--------------")
 else
-    Print("Please insert floppy...")
+    Print("Please insert floppy... / 请插入软盘...")
 end

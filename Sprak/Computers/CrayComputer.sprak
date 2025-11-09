@@ -1,5 +1,6 @@
 
 # Reserved for heavy calculations.
+# 用于繁重计算。
 
 number SUM(array a)
     var sum = 0
@@ -7,7 +8,7 @@ number SUM(array a)
         sum += x
     end
     var hugin = Connect("Hugin")
-    hugin.Print("Sum calculation result: " + sum)
+    hugin.Print("Sum calculation result: / 总和计算结果：" + sum)
     return sum
 end
 
@@ -17,6 +18,6 @@ number PRODUCT(array a)
         product *= x
     end
     var hugin = Connect("Hugin")
-    hugin.Print("Product calculation result: " + product)
+    hugin.Print("Product calculation result: / 乘积计算结果：" + product)
     return product
 end

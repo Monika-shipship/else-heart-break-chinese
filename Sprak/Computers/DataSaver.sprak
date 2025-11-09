@@ -1,7 +1,7 @@
 ClearText()
 
 SaveMemory("a", 10)
-SaveMemory("b", "hej")
+SaveMemory("b", "hej / 你好")
 #SaveMemory("c", [1,2,3])
 
 loop m in GetMemories()

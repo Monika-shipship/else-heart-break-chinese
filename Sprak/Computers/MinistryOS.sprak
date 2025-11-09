@@ -2,7 +2,7 @@
 ClearText()
 
 Print("---")
-Print("MINISTRY OPERATING SYSTEM")
+Print("MINISTRY OPERATING SYSTEM / 部门操作系统")
 Print("---")
 Print("")
 
@@ -13,39 +13,40 @@ end
 
 void Dispatch(string command)
     if command == "h" or command == "H" or command == "help"
-        Print("calc - Calculator")
-        Print("net - Web browser")
-        Print("sort - sort numbers")
+        Print("calc - Calculator / 计算器")
+        Print("net - Web browser / 网络浏览器")
+        Print("sort - sort numbers / 排序数字")
     else if command == "calc"
-        number a = Input("Enter nr a: ")
-        number b = Input("Enter nr b: ")
+        number a = Input("Enter nr a:  / 输入数字 a：")
+        number b = Input("Enter nr b:  / 输入数字 b：")
         Print("a = " + a + ", b = " + b)
         Print("a + b = " + (a + b))
         Print("a - b = " + (a - b))
         Print("a * b = " + (a * b))
         Print("a / b = " + (a / b))
     else if command == "net"
-        string connectionName = Input("Connect to: ")
+        string connectionName = Input("Connect to:  / 连接到：")
         var id = Connect(connectionName)
-        string function = Input("Function: ")
+        string function = Input("Function:  / 函数：")
         if id > -1
             RemoteFunctionCall(id, function, [])
         else
-            Print("No connection.")
+            Print("No connection. / 没有连接。")
         end
     else if command == "sort"
         array a = [2,6,3,7,1,5,4,9,8]
-        Print("Unsorted: " + a)
+        Print("Unsorted: " + a + " / 未排序：" + a)
         Sort(a)
-        Print("Sorted: " + a)
+        Print("Sorted: " + a + " / 已排序：" + a)
     else
-        Print("Can't understand command '" + command + "'")
-        Print("Enter 'h' for help")
+        Print("Can't understand command '" + command + "' / 无法理解命令 '" + command + "'")
+        Print("Enter 'h' for help / 输入 'h' 获取帮助")
     end
 end
 
 
 # Bubble sort
+# 冒泡排序
 void Sort(array xs)
     loop
         bool didFlip = false

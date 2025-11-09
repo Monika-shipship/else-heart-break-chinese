@@ -2,14 +2,14 @@ void OnIntruder(string name)
 	Connect("Ministry_Elevator2_Door1")
 
 	if name == "Monad"
-		Say("Good evening Dr Monad, one second please")
+		Say("Good evening Dr Monad, one second please / 晚上好，莫纳德博士，请稍等")
 		if(GetFloor() == 3)
 			GotoFloor(0)
 		else
 			GotoFloor(3)
 		end
 	else if name == "Bower"
-		Say("Good evening Bower, one second please")
+		Say("Good evening Bower, one second please / 晚上好，鲍尔，请稍等")
 		if(GetFloor() == 0)
 			GotoFloor(1)
 		else
@@ -22,7 +22,7 @@ void OnIntruder(string name)
 			GotoFloor(1)
 		end
 	else if StringContains(name, "Typer")
-		Say("Hello and welcome to the Ministry.")
+		Say("Hello and welcome to the Ministry. / 您好，欢迎来到部委。")
 		if(GetFloor() == 0)
 			GotoFloor(2)
 		else
@@ -30,11 +30,11 @@ void OnIntruder(string name)
 		end
 	else
 		Sleep(3)
-		Say("You are not authorized.")
+		Say("You are not authorized. / 您未被授权。")
 		GotoFloor(0)
 	end
 end
 
 void OnHack(string name)
-     Say("Illegal hacking identified.")
+     Say("Illegal hacking identified. / 发现非法入侵。")
 end

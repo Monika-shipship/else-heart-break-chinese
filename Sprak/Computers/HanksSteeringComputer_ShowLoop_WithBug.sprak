@@ -10,6 +10,7 @@ DisplayGraphics()
 
 
 #### HELPER FUNCTIONS ####
+#### 辅助函数 ####
 
 void RandomLine(number x)
     SetRandomColor()

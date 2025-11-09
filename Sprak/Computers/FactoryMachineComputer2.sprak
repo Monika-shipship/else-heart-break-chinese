@@ -1,13 +1,13 @@
 ClearText()
-number cycles = Input("Enter number of refinement cycles: ")
+number cycles = Input("Enter number of refinement cycles:  / 输入精炼周期数：")
 
-Print("Starting...")
+Print("Starting... / 开始...")
 loop i from 1 to cycles
-    PrintS("Cycle " + i)
+    PrintS("Cycle " + i + " / 周期 " + i)
     EvenlyRefine()
     Print("")
 end
-Print("Done!")
+Print("Done! / 完成！")
 
 
 

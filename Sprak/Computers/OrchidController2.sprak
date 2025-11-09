@@ -1,4 +1,5 @@
 # By Fib, 18 Jan 1995
+# 作者：Fib，1995年1月18日
 
 string baseName = "DorisGardens_West_Orchid1_"
 number NR_OF_ORCHIDS = 12

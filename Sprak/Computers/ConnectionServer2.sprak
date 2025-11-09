@@ -10,8 +10,9 @@ end
 
 
 # Does this computer even have a monitor?! // Typo1337
+# 这台电脑有显示器吗？！ // Typo1337
 
-var n = Input("Ping computer with name: ")
+var n = Input("Ping computer with name:  / Ping 计算机名称：")
 Ping(n)
 
 

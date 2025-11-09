@@ -1,15 +1,16 @@
 
 # operating system for computers in the cityscape
+# 城市景观中计算机的操作系统
 
 loop
     ClearText()
     Print("==========================")
     Sleep(0.5)
-    Print("Hello and welcome to")
-    Print("The Dorisburg Pedestrian OS")
+    Print("Hello and welcome to / 您好，欢迎使用")
+    Print("The Dorisburg Pedestrian OS / 多丽丝堡行人操作系统")
     Sleep(0.5)
-    Print("Where do you want to walk to?")
-    Print("Please enter destination:")
+    Print("Where do you want to walk to? / 您想走到哪里？")
+    Print("Please enter destination: / 请输入目的地：")
     var dest = ToLowercase(Input(""))
 
     string target = ""
@@ -30,18 +31,18 @@ loop
         target = "SodaStorage_Point"
     end
 
-    Print("Please wait...")
+    Print("Please wait... / 请稍候...")
     var path = FindPath(GetUser(), target)
 
     Print("==========================")
-    Print("Suggested route:")
+    Print("Suggested route: / 建议路线：")
     number i = 1
     loop room in path
         Print(i + ". " + room)
         i++
     end
     Print("==========================")
-    Input("Press enter to continue...")
+    Input("Press enter to continue... / 按回车键继续...")
 end
 
 string ToLowercase(var text)

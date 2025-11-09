@@ -1,4 +1,5 @@
 # Calculate the n:th Fibonacci number
+# 计算第 n 个斐波那契数
 
 number Fib(number n)
 	

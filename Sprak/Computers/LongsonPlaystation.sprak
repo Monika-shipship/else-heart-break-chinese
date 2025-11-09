@@ -1,17 +1,18 @@
 ClearText()
 
-Print("Welcome to PLAY STATION")
+Print("Welcome to PLAY STATION / 欢迎来到游戏站")
 Print("-----------------------")
 Print("")
-Print("The latest in home entertainment")
+Print("The latest in home entertainment / 最新的家庭娱乐")
 Print("")
-Input("Press enter to start...")
+Input("Press enter to start... / 按回车键开始...")
 Sleep(1)
 PlaySound("Powerup 4")
 
 StartGame()
 
 # Game loop
+# 游戏循环
 loop
     string command = Input("> ")
     if command == "look"
@@ -37,6 +38,7 @@ ExitGame()
 
 
 # FUNCTIONS
+# 函数
 
 void StartGame()
     Fx()
@@ -48,11 +50,11 @@ end
 
 
 void Help()
-    Print(" - AVAILABLE COMMANDS - ")
-    Print("'think' - get information")
-    Print("'look' - list things in room")
-    Print("'use' - use something in the room")
-    Print("'exit' - turn off the game")
+    Print(" - AVAILABLE COMMANDS -  /  - 可用命令 - ")
+    Print("'think' - get information / '思考' - 获取信息")
+    Print("'look' - list things in room / '查看' - 列出房间里的东西")
+    Print("'use' - use something in the room / '使用' - 使用房间里的东西")
+    Print("'exit' - turn off the game / '退出' - 关闭游戏")
     Print(" ---------------------- ")
 end
 
@@ -62,9 +64,9 @@ void Think()
     Print(pos)
     var action = GetAction("PlayWife")
     if action == ""
-        action = "Doing nothing."
+        action = "Doing nothing. / 什么也不做。"
     end
-    Print("Action: " + action)
+    Print("Action: " + action + " / 行动：" + action)
 end
 
 void Look()
@@ -79,15 +81,15 @@ end
 
 void Use() 
     Look()
-    Print("Use what item?")
-    number nr = Input("nr: ")
+    Print("Use what item? / 使用什么物品？")
+    number nr = Input("nr:  / 编号：")
     string roomName = GetRoom("PlayWife")
     array stuff = GetThingsInRoom(roomName)
     if nr >= 0 and nr < Count(stuff)
         var obj = stuff[nr]
         InteractWith("PlayWife", obj)
     else
-        Print("Invalid nr")
+        Print("Invalid nr / 无效编号")
     end
 end
 

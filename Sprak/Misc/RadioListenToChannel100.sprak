@@ -1,4 +1,4 @@
-# Channel 100
+# Channel 100 / 频道 100
 
 var channel = 100
 DisconnectAll()

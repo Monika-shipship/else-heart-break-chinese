@@ -3,6 +3,6 @@ if GetUser() == "Monad"
     Connect("Plaza_FuseBox_Poor_FuseBox_1")
     Slurp()
 else
-    Print("NOT AUTHORIZED")
+    Print("NOT AUTHORIZED / 未授权")
     Sleep(2)
 end

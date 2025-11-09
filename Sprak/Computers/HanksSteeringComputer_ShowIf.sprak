@@ -2,5 +2,5 @@
 var x = Input("")
 
 if x == 10
-   Print("Yes!")
+   Print("Yes! / 是的！")
 end

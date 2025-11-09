@@ -1,10 +1,10 @@
 
-# Check for authorization
+# Check for authorization / 检查授权
 var canEnter = HasAccess(GetUser())
-Say("Can enter: " + canEnter)
+Say("Can enter: / 可以进入：" + canEnter)
 
 if canEnter
-    # do nothing
+    # do nothing / 什么都不做
 else
     Grill()
 end

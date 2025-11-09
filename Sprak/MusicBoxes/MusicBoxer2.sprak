@@ -1,4 +1,4 @@
-# THEREMIN
+# THEREMIN / 泰勒明
 
 loop x from 1 to 64
     PlaySound("ThereminSound")

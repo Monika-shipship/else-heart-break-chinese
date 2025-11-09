@@ -8,7 +8,7 @@ loop c in conns
     Print(c)
 end
 
-Print("Press enter to enter the computer")
+Print("Press enter to enter the computer / 按回车键进入计算机")
 Input("")
 Print("3")
 Print("2")

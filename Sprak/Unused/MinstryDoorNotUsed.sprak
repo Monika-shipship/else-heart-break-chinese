@@ -5,7 +5,7 @@ number targetY = GetTargetY()
 if Authorized()
   TeleportUser(targetRoom, targetX, targetY)
 else
-  Say("You are unauthorized.")
+  Say("You are unauthorized. / 您未被授权。")
 end
 
 bool Authorized()

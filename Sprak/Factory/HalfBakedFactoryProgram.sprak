@@ -1,4 +1,4 @@
-# Return the absolute number
+# Return the absolute number / 返回绝对值
 number Abs(number x)
     if x >= 0
         return x
@@ -7,6 +7,6 @@ number Abs(number x)
     end
 end
 
-Print("UNFINISHED PROGRAM")
+Print("UNFINISHED PROGRAM / 未完成的程序")
 
 

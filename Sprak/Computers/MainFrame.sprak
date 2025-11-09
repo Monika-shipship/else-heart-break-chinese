@@ -17,6 +17,6 @@ Print("")
 var names = GetPeople()
 
 loop
-	var name = Input("Enter name to look up: ")
+	var name = Input("Enter name to look up:  / 输入要查找的姓名：")
 	Print(GetPosition(name))
 end

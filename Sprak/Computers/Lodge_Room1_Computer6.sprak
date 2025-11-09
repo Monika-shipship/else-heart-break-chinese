@@ -1,10 +1,10 @@
 ClearText()
-Print("I'm Computer6")
+Print("I'm Computer6 / 我是计算机6")
 
-var x = Input("Enter a large number: ")
+var x = Input("Enter a large number:  / 输入一个大数：")
 
 if x > 1000
-    Print("That's large!")
+    Print("That's large! / 很大！")
 else
-    Print("That's not very large!")
+    Print("That's not very large! / 不是很大！")
 end
