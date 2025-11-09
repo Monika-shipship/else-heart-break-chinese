@@ -1,0 +1,13 @@
+
+loop
+    ClearText()
+    Print("Register Workplace Related Issue")
+    Print("================================")
+    string type = Input("Description: ")
+    string quality = Input("Importance (1-10): ")
+    Print("Thank you for your feedback!")
+    Print("We will process your issue shortly.")
+    Print("================================")
+    Print("")
+    Sleep(3)
+end

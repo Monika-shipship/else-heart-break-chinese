@@ -1,0 +1,19 @@
+
+ClearText()
+Print("")
+Print("Hello and welcome to")
+Print("the shoe store storage.")
+Sleep(1)
+Print("Unauthorized individuals")
+Print("are advised to leave.")
+Print("")
+Sleep(3)
+ClearText()
+
+void OnIntruder(string name)
+    
+end
+
+void OnHack(string name)
+    
+end

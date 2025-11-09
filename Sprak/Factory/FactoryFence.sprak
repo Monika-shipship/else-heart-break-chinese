@@ -1,0 +1,21 @@
+# Access central computer
+var centralComputer = Connect("FactoryAccessComputer")
+
+# Check for authorization
+var canEnter = centralComputer.HasAccess(GetUser())
+Say("Can enter: " + canEnter)
+
+# Get the two log computers
+var fenceLogger1 = Connect("FenceLogger1")
+var fenceLogger2 = Connect("FenceLogger2")
+
+# Log and potentially let through
+if canEnter
+    # do nothing to let through
+    fenceLogger1.LogNormal(GetUser())
+    fenceLogger2.LogNormal(GetUser())
+else
+	Grill()
+    fenceLogger1.LogIntruder(GetUser())
+    fenceLogger2.LogIntruder(GetUser())
+end

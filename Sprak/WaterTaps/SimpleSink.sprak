@@ -1,0 +1,7 @@
+
+SetLiquidAmount(100)
+
+ClearCode()
+AppendCode("Drink(25)")
+AppendCode("")
+AppendCode("# Refilled by " + GetName())

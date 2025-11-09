@@ -1,0 +1,17 @@
+
+Connect("TestComputer1")
+Connect("TestComputer2")
+Connect("OrganComputer")
+
+#Connect("Pixie")
+#Connect("Babcia")
+#Connect("Hank")
+#Connect("Sebastian")
+
+ClearText()
+
+
+loop
+	var a = Input("Say something: ")
+	Print("You said: " + a)
+end

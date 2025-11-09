@@ -1,0 +1,17 @@
+loop
+    ClearText()
+
+    Print(" - Server room - ")
+    string pwd = Input("Enter password to unlock door: ")
+
+    if pwd == "zgh4522zcbw4s"
+        Unlock("Factory_Corridor_DoorToServerRoom")
+    else
+        Print("Invalid password")
+    end
+
+    Sleep(3)
+end
+
+# Security assessment team: This code is considered UNSAFE
+# Replace ASAP!

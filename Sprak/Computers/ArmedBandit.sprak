@@ -1,0 +1,34 @@
+
+var bank = Connect("FinanceComputer")
+
+var user = GetUser()
+var balance = bank.GetBalanceForPerson(user)
+
+if balance < 10
+    Say("You don't have enough money to play.")
+    return # exit program
+end
+
+Say("Cost: $10")
+bank.ChangeBalance(user, -10)
+Sleep(1.5)
+PlaySound("CasinoSpinn")
+Sleep(1.5)
+
+if Random() > 0.995
+    PlaySound("CasinoWin")
+    bank.ChangeBalance(user, 100)
+    Say("You won $1000!")
+else if Random() > 0.97
+    PlaySound("CasinoWin")
+    bank.ChangeBalance(user, 10)
+    Say("You won $100")
+else if Random() > 0.8
+    PlaySound("CasinoWin")
+    bank.ChangeBalance(user, 2)
+    Say("You won $20")
+else 
+    Sleep(2)
+    PlaySound("CasinoLost")
+    Say("You won nothing")
+end

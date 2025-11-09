@@ -1,0 +1,42 @@
+
+void OnIntruder(string name)
+    Connect("Ministry_Elevator1_Door1")
+
+    if name == "Monad"
+        Say("Good evening Dr Monad, one second please")
+        if(GetFloor() == 3)
+            GotoFloor(0)
+        else
+            GotoFloor(3)
+        end
+    else if StringContains(name, "Typer")
+        Say("Hello and welcome to the Ministry.")
+        if(GetFloor() == 0)
+            GotoFloor(2)
+        else
+            GotoFloor(0)
+        end
+    else if name == "Bower"
+        Say("Good evening Mr Bower, one second please")
+        if(GetFloor() == 0)
+            GotoFloor(1)
+        else
+            GotoFloor(0)
+        end
+    else
+        GotoFloor(0)
+    end
+end
+
+
+# If the elevator is activated manually
+
+if GetUser() == "Pixie"
+    Say("We have been expecting you. Second door on the right when you get off.")
+    GotoFloor(1)
+end
+
+
+void OnHack(string name)
+     Say("Illegal hacking identified.")
+end

@@ -1,0 +1,735 @@
+# variables
+number SI = 6 # player's Structural Integrity (health)
+string environs # set to player's location
+string choice # outcome of Reply()
+
+
+ClearText()
+Message("")
+PlaySound("Hit 1")
+Message("---------------------------")
+PlaySound("Hit 2")
+Message("THE TOWER")
+PlaySound("Hit 1")
+Message("an interactive short story")
+PlaySound("Hit 2")
+Message("by Maximilian Olbers")
+PlaySound("Hit 1")
+Message("---------------------------")
+PlaySound("Hit 2")
+Print("")
+Message("Press Enter to continue...")
+Input("")
+
+ClearText()
+Print("")
+Message("You are a bell tower, newly-wrought from red brick")
+Message("and black iron by the ascetic architecturalists")
+Message("of the far west.")
+Print("")
+Message("As a young building, you must travel east.")
+Message("You must journey to the City, and become part")
+Message("of the City.")
+Print("")
+Message("Make your way over the jagged mountains, across the")
+Message("arid deserts and the wide plains while preserving")
+Message("your Structural Integrity (SI).")
+Print("")
+PrintSI()
+ClearText()
+Print("")
+Message("You take your first, wobbly steps out of your")
+Message("scaffolding, and the architecturalists who")
+Message("birthed you wave goodbye.")
+Input("")
+Message("You...")
+Print("")
+Print("1 Chime your quarter bells")
+Print("")
+Print("2 Let your great bell toll")
+Print("")
+Print("3 Leave silently")
+
+# Intro - choice
+
+loop
+	choice = Reply()
+	if choice == "1"
+		ClearText()
+		Print("")
+		Message("Your quarter bells chime a cheery farewell")
+		Message("to the architecturalists, whom you do not")
+		Message("yet know you will miss.")
+		Input("")
+		ClearText()
+		break
+	else if choice == "2"
+		ClearText()
+		Print("")
+		Message("Your great bell tolls once in reply.")
+		PlaySound("Powerup 5")
+		PlaySound("Powerup 4")
+		PlaySound("Powerup 3")
+		PlaySound("Powerup 2")
+		PlaySound("Powerup 1")
+		Sleep(1.0)
+		Message("The architecturalists let out a cry of dismay.")
+		Message("Unused to the weight of your great bell,")
+		Message("you have unwittingly unbalanced yourself")
+		Message("and fallen badly.")
+		SI --
+		Print("")
+		Message("You quickly get back up, red-bricked and")
+		Message("embarrassed, knowing that you are a now a little")
+		Message("less structurally sound than you were a moment ago.")
+		PrintSI()
+		ClearText()
+		break
+	else if choice == "3"
+		ClearText()
+		Print("")
+		Message("Only the dry sound of shuffling bricks signals")
+		Message("your departure.")
+		Input("")
+		ClearText()
+		break
+	else
+		ClearText()
+		Print("")
+		Message("You...")
+		Print("")
+		Print("1 Chime your quarter bells")
+		Print("")
+		Print("2 Let your great bell toll")
+		Print("")
+		Print("3 Leave silently")
+	end
+end
+
+# Intro - end of choice
+
+ClearText()
+
+environs = "mountains"
+
+Print("")
+Message("After some time, you find yourself at the slopes of the")
+Message("mountains at the end of the world. To cross this range,")
+Message("they say, is to become real.")
+Print("")
+Message("The mountains are as steep as they are tall;")
+Message("not very, but nigh-insurmountable to a building")
+Message("such as yourself.")
+Print("")
+Message("How do you ascend?")
+Print("")
+Print("1 Attempt to keep your balance, one step at a time")
+Print("")
+Print("2 Loosen your quarter bells, use them to find purchase")
+
+# MOUNTAINS -- first choice
+
+loop
+	choice = Reply()
+	if choice == "1"
+		ClearText()
+		Print("")
+		Message("Carefully arranging your foundations, you try your")
+		Message("best to keep upright. It is a difficult task,")
+		Message("and you fail frequently. However, the two steps")
+		Message("back to each step forward eventually start growing")
+		Message("shorter and shorter, and before long you have reached")
+		Message("the summit.")
+		Print("")
+		Message("Your young bricks are supple and your mortar not")
+		Message("yet fully set, absorbing much of the damage your")
+		Message("frequent toppling would otherwise have inflicted.")
+		Message("However, you do not escape completely unscathed,")
+		Message("and have lost 2 points of Structural Integrity.")
+		SI -- 
+		SI -- # decreases SI by two total
+		PrintSI()
+		break
+	else if choice == "2"
+		ClearText()
+		Print("")
+		Message("Reeling up two bell ropes, you extend your")
+		Message("quarter bells through open arches.")
+		Message("You reach out and place them over the stone jutting")
+		Message("out from the mountain walls, and reel yourself in.")
+		Message("It's not easy, but you progress steadily and the summit")
+		Message("is soon within reach. Your bells are somewhat dented and")
+		Message("bruised, but a few careful taps against snowy rock")
+		Message("largely restore their resonance. You remain mostly whole.")
+		SI -- # decreases SI by one
+		PrintSI()
+		break
+	else
+		ClearText()
+		Print("")
+		Message("How do you ascend?")
+		Print("")
+		Print("1 Attempt to keep your balance, one step at a time")
+		Print("")
+		Print("2 Loosen your quarter bells, use them to find purchase")
+	end	
+end
+
+# MOUNTAINS -- end of first choice
+
+Input("")
+ClearText()
+Print("")
+Message("To the north and to the south, the sharp snow-crests")
+Message("of the mountain range seem to go on forever. To the")
+Message("west lies your birthplace, somewhere beneath the low")
+Message("clouds roiling just below the peaks. To the east,")
+Message("then, lies reality, or so they say. The foothills")
+Message("of the mountains at the end of the world soon give")
+Message("way to an arid steppe, then abruptly to a billowing")
+Message("desert. Beyond the desert, you know, somehow, that")
+Message("there is a wide chasm, and a bridge, and beyond it,")
+Message("fields of green.")
+
+# MOUNTAINS -- second choice
+
+Print("")
+Print("Now you must descend into the desert below. Do you...")
+Print("")
+Print("1 Cautiously, continuously, align your base to the")
+Print("angles of the mountain, brick by brick, step by step")
+Print("")
+Print("2 Find a suitable snow-covered slope and slide down")
+
+loop
+	choice = Reply()
+	if choice == "1"
+		ClearText()
+		Print("")
+		Message("The descent is easier than the ascent. The contours on")
+		Message("this side of the mountain-face are better-suited to the")
+		Message("size and shape of your brickwork. Your footing is steady.")
+		Input("")
+		break
+	else if choice == "2"
+		ClearText()
+		Print("")
+		Message("What at first seemed like a pleasant, shallow curve")
+		Message("snaking its way down sharp cliffs soon turns treacherous")
+		Message("as you are thrown violently off-course.")
+		Message("You tumble down the mountain in a flurry of snow,")
+		Message("and come to rest at its base.")
+		Message("Much of your ornamental metalworks have been completely")
+		Message("destroyed, and your Structural Integrity goes down by 2.")
+		Input("")
+		SI --
+		SI -- 
+		PrintSI()
+		break
+	else
+		ClearText()
+		Print("")
+		Print("Now you must descend into the desert below. Do you...")
+		Print("")
+		Print("1 Cautiously, continuously, align your base to the")
+		Print("  angles of the mountain, brick by brick, step by step")
+		Print("")
+		Print("2 Find a suitable snow-covered slope and slide down")
+	end
+end
+
+environs = "desert"
+
+ClearText()
+Print("")
+Message("The snow on the mountains never melts,")
+Message("and the thin strip of grassland on the other")
+Message("side of them is a perpetual dried-out yellow.")
+Message("Beyond this thin strip, you begin your journey")
+Message("through the desert.")
+Print("")
+Message("Featureless and completely barren, it seems")
+Message("to stretch on forever. The heat hardens")
+Message("your mortar and makes your bricks brittle.")
+Input("")
+SI -- # lose 1 SI
+PrintSI()
+
+ClearText()
+Print("")
+Message("A black line detaches itself from the horizon.")
+Message("The bottomless chasm comes, and a gust of wind")
+Message("through your belfry sounds a sigh of apprehension.")
+Print("")
+Message("The rickety suspension bridge is dead ahead,")
+Message("twisting in the hot updrafts from the abyss.")
+
+# DESERT - only choice
+
+Print("")
+Message("Do you...")
+Print("")
+Print("1 Run across, as fast as your hundreds of bricks")
+Print("  can carry you")
+Print("")
+Print("2 Creep slowly across the suspension bridge,")
+Print("  swinging your great bell to balance yourself")
+Print("")
+Print("3 Ignore the bridge, attempt to cross the chasm")
+Print("  by means of some invisible walkway")
+
+loop
+	choice = Reply()
+	if choice == "1"
+		ClearText()
+		Print("")
+		Message("You run like you've never ran before.")
+		Message("The bridge sways under your thundering")
+		Message("brickfalls, but you make it.")
+		Print("")
+		Message("You make it and on the other side one")
+		Message("of your bricks catches on something and")
+		Message("you fall.")
+		SI -- # lose 1 SI
+		PrintSI()
+		break
+	else if choice == "2"
+		ClearText()
+		Print("")
+		Message("Your bell tolls as you slowly make your")
+		Message("way across the bridge. The weight of your")
+		Message("great brass bell proves to be more than")
+		Message("enough to counteract the swinging of the")
+		Message("bridge that would otherwise deposit you")
+		Message("into the endless abyss.")
+		break
+	else if choice == "3"
+		ClearText()
+		Print("")
+		Message("You fall.")
+		Print("")
+		Message("You keep falling, forever.")
+		Input("")
+		ClearText()
+		Print("")
+		Print("")
+		Print("")
+		Print("")
+		Print("Press CTRL+R to restart.")
+		loop
+			Sleep(60.0)
+		end
+	else
+		ClearText()
+		Print("")
+		Message("Do you...")
+		Print("")
+		Print("1 Run across, as fast as your hundreds of bricks")
+		Print("  can carry you")
+		Print("")
+		Print("2 Creep slowly across the suspension bridge,")
+		Print("  using your great bell to balance yourself")
+		Print("")
+		Print("3 Ignore the bridge, attempt to cross the chasm")
+		Print("  by means of some invisible walkway")
+	end
+end
+
+# DESERT - end of choice
+
+Input("")
+
+environs = "plains"
+
+ClearText()
+Print("")
+Message("Much like the desert, the plains seem to stretch")
+Message("on forever. They are green with grass and perfectly,")
+Message("unnaturally, flat.")
+Print("")
+Message("They are plains and not a plain, for a network of narrow")
+Message("ditches filled with gravel criss-cross the expanse,")
+Message("dividing the grasslands into vast but neat triangles,")
+Message("each one a slightly different shade of green.")
+Input("")
+ClearText()
+Print("")
+Message("On the eastern horizon you can see the sky darken, and")
+Message("you instinctively recognize the smog of the City.")
+Print("")
+Message("However, something juts up on the southern horizon,")
+Message("breaking the perfect joining of land and sky.")
+Print("")
+Message("Do you...")
+Print("")
+Print("1 Continue east, to the City")
+Print("2 Range south to investigate")
+
+# Plains choice
+
+loop
+	choice = Reply()
+	if choice == "1"
+		ClearText()
+		Print("")
+		Message("You continue.")
+		break
+	else if choice == "2"
+		NewCityEnding()
+	else
+		ClearText()
+		Message("Do you...")
+		Print("")
+		Print("1 Continue east, to the City")
+		Print("2 Range south to investigate")
+	end
+end
+
+# Plains choice end
+
+environs = "city_outskirts"
+
+Input("")
+ClearText()
+Print("")
+Message("As you near the City, you start spotting other")
+Message("buildings dotted around the landscape; barns, silos,")
+Message("even houses and smaller shacks.")
+
+# City outskirts choice
+
+Message("You even see what looks like a tower some ways away.")
+Message("Something about its silhouette reminds you of")
+Message("yourself, of home.")
+Print("")
+Print("Do you...")
+Print("")
+Print("1 Focus harder, try to identify some architecturalist")
+Print("  hallmarks in the tower's design")
+Print("")
+Print("2 Ignore it, continue towards the City")
+
+loop
+	choice = Reply()
+	if choice == "1"
+		ClearText()
+		Print("")
+		Message("You strain the mystical senses housed in your")
+		Message("belfry, trying to make out any typical metal")
+		Message("scrollwork or brick patterns.")
+		Print("")
+		Message("Unfortunately, you fail to pay equal attention to where")
+		Message("you are going. The writhing railroad track before you")
+		Message("completely escapes your notice - until you step on it.")
+		Print("")
+		Message("It wriggles madly beneath your foundations, its two long")
+		Message("metal spines breaking bricks, pulverizing mortar and")
+		Message("damaging concrete.")
+		SI --
+		SI --
+		PrintSI()
+		ClearText()
+		Print("")
+		Message("You move off the poor thing as quickly as you can,")
+		Message("and watch it slither away.")
+		Print("")
+		Message("You can no longer see the other tower.")
+		Message("Perhaps it, too, has yet to finish its journey.")
+		break
+	else if choice == "2"
+		ClearText()
+		Print("")
+		Message("The origin of the other tower matters little")
+		Message("to you. You must get to the city.")
+		Message("You wait for a railroad track to snake past")
+		Message("and then proceed into the urban sprawl.")
+		break
+	else
+		ClearText()
+		Print("")
+		Print("1 Focus harder, try to identify some architecturalist")
+		Print("  hallmarks in the tower's design")
+		Print("")
+		Print("2 Ignore it, continue to the City")
+	end
+end
+
+Input("")
+ClearText()
+Print("")
+Message("The outskirts of the City are themselves starting")
+Message("to become heavily urbanized. You tread on rural roads")
+Message("that joined the outskirts of the City in ages past,")
+Message("while new houses scuffle to replace their brethren, worn")
+Message("down by unfathomable age.")
+Print("")
+Message("It does not occur to you to wonder why,")
+Message("why this all is, why the City is,")
+Message("or why it is taking so long to complete itself.")
+Message("You are a bell tower, and you press on into")
+Message("the city center.")
+Input("")
+
+environs = "city"
+
+ClearText()
+Message("Wide dirt roads are replaced by their narrower")
+Message("cobblestone cousins, and you tower over")
+Message("buildings that threaten shut out")
+Message("all sunlight from street level.")
+Message("These streets all converge in a central square.")
+Print("")
+Message("At the far end of the square, you see the grand")
+Message("City Hall, old and dead.")
+Message("There is something unnerving about it,")
+Message("necrotic tissue not yet excised")
+Message("from healthy flesh. You do not")
+Message("know what flesh is, and the nonsensical")
+Message("thought is soon washed away by a fresh")
+Message("wave of euphoria. This is it.")
+Print("")
+Message("This is the City.")
+Input("")
+
+ClearText()
+Print("")
+Message("You settle into a vacant spot in the square")
+Message("that you intuit is meant for you.")
+Message("As the poles below your foundation burrow into")
+Message("the clay loam, new knowledge wells up from the earth.")
+Print("")
+Input("")
+Print("")
+Message("Soon the first Citizens will come.")
+Input("")
+ClearText()
+Print("")
+Message("The End.")
+Print("")
+Message("Press CTRL+R to restart.")
+loop
+	Sleep(60.0)
+end
+
+void NewCityEnding()
+	ClearText()
+	Print("")
+	Message("The journey south is more difficult than anticipated.")
+	Message("The ditches are not as regular as they first appeared,")
+	Message("or perhaps they just become more irregular the further")
+	Message("south you go. Some ditches have expanded into waterlogged")
+	Message("trenches that are proving difficult to cross safely.")
+	Message("You fear you may have lost a brick or two to the")
+	Message("muddy waters.")
+	SI --
+	PrintSI()
+	ClearText()
+	Print("")
+	Message("The plain has now completely lost its strange geometrical")
+	Message("cuts, and clumps of trees dot new, low hills.")
+	Print("")
+	Message("It is here that you find the aberration in the horizon.")
+	Print("")
+	Message("Though short next to your towering self, the grand hall")
+	Message("is massive and imposing.")
+	Print("")
+	Message("It is also old, and tired. The columns at the top of its")
+	Message("wide stairs seem to sag almost, and one corner of the")
+	Message("great structure looks bound to slowly sink through")
+	Message("the earth.")
+	Input("")
+	ClearText()
+	Print("")
+	Message("It has no way of acknowledging your presence,")
+	Message("but you sense that it does.")
+	Print("")
+	Message("You can no longer see the City's distant smog-cloud.")
+	Message("The other building - a city hall, you now understand - ")
+	Message("will never make it there. And neither, most likely,")
+	Message("would you.")
+	Print("")
+	Message("You move away from the other building somewhat")
+	Message("before settling down. This way your shadow will")
+	Message("only briefly, gently, flow over its front columns")
+	Message("during the day. The other building seems to")
+	Message("understand your intent and straightens up,")
+	Message("its white plaster cracking and flaking slightly")
+	Message("under the midday sun.")
+	Print("")
+	Message("This is a good spot. You arrange your foundations")
+	Message("and burrow the poles you carry into the firm earth")
+	Message("for stability.")
+	Input("")
+	ClearText()
+	Print("")
+	Message("Some time passes.")
+	Print("")
+	Message("Your bells ring at the appointed hours,")
+	Message("half and quarter too.")
+	Print("")
+	Message("You soon lose track. As a bell tower you note the passage")
+	Message("of time, but the implications of its unyielding march")
+	Message("towards the future are abstract and distant to you.")
+	Print("")
+	Message("A cobblestone road slithers over the southern hills,")
+	Message("the hiss of its rolling stones waking you from your")
+	Message("reverie. It pauses, observing the two buildings")
+	Message("on the plain.")
+	Print("")
+	Message("Your great bell tolls several times as the road waits,")
+	Message("each ringing fit more awkward than the last.")
+	Print("")
+	Message("Eventually the road seems to come to some conclusion.")
+	Message("It rolls in, anchoring its tail at the marble steps of")
+	Message("city hall and curving around your base before coming")
+	Message("to rest. With the road in place, some circuit has")
+	Message("been completed, some switch flipped, and you know.")
+	Input("")
+	ClearText()
+	Print("")
+	Message("This will be the second City, once the Citizens come.")
+	Print("")
+	Input("")
+	ClearText()
+	Print("")
+	Message("The End.")
+	Print("")
+	Message("Press CTRL+R to restart.")
+	loop
+		Sleep(60.0)
+	end
+end
+
+# # # # # # # # # # # # # # # # # # # 
+# # # # # # # # # # # # # # # # # # # 
+# # # # # # # # # # # # # # # # # # # 
+
+# Checks player's SI, prints it if positive, sends them to Death() if zero or less
+void PrintSI()
+	string outcome
+	if SI <= 0
+		outcome = "dead"
+		Print("")
+		Message("You have no structural integrity remaining.")
+		Print("")
+		Input("")
+		Death()
+	else
+		Print("")
+		Message("Your Structural Integrity is currently at " + SI + " out of 6.")
+		outcome = "You're not dead yet."
+		Input("")
+		return
+	end
+end
+
+# Text printer, blatantly ripped off from Text Adventure on the Secret Arcade github and modified
+void Message(string text)
+#	PlaySound("Hit 2")
+	Print(text)
+	Sleep(0.5)
+end
+
+# Checks player's input and returns a correct value.
+# This could probably be redone, better
+void Reply()
+	loop
+		string initreply
+		string answer
+		Print("")
+		initreply = Input("Enter a number: ")
+		if initreply == "1"
+			return initreply
+		else if initreply == "2"
+			return initreply
+		else if initreply == "3"
+			return initreply
+		else
+			answer = "invalid"
+			return answer
+		end
+	end
+end
+
+# The player goes here to die.
+void Death()
+	if environs == "mountains"
+		ClearText()
+		Print("")
+		Message("You died in the mountains, somehow.")
+		Input("")
+		ClearText()
+		Print("")
+		Message("GAME OVER")
+		Print("")
+		Print("Press CTRL+R to restart.")
+		loop
+			Sleep(60.0)
+		end
+	else if environs == "desert"
+		ClearText()
+		Print("")
+		Message("Things fall apart.")
+		Print("")
+		Message("Your bricks dry out under the blistering sun,")
+		Message("but it is your mortar that first breaks down")
+		Message("and joins the sand.")
+		Input("")
+		ClearText()
+		Print("")
+		Message("GAME OVER")
+		Print("")
+		Print("Press CTRL+R to restart.")
+		loop
+			Sleep(60.0)
+		end
+	else if environs == "plains"
+		ClearText()
+		Print("")
+		Message("You are brought down on the plains,")
+		Message("and can go no further.")
+		Print("")
+		Message("Ages pass, and you disintegrate.")
+		Message("Your great bell rusts and sinks")
+		Message("into the soft loam.")
+		Input("")
+		ClearText()
+		Print("")
+		Message("GAME OVER")
+		Print("")
+		Print("Press CTRL+R to restart.")
+		loop
+			Sleep(60.0)
+		end
+	else if environs == "city_outskirts"
+		ClearText()
+		Print("")
+		Message("Your very structure fails you,")
+		Message("and you never make it into the City proper.")
+		Print("")
+		Message("An unfortunate end. Eventually the architecturalists")
+		Message("will build another bell tower, and send it on its way.")
+		Input("")
+		ClearText()
+		Print("")
+		Message("GAME OVER")
+		Print("")
+		Print("Press CTRL+R to restart.")
+		loop
+			Sleep(60.0)
+		end
+	else
+		ClearText()
+		Print("")
+		Message("You died mysteriously.")
+		Input("")
+		ClearText()
+		Print("")
+		Message("GAME OVER")
+		Print("")
+		Print("Press CTRL+R to restart.")
+		loop
+			Sleep(60.0)
+		end
+	end
+end

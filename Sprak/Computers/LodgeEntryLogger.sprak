@@ -1,0 +1,13 @@
+
+void OnIntruder(string name)
+    if StringContains(name, "Typer")
+        var yulianLogger = Connect("YulianLogger")
+        yulianLogger.LogIntruder("WARNING! Ministry person:")
+        yulianLogger.LogIntruder(name)
+    end
+end
+
+void OnHack(string name)
+    
+end
+

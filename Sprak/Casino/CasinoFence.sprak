@@ -1,0 +1,5 @@
+
+if UserHasModifier()
+	Grill()
+	Say("Modifier detected!")
+end

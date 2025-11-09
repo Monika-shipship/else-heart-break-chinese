@@ -1,0 +1,39 @@
+############################################################
+# Goods database is connected to a permanent storage drive #
+# storing all the qualities of mined minerals.             #
+############################################################
+
+string Register(string type, number quality)
+    if ValidType(type) == false
+        return "Invalid type: " + type
+    end
+
+    if quality < 0 or quality > 10
+        return "Invalid quality: " + quality
+    end
+
+    Print("")
+    Print("")
+    Print("Registered: " + type + " (" + quality + "/10)")
+
+    string key = type + "_" + GetHour() + ":" + GetMinute()
+
+    SaveMemory(key, quality)
+
+    return "Registration succeeded"
+end
+
+bool ValidType(string type)
+    var validTypes = ["ore", "gold", "silver", "crystal", "iron"]
+    loop validTypes
+        if type == @
+            return true
+        end
+    end
+
+    return false
+end
+
+Print("")
+var k = Input("Enter key: ")
+Print(LoadMemory(k))

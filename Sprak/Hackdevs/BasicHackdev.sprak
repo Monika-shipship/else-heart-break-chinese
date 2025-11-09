@@ -1,0 +1,8 @@
+
+# The allow function returns true/false
+# depending on if you're allowed to
+# modify the target or not.
+
+bool Allow(string target, number level)
+    return level == 0
+end

@@ -1,0 +1,14 @@
+
+# TODO: finish this code
+
+void Greeting()
+	Print("Hello!")
+end
+
+void Place()
+	Print("World")
+end
+
+
+Greeting()
+Place()

@@ -1,0 +1,11 @@
+
+ClearText()
+Print("- MACHINE B2 - ")
+Print("Will attempt to convert goods")
+Print("Press enter to start")
+Input("")
+
+var machine = Connect("MachineB2")
+string result = machine.Convert()
+
+Print("Result: " + result)

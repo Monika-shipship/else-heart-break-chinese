@@ -1,0 +1,4 @@
+
+# Change this to unlock other doors in the room:
+
+Unlock("Lodge_Room1_DoorToEntry")

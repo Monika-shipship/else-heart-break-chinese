@@ -1,0 +1,47 @@
+
+# (C) Hank
+
+# TODO: Create a database in the basement for this
+var guests = ["Siri", "Sebastian", "Bower", "Bernd"]
+
+
+loop
+    ClearText()
+    Print("Enter command / guest:")
+    string name = Input("")
+    if name == "door" or name == "Door"
+        Print("Unlock door:")
+        var doorName = Input("")
+        Unlock(doorName)
+    else
+        LookupPerson(name)
+    end
+    Sleep(3)
+end
+
+
+# Hotel_Office_DoorToBasement
+# Hotel_Lobby_DoorToHotelExterior
+
+
+
+bool InDatabase(string name)
+    loop guests
+        if @ == name
+            return true
+        end
+    end
+    return false
+end
+
+
+void LookupPerson(string name)
+    if InDatabase(name)
+        Print(name + " is a guest")
+    else 
+        Print("Not a guest")
+    end
+    Print("-------------------")
+end
+
+

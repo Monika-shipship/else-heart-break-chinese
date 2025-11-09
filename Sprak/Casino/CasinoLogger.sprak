@@ -1,0 +1,20 @@
+
+void OnHack(string name)
+    Sleep(1)
+    Say("WARNING! Detected hacker: " + name)
+    Sleep(1)
+    Say("Initiating defense mechanisms...")
+    Sleep(2)
+       
+    ZapPerson(name)
+
+    Sleep(1)
+    
+    RestoreCode("Casino_Floor1_Fence_1")
+    RestoreCode("Casino_Floor1_MinistryCubbardComputerScreen_MinistryCubbardComputerScreen_1")
+end
+
+void OnIntruder(string name)
+    Print("Entered room: " + name)
+end
+

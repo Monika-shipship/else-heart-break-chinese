@@ -1,0 +1,23 @@
+﻿# RadiOS by Rasput1n, 1992
+# This complete program is run when the wheel is turned
+
+# Next channel
+var channel = GetChannel()
+channel++
+
+# Wrap around
+if(channel > 4)
+    channel = 0
+end
+
+if(channel == 0)
+    TurnOffSound()
+else
+    # Radio should only be connected to one channel
+    DisconnectAll()
+    Connect("RadioStation_Channel" + channel)
+    TurnOnSound()
+end
+
+# Store the channel for later
+SetChannel(channel)

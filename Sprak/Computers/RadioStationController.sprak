@@ -1,0 +1,9 @@
+
+# CONTROLLED BY COMPUTER
+
+# Available functions
+
+# Play()
+# Stop()
+# PlaySound(name)
+# IsPlaying() -> bool

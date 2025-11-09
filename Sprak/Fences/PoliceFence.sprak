@@ -1,0 +1,18 @@
+
+# Check for authorization
+var canEnter = HasAccess(GetUser())
+Say("Can enter: " + canEnter)
+
+if canEnter
+    # do nothing
+else
+    Grill()
+end
+
+bool HasAccess(string name)
+    if name == "Police"
+        return true
+    else
+        return false
+    end
+end

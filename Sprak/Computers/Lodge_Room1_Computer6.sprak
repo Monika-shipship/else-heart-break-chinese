@@ -1,0 +1,10 @@
+ClearText()
+Print("I'm Computer6")
+
+var x = Input("Enter a large number: ")
+
+if x > 1000
+    Print("That's large!")
+else
+    Print("That's not very large!")
+end

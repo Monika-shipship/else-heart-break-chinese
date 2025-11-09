@@ -1,0 +1,24 @@
+
+ClearText()
+
+var mode = Input("Set mode (1 - 4): ")
+
+if mode == 1
+	Print("Sunny")
+	SetRain(0)
+end
+
+if mode == 2
+	Print("Drizzle")
+	SetRain(25)
+end
+
+if mode == 3
+	Print("Rain")
+	SetRain(100)
+end
+
+if mode == 4
+	Print("Storm!")
+	SetRain(200)
+end

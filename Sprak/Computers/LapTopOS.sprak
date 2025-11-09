@@ -1,0 +1,34 @@
+
+ClearText()
+
+Print("*******************************************************")
+Print("")
+Print("R A N D O M   M O V I E   T I T L E   G E N E R A T O R")
+Print("")
+Print("*******************************************************")
+Print("")
+
+array word1 = ["Way", "Lord", "Master", "Return", "Story", "Saga", "Fish"]
+array word2 = ["Magical", "Fantastic", "Thunder", "Mysterious", "Dear", "Wonderful", "Evil"]
+array word3 = ["Mrs. X", "Cats", "Ring", "Ninja", "Prince", "Mystery", "Princess", "Lady", "Hero"]
+
+string Pick(array a)
+    number i = Int(Count(a) * Random())
+    return a[i]
+end
+
+loop
+    #Sleep(2)
+    Print("Press return to")
+    Print("generate title")
+    Input("")
+    #ClearText()
+    Print("")
+    string w1 = Pick(word1)
+    string w2 = Pick(word2)
+    string w3 = Pick(word3)
+    Print("'The " + w1 + " of the " + w2 + " " + w3 + "'")
+    Print("")
+    Print("")
+    Print("")
+end

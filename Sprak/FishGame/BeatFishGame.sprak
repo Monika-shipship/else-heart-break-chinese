@@ -1,0 +1,46 @@
+var playerFish = StartNewGame()
+
+# Each time your fish moves, the enemy fish gets to move too
+# Add instructions below:
+
+Wait()
+Wait()
+
+Forward()
+Left()
+
+Forward()
+Forward()
+Wait()
+
+Forward()
+Right()
+
+Right()
+Wait()
+Forward()
+
+
+# Helper functions:
+
+void StartNewGame()
+    var id = Connect("PlayerFish")
+    RemoteFunctionCall(id, "Restart", [])
+    return id
+end
+
+void Forward()
+    RemoteFunctionCall(playerFish, "PerformMove", ["Forward"])
+end
+
+void TurnLeft()
+    RemoteFunctionCall(playerFish, "PerformMove", ["Left"])
+end
+
+void TurnRight()
+    RemoteFunctionCall(playerFish, "PerformMove", ["Right"])
+end
+
+void Wait()
+    RemoteFunctionCall(playerFish, "PerformMove", ["Wait"])
+end

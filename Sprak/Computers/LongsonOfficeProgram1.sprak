@@ -1,0 +1,28 @@
+loop
+    PrintLedger()
+
+    var s = Input("Enter section to edit: ")
+
+    if s > 0 and s < 6
+        var amount = LoadMemory(s)
+        Print("Current budget: $" + amount)
+        var new = Input("Enter new budget amount ($): ")
+        SaveMemory(s, new)
+        Print("New budget amount saved.")
+        Sleep(2)
+    else
+        Print("Can't understand command.")
+        Print("Enter a section between 1 - 5.")
+    end
+end
+
+void PrintLedger()
+    ClearText()
+    Print("CITY BUDGET PLANNER 7.0")
+    Print("-----------------------")
+    Print("1. School")
+    Print("2. Public transportation")
+    Print("3. Health")
+    Print("4. Police")
+    Print("5. Computer science")
+end

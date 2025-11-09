@@ -1,0 +1,8 @@
+
+# Check if GetUser() EQUALS the string "Pixie"
+
+if GetUser() == "Pixie"
+    Print("Hello Pixie")
+else
+    Print("Hello not Pixie")
+end

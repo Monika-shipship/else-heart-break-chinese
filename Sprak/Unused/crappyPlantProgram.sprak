@@ -1,0 +1,86 @@
+## INSTRUCTION SET
+## FOR USE BY GENOME MONKEY
+## AUTHOR J
+#######################
+# LEAF MAX LEVEL IS 6
+# LEAF GROW IF THEY HAVE 200% water
+# MONKEY KEEPS POSITION BETWEEN RUNS
+# DEAD LEAFS DON'T PRODUCE SUGAR
+# ROOT SYSTEM PROVIDE WATER
+# SUGAR AND WATER IS PRODUCED BETWEEN PROGRAM RUNS
+### STARTING VALUES ##
+# LEAF_BASE_COST = 10;
+# BRANCH_BASE_COST = 100;
+# SUGAR_PER_TRUNK_METER = 3000;
+# TRUNK_COST = 100;
+# STARTING_SUGAR = 800;
+# TARGET LEAF SIZE 2.0
+void WalkToTop()
+	loop
+		if(BranchCount() == 0) 
+			break
+		else 
+			MoveToBranch(0) 
+		end
+	end
+end
+void AddLeafs()
+	AddLeaf(1.0)
+	AddLeaf(0.8)
+	AddLeaf(0.7)
+end
+void BuildSet()
+	AddBranch(1.0)
+	WalkToTop()
+	AddLeafs()
+end
+number WaterUndercut()
+	number sum =0
+	number leafCount = (LeafCount() - 1)
+	if(leafCount <= 0)
+		return 0
+	end
+	loop from 0 to leafCount
+		number wantedLevel = LeafWaterConsumtion(@)
+		if( LeafSize(@) < 0.5 )
+			wantedLevel = wantedLevel * 2
+		end
+		number currentLevel = LeafWaterLevel(@)
+		sum = sum + currentLevel - wantedLevel
+	end
+	return sum
+end
+
+WalkToTop()
+
+if(CurrentLevel() == 0 && LeafCount() == 0)
+	AddLeafs()
+end
+#Water the leafs
+number level = WaterLevel()
+number lc = LeafCount() - 1
+if(lc >= 0)
+	loop from 0 to lc
+		LeafGiveWater(@, level)
+	end
+end
+# See for growth needs
+number n = WaterUndercut() + WaterProduction()
+if( n < 0)
+	GrowRoots(SugarLevel())
+else
+	if(SugarLevel() > 130)
+		if(BranchLength() > 0.2)
+			BuildSet()
+		else
+			GrowBranch(SugarLevel())
+		end
+	end
+end
+
+
+
+
+
+
+

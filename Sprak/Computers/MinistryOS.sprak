@@ -1,0 +1,64 @@
+
+ClearText()
+
+Print("---")
+Print("MINISTRY OPERATING SYSTEM")
+Print("---")
+Print("")
+
+loop
+    var command = Input("> ")
+    Dispatch(command)
+end
+
+void Dispatch(string command)
+    if command == "h" or command == "H" or command == "help"
+        Print("calc - Calculator")
+        Print("net - Web browser")
+        Print("sort - sort numbers")
+    else if command == "calc"
+        number a = Input("Enter nr a: ")
+        number b = Input("Enter nr b: ")
+        Print("a = " + a + ", b = " + b)
+        Print("a + b = " + (a + b))
+        Print("a - b = " + (a - b))
+        Print("a * b = " + (a * b))
+        Print("a / b = " + (a / b))
+    else if command == "net"
+        string connectionName = Input("Connect to: ")
+        var id = Connect(connectionName)
+        string function = Input("Function: ")
+        if id > -1
+            RemoteFunctionCall(id, function, [])
+        else
+            Print("No connection.")
+        end
+    else if command == "sort"
+        array a = [2,6,3,7,1,5,4,9,8]
+        Print("Unsorted: " + a)
+        Sort(a)
+        Print("Sorted: " + a)
+    else
+        Print("Can't understand command '" + command + "'")
+        Print("Enter 'h' for help")
+    end
+end
+
+
+# Bubble sort
+void Sort(array xs)
+    loop
+        bool didFlip = false
+        loop i from 0 to Count(xs) - 2
+            if xs[i] > xs[i + 1]
+                var temp = xs[i]
+                xs[i] = xs[i + 1]
+                xs[i + 1] = temp
+                didFlip = true
+            end
+        end
+        if didFlip == false
+            break
+        end
+    end
+end

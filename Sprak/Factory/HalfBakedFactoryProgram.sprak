@@ -1,0 +1,12 @@
+# Return the absolute number
+number Abs(number x)
+    if x >= 0
+        return x
+    else
+        return -x
+    end
+end
+
+Print("UNFINISHED PROGRAM")
+
+

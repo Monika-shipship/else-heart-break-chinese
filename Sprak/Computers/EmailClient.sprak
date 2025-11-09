@@ -1,0 +1,11 @@
+ClearText()
+
+Print(" ** EMAIL CLIENT ** ")
+Sleep(1)
+
+if GetUser() == "Frank"
+    Connect("Frank_Room_MediumComputer1_1")
+    Slurp()
+else
+    Print("(unfinished)")
+end

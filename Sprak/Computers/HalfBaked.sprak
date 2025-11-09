@@ -1,0 +1,13 @@
+
+# This program is complete nonsense
+# Please delete it someone
+
+var x = 10
+var y = 20
+var z = 30
+
+loop
+	x = y
+	y = 
+	z = x
+end

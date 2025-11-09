@@ -1,0 +1,7 @@
+
+if GetUser() == "CasinoGuard1" or GetUser() == "CasinoGuard2"
+    # let through
+else
+    Say("Access denied")
+    Grill()
+end

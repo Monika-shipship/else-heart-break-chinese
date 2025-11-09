@@ -1,0 +1,5 @@
+if GetUser() == "Pixie"
+    Charisma(20)
+else
+    Smelliness(20)
+end

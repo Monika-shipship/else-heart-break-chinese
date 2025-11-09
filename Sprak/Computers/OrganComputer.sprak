@@ -1,0 +1,38 @@
+Connect("CentralServer")
+ClearText()
+Print("Connected to CentralServer")
+
+Print("COMMANDS")
+Print("1. Connect")
+Print("2. Read floppy data")
+Print("3. Slurp")
+
+var cmd = Input("$ ")
+
+if cmd == "1"
+    var name = Input("Connect to: ")
+    var id = Connect(name)
+    Print("Connection id = " + id)
+else if cmd == "2"
+    ClearText()
+    DisplayGraphics()
+    Print("Floppy data reader")
+    Print("==================")
+    Sleep(1)
+    if HasFloppy()
+        Print("Data on floppy")
+        Print("--------------")
+        var allData = LoadData()
+        loop data in allData
+            Print(data)
+            Sleep(1)
+        end
+        Print("--------------")
+    else
+        Print("Please insert floppy...")
+    end
+else if cmd == "3"
+    Slurp()
+end
+
+Print("Program terminated, please restart.")

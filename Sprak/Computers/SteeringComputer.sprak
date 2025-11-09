@@ -1,0 +1,37 @@
+
+# An infinite loop that takes input commands and executes them
+loop
+	var command = Menu()
+	ExecuteCommand(command)
+end
+
+void Menu()
+	ClearText()
+	Print(" - MENU - ")
+	Print("1. Control fountain in diner")
+	Print("2. Switch lights in lobby")
+	Print("3. Switch lights in basement")
+	Print("")
+	return Input("Enter menu option: ")
+end
+
+void ExecuteCommand(number command)
+	if(command == 1)
+
+	else if(command == 2)
+		Switch("Hotel_Lobby_Light")
+	else if(command == 3)
+		Switch("Hotel_Basement_Light")
+	else
+		Print("Can't understand command " + command)
+		Sleep(1)
+	end
+end
+
+
+
+
+#loop
+# Switch("Hotel_Lobby_Light")
+# Sleep(3)
+#end

@@ -1,0 +1,6 @@
+ClearText()
+Print("To the left: Factory Halls 1 & 2")
+Print("To the right: Offices")
+Print("Through the fence: Leave the building")
+Print("")
+Print("Have a good day!")

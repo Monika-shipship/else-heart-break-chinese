@@ -1,0 +1,30 @@
+DisconnectAll()
+ClearText()
+
+Print("")
+Print("*******************")
+Print("Enter target door: ")
+var target = Input("")
+
+var id = Connect(target)
+
+if id < 0
+    Print("Failed to connect")
+    return
+end
+
+loop x from 0 to 99999
+    Print("Trying code: " + x)
+    var success = id.Unlock(x)
+    if success
+        Print("Unlocked!")
+        Print("*******************")
+        break
+    end
+end
+
+# Good targets
+# ------------
+#  * TownHall_DoorToLongsonOffice
+#  * Factory_Corridor_DoorToOffice
+#  * Hotel_Office_DoorToBasement

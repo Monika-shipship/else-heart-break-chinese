@@ -1,0 +1,19 @@
+
+# - This is Computer7 -
+
+# Basic structure for a REPL
+# or command line interface
+
+ClearText()
+var computer = Connect("Fibonacci")
+
+Print("Connected to Fibonacci")
+Print("computer at id: " + computer)
+Print("")
+
+loop
+    number n = Input("Enter number: ")
+    number answer = computer.Fib(n)
+    Print("Answer received.")
+    Print("Fibonacci nr " + n + " = " + answer)
+end

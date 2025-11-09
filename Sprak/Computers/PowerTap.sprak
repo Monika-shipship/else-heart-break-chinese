@@ -1,0 +1,5 @@
+
+void Tap(string name)
+    Print("Tapped by: " + name)
+    # todo: save last tapper and return it to the next one
+end

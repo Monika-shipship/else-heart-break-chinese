@@ -1,0 +1,24 @@
+
+ClearText()
+Print("Analyzing")
+Print("=========")
+
+var machine = Connect("FactoryMachineA")
+
+string content = machine.Analyze()
+Print("Goods content:")
+Print(content)
+Print("")
+
+Print("Values (lower is better):")
+loop c in content
+    PrintS(CharToInt(c) + " ")
+end
+Print("")
+Print("")
+
+number p = machine.Purity() * 100
+Print("Purity:" + p + "%")
+
+Print("=========")
+Print("")

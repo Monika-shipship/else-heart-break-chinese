@@ -1,0 +1,51 @@
+# RadioStationComputer
+
+ClearText()
+var n = Input("Connect to channel (1 - 4): ")
+var id = Connect("RadioStation_Channel" + n)
+
+loop
+    if id > -1    
+        Print("Commands")
+        Print("--------")
+        Print("PLAY")
+        Print("STOP")
+        Print("SET")
+        Print("--------")
+
+        var cmd = ToUppercase(Input("> "))
+
+        if cmd == "STOP"
+            id.Stop()
+            Print("Stopped channel " + n)
+        else if cmd == "PLAY"
+            id.Play()
+            Print("Started playing on channel " + n)
+        else if cmd == "SET"
+            var name = Input("Enter song name: ")
+            id.PlayLoop(name)
+            Print("Set song to " + name + " on channel " + n)
+        else
+            Print("Can't understand command.")
+        end
+    else
+        Print("Failed to connect.")
+    end
+end
+
+
+var ToUppercase(var text)
+ var res = ""
+ loop c in text
+  if IsLowercase(c)
+   res += IntToChar(CharToInt(c) - 32)
+  else
+   res += c
+  end
+ end
+ return res
+end
+
+bool IsLowercase(var c)
+ return CharToInt(c) >= 0 && CharToInt(c) <= 25
+end

@@ -1,0 +1,12 @@
+ClearText()
+var sure = Input("Are you sure? y/n ")
+if sure == "y" or sure == "Y" or sure == "yes"
+    Print("Connecting...")
+    var id = Connect("ZarahsTv")
+    Sleep(2)
+    Print("Here we go...")
+    Sleep(2)
+    Slurp()
+else
+    Print("OK, can't blame you.")
+end

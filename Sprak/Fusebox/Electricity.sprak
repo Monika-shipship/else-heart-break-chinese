@@ -1,0 +1,9 @@
+
+# Connect to PowerTap
+number powerTap = Connect("PowerTap")
+
+# What's my name?
+string name = GetName()
+
+# Send name to PowerTap
+powerTap.Tap(name)

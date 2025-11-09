@@ -1,0 +1,15 @@
+
+ClearText()
+Print(" - DAILY INFORMATION - ")
+
+var items = []
+
+if Count(items) == 0
+    Print("")
+    Print("No information today.")
+else 
+    loop item in items
+        PrintS(" - ")
+        Print(item)
+    end
+end

@@ -1,0 +1,13 @@
+
+ClearText()
+
+number a = Input("Enter nr a: ")
+number b = Input("Enter nr b: ")
+
+ClearText()
+Print("a = " + a + ", b = " + b)
+
+Print("a + b = " + (a + b))
+Print("a - b = " + (a - b))
+Print("a * b = " + (a * b))
+Print("a / b = " + (a / b))

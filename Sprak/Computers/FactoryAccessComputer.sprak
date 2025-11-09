@@ -1,0 +1,41 @@
+
+# Used by the Fence and other systems
+# when granting access to the factory
+# facilities.
+
+bool HasAccess(string name)
+    var authorized = []
+
+    Append(authorized, "Jorgen")
+    Append(authorized, "Work")
+    Append(authorized, "Monad")
+    Append(authorized, "George")
+    Append(authorized, "Mats")
+    Append(authorized, "Glenn")
+    Append(authorized, "Dave")
+
+	loop authorized
+		if @ == name
+			return true
+		end
+	end
+
+	return false
+end
+
+# MAIN
+
+loop
+    Print("FACTORY ACCESS MAIN FRAME")
+    Print("-------------------------")
+    Print("Check authorization for")
+    string name = Input("person with name: ")
+    Print("")
+    if HasAccess(name)
+        Print(name + " is authorized!")
+    else
+        Print("Not authorized.")
+    end
+    Print("")
+    Sleep(2)
+end

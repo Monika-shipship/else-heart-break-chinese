@@ -1,0 +1,6 @@
+
+Connect("ComputerInTheMiddleOfTheRoom")
+
+var myName = GetName()
+
+RemotePrint("My name is " + myName)

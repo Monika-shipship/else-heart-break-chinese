@@ -1,0 +1,24 @@
+
+void Trace(string name, string room)
+	Print(GetHour() + ":" + GetMinute() + " " + name + " drank a soda in " + room)
+end
+
+void RegisterSeller(string name, number amount)
+	Print(name + " sold for $" + amount)
+end
+
+loop
+    Print("")
+    Print("")
+    string command = Input("> ")
+    if command == "cls"
+        ClearText()
+    else if command == "count"
+        # Todo
+        # Count number of soda cans in world
+    else if command == "empty_all"
+        # Todo
+        # Empty all soda cans in world
+    end
+    Print("")
+end
